@@ -61,6 +61,26 @@
     {{/each}}
 </script>
 
+<script id="event-inbox-template" type="text/x-handlebars-template">
+    {{#each event_inbox_messages}}
+    <li>
+        <input id="'{{mobile_id}}'" type="text" value="{{full_name}}" hidden>
+        <a href="#" class="clearfix">   
+            <img src="/images/Chatterbox/boy_avatar.png" alt="" class="img-circle">
+            <div class="friend-name">   
+                {{#if isunknown}}
+                <strong class="unknown-number">{{user_number}} </strong>
+                {{else}}
+                <strong>{{full_name}} </strong>
+                {{/if}}
+            </div>
+            <div class="last-message text-muted">{{msg}}</div>
+            <small class="time text-muted"> {{ts_received}}</small>
+        </a>
+    </li>  
+    {{/each}}
+</script>
+
 <script id="quick-release-template" type="text/x-handlebars-template">
     {{#each quick_release}}
     <li>
