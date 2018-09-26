@@ -177,13 +177,13 @@
                             <div class="col-sm-10">
                                 <div class="row">
                                     <div class="col-sm-4 form-group">
-                                        <label class="control-label" for="trigger_rain">Trigger Timestamp</label>
+                                        <label class="control-label" for="trigger_rainfall">Trigger Timestamp</label>
                                         <div class="input-group col-sm-12">
                                             <span class="input-group-addon">
                                                 <input class="cbox_trigger" type="checkbox" value="R" name="R">
                                             </span>
                                             <div class='input-group date datetime'>
-                                                <input type='text' class="form-control trigger_time" id="trigger_rain" name="trigger_rain" placeholder="Enter timestamp" disabled="disabled" />
+                                                <input type='text' class="form-control trigger_time" id="trigger_rainfall" name="trigger_rainfall" placeholder="Enter timestamp" disabled="disabled" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
