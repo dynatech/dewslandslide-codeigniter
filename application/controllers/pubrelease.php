@@ -213,7 +213,7 @@ class Pubrelease extends CI_Controller {
 				$event_id = $this->createNewEvent($site_id, $_POST['timestamp_entry'], $status);
 
 				$release["event_id"] = $event_id;
-				$release["internal_alert_level"] = $entry["internal_alert"];
+				$release["internal_alert_level"] = $entry["internal_alert_level"];
 				$release["bulletin_number"] = $this->getAndUpdateBulletinNumber($site_id);
 				array_push($release_array, $release);
 			}
@@ -412,7 +412,7 @@ class Pubrelease extends CI_Controller {
 			else $id = preg_replace('/n?t?_?feature/i', "", $field);
 
 			$lookup = ["feature_name", "feature_type"];
-			$feature = array('site_id' => $post['site']);
+			$feature = array('site_id' => $post['site_id']);
 			foreach ($lookup as $key) 
 			{
 				$feature[$key] = is_null($post[$group_base . $key . $id]) || $post[$group_base . $key . $id] == "" ? null : $post[$group_base . $key . $id];
