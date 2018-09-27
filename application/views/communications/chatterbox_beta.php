@@ -462,12 +462,13 @@
 				    <div id="org-accord" class="panel-collapse collapse">
 				      <div class="panel-body">
 				      	<div id="organization-selection-div">
-				      		<div id="orgs-cc-0" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-1" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-2" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-3" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-4" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-5" class="col-md-2 col-sm-2 col-xs-2"></div>
+				      		<div id="orgs-cc-0" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-1" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-2" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-3" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-4" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-5" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-6" class="col-md-3 col-sm-3 col-xs-3"></div>
 				      	</div>
 				      </div>
 				    </div>
