@@ -33,9 +33,8 @@
 			  </div>
 			  <div class="panel-body">
 			    <div class="col-sm-12 form-group">
-					<div class="input-group">
+					<div class="input-group" id="contact-suggestion-container">
 						<input type="text" class="awesomplete form-control dropdown-input" id="contact-suggestion" placeholder="Type name..." data-multiple />
-						<!-- <input type="text" class="form-control dropdown-input" data-provide="typeahead" id="contact-suggestion" name="contact-suggestion" placeholder="Type name..." required /> -->
 						<span class="input-group-btn">
 					    	<button class="btn btn-default" id="go-chat" type="button">Go!</button>
 				        </span>
@@ -44,10 +43,10 @@
 				<div>
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs nav-justified quick-access-tab">
-					    <li role="presentation" class="active"><a data-target="#registered" aria-controls="registered" role="tab" data-toggle="tab">Inbox</a></li>
-					    <li role="presentation"><a data-target="#unknown" aria-controls="unknown" role="tab" data-toggle="tab">Unregistered</a></li>
-					    <li role="presentation"><a data-target="#event-inbox" aria-controls="event-inbox" role="tab" data-toggle="tab">Event inbox</a></li>
-					    <li role="presentation"><a data-target="#datalogger" aria-controls="datalogger" role="tab" data-toggle="tab">Datalogger</a></li>
+					    <li role="presentation" class="active pointer"><a data-target="#registered" aria-controls="registered" role="tab" data-toggle="tab">Inbox</a></li>
+					    <li role="presentation" class="pointer"><a data-target="#unknown" aria-controls="unknown" role="tab" data-toggle="tab">Unregistered</a></li>
+					    <li role="presentation" class="pointer"><a data-target="#event-inbox" aria-controls="event-inbox" role="tab" data-toggle="tab">Event inbox</a></li>
+					    <li role="presentation" class="pointer"><a data-target="#datalogger" aria-controls="datalogger" role="tab" data-toggle="tab">Datalogger</a></li>
 					 </ul>
 
 					  <!-- Tab panes -->
@@ -89,7 +88,7 @@
 					<h4>Routine Section</h4>
 					<div class="routine_section">
 						<br>
-						<div class='col-md-12'><label for="" id="def-recipients" hidden>Default recipients: LLMC</label></div>
+						<div class='col-md-12'><label for="" id="def-recipients" hidden>Default recipients: LEWC</label></div>
 						<div class='btn-group form-group routine-options-container' data-toggle='buttons' style='padding: 15px 15px 0px 15px; margin: 0;' hidden>
 								<input type='button' class='btn btn-primary active' checked id='routine-reminder-option' autocomplete='off' value="Reminder Message">
 								<input type='button' class='btn btn-primary' id='routine-actual-option' autocomplete='off' value="Routine Message">
@@ -108,7 +107,7 @@
 				</div>
 				<hr>
 				<div class="panel panel-success">
-					<div class="panel-body">
+					<div class="panel-body chatbox-padding">
 						<div class="form-group">
 							<div class="chat-message">
 								<ul id="messages" class="chat"></ul>
@@ -138,14 +137,17 @@
 			    <h3 class="panel-title">OPTIONS</h3>
 			  </div>
 			  <div class="panel-body align-center">
-			    <div class="row form-group">
+			    <div class="row form-group pointer">
 					<a id="btn-contact-settings" data-toggle="modal" title="Contact Settings"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Contact Settings</a>
 				</div>
-				<div class="row form-group">
+				<div class="row form-group pointer">
 					<a id="btn-advanced-search" data-toggle="modal" title="Quick Site Selection"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Quick Site Selection</a>
 				</div>
-				<div class="row form-group">
+				<div class="row form-group pointer">
 					<a id="btn-gbl-search" data-toggle="modal" title="Quick Search"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;Quick Search</a>
+				</div>
+				<div class="row form-group">
+					<a id="btn-automation-settings" data-toggle="modal" title="Automation Settings"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Semi-Automation Settings</a>
 				</div>
 			  </div>
 			</div>
@@ -155,12 +157,12 @@
 			  </div>
 			  <div class="panel-body">
 			    <ul class="nav nav-tabs nav-justified quick-access-tab">
-				    <li class="active"><a data-toggle="tab" data-target="#quick-release">Site with Event</a></li>
-				    <li><a data-toggle="tab" data-target="#group-message">Group Message</a></li>
+				    <li class="active pointer"><a data-toggle="tab" data-target="#quick-release">Site with Event</a></li>
+				    <li class="pointer"><a data-toggle="tab" data-target="#group-message">Group Message</a></li>
 				</ul>
 				<div class="tab-content">
 					<div id="quick-release" class="tab-pane fade in active">
-						<ul id="quick-inbox-display" class="friend-list"></ul>
+						<ul id="quick-release-display" class="friend-list"></ul>
 					</div>
 					<div id="group-message" class="tab-pane fade">
 						<ul id="group-message-display" class="friend-list"></ul>
@@ -335,7 +337,7 @@
 
 			        <div id="update-contact-container" class="right-content" hidden>
 			           <button type="submit" value="submit" class="btn btn-primary" id="sbt-update-contact-info">Save</button>
-			           <button type="button" class="btn btn-danger" id="btn-cancel-update">Cancel</button>
+			           <button type="button" class="btn btn-danger" id="btn-cancel-update" data-dismiss="modal">Cancel</button>
 			        </div>
 		    	</form>
 	        </div>
@@ -460,12 +462,13 @@
 				    <div id="org-accord" class="panel-collapse collapse">
 				      <div class="panel-body">
 				      	<div id="organization-selection-div">
-				      		<div id="orgs-cc-0" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-1" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-2" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-3" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-4" class="col-md-2 col-sm-2 col-xs-2"></div>
-			                <div id="orgs-cc-5" class="col-md-2 col-sm-2 col-xs-2"></div>
+				      		<div id="orgs-cc-0" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-1" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-2" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-3" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-4" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-5" class="col-md-3 col-sm-3 col-xs-3"></div>
+			                <div id="orgs-cc-6" class="col-md-3 col-sm-3 col-xs-3"></div>
 				      	</div>
 				      </div>
 				    </div>
@@ -488,7 +491,7 @@
 	          </div>
 	          <div id="update-comm-contact-container" class="right-content" hidden>
 		           <button type="submit" value="submit" class="btn btn-primary" id="sbt-update-comm-contact-info">Save</button>
-		           <button type="button" class="btn btn-danger" id="btn-cancel-update">Cancel</button>
+		           <button type="button" class="btn btn-danger" id="btn-cancel-update" data-dismiss="modal">Cancel</button>
 		        </div>
 	    	</form>
 	        </div>
@@ -1010,113 +1013,6 @@
   </div>
 </div>
 
-<!-- ground meas Modal -->
-<div class="modal fade" id="ground-meas-reminder-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Ground Measurement Reminder</h4>
-      </div>
-      <div class="modal-body">
-        <div class="ground-meas-scrollable-div">
-        	<div class="row">
-        		<div class="col-sm-6">
-        			<label>List of Sites</label>
-        			<div class="panel panel-default">
-					  <div class="panel-body has-padding">
-					    <div class="row">
-					    	<div class="col-sm-12">
-					    		<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-					    	</div>
-					    	<div class="col-sm-12">
-					    		<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-					    	</div>
-					    	<div class="col-sm-12">
-					    		<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-					    	</div>
-					    	<div class="col-sm-12">
-					    		<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-					    	</div>
-					    	<div class="col-sm-12">
-					    		<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-					    	</div>
-					    	<div class="col-sm-12">
-					    		<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-					    	</div>
-					    </div>
-					  </div>
-					</div>
-        		</div>
-        		<div class="col-sm-6">
-        			<label>Template Preview</label>
-        			<textarea id="ground_meas_template" name="ground_meas_template" class="form-control" rows="10"  disabled></textarea>
-        		</div>
-        	</div>
-        	<br>
-        	<div class="row">
-        		<div class="col-sm-6">
-        			<label>Special Cases</label>
-        			<div class="panel panel-default" style="height: 200px;">
-					  <div class="panel-body has-padding">
-					  	<div class="row">
-					    	<div class="col-sm-12">
-					    		<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-								<label class="checkbox-inline"><input type="checkbox" value="">AGB</label>
-					    	</div>
-					    </div>	
-					  </div>
-					</div>
-        		</div>
-        		<div class="col-sm-6">
-        			<label>Template Preview</label>
-        			<textarea id="ground_meas_template" name="ground_meas_template" class="form-control" rows="10"  disabled></textarea>
-        		</div>
-        	</div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger">Reset</button>
-        <button type="button" class="btn btn-primary" id="confirm-tagging">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-
   <!-- Chatterbox Loader Modal -->
 <div class="modal fade" id="chatterbox-loader-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 1000000000;">
   <!-- <h1 class="ml2">Loading Chatterbox</h1> -->
@@ -1128,6 +1024,129 @@
 		<div class="dot"></div>
 	</div>
 
+</div>
+
+<div class="modal fade" id="ground-meas-reminder-modal" tabindex="-1" role="dialog" aria-labelledby="groundMeasReminderModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="sms-reminder-modal-title" name="sms-reminder-modal-title">Ground Measurement / Observation Reminder</h4>
+            </div>
+            <div class="modal-body">
+                <div class="ground-meas-scrollable-div">
+                    <div class="container-fluid"> 
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="category">Monitoring Type:</label>
+                                    <select class="form-control" id="gnd-meas-category">
+                                        <option value="event">Event Monitoring</option>
+                                        <option value="extended">Extended Monitoring</option>
+                                        <option value="routine">Routine Monitoring</option>
+                                    </select>
+                                </div>                                
+                            </div>
+                        </div>
+						<div class="panel panel-info">
+							<div class="panel-heading">PLEASE TAKE NOTE: The ground data reminder will be automatically sent to intended recipients at the prescribed time after changes (if any) have been saved.</div>
+						</div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4>Reminder Recipients: <strong>LEWC</strong></h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4>Site Selection</h4>
+                                        <div class="gndmeas-reminder-site-container">
+                                            <div id="gnd-sitenames-0" class="col-md-2 col-sm-2 col-xs-2 gndmeas-reminder-site"></div>
+                                            <div id="gnd-sitenames-1" class="col-md-2 col-sm-2 col-xs-2 gndmeas-reminder-site"></div>
+                                            <div id="gnd-sitenames-2" class="col-md-2 col-sm-2 col-xs-2 gndmeas-reminder-site"></div>
+                                            <div id="gnd-sitenames-3" class="col-md-2 col-sm-2 col-xs-2 gndmeas-reminder-site"></div>
+                                            <div id="gnd-sitenames-4" class="col-md-2 col-sm-2 col-xs-2 gndmeas-reminder-site"></div>
+                                            <div id="gnd-sitenames-5" class="col-md-2 col-sm-2 col-xs-2 gndmeas-reminder-site"></div>                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-info" id="no-site-on-monitoring">
+											<div class="panel-heading" id="no-site-on-monitoring-msg"></div>
+										</div>
+                                    </div>                  
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4>Reminder Message</h4>
+                                <div class="form-group">
+                                    <label for="reminder-message" id="label-reminder-message">You can edit the message to be sent to the community.</label>
+                                    <textarea class="form-control" rows="8" id="reminder-message" placeholder=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row"><hr/></div>
+                        
+                        <div id="special-case-container"></div>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <button type="button" id="add-special-case" class="btn btn-info" role="button"><i class="fas fa-plus"></i> Add Special Case</button>
+                            </div>
+                        </div>
+
+                        <!-- START OF HIDDEN ROW - to be used for appending special cases. -->
+                        <div class="special-case-template" id="special-case-template" hidden="hidden"> 
+                            <div class="row">
+                                <div class="col-sm-12 text-right">
+                                    <span class="input-group-btn">
+                                        <button class="remove btn btn-danger" type="button">X</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div id="special-case-body" class="row gnd-settings-container">
+                                <div class="col-sm-6"> <!-- SET A CLASSNAME FOR THIS SHIT -->
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4>Special Reminder Recipients</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4>Site Selection</h4>
+                                            <div id="special-case-sites" class="special-case-site-container">
+
+                                            </div>
+                                        </div>                     
+                                    </div>
+                                </div>
+                                <div class="col-sm-6"> <!-- SET A CLASSNAME FOR THIS SHIT -->
+                                    <h4>Special Reminder Message</h4>
+                                    <div class="form-group">
+                                        <label for="special-case-message" id="label-reminder-message">You can edit the message to be sent to the community.</label>
+                                        <textarea class="form-control special-case-message-container" rows="8" id="special-case-message" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"><hr/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+                            <button type="button" id="reset-button" class="btn btn-default"><i class="fas fa-eraser"></i> Reset Templates</button>
+                            <button type="button" id="save-gnd-meas-settings-button" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save Templates</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
   <script src="/js/dewslandslide/communications_beta/initializer.js"></script>

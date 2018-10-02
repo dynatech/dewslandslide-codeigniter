@@ -93,9 +93,9 @@ class Pubrelease extends CI_Controller {
 				case 'validity':
 					$x = "public_alert_event." . $x;
 					break;
-				case 'name':
-				case 'id':
-					$x = "site." . $x;
+				case 'site_code':
+				case 'site_id':
+					$x = "sites." . $x;
 					break;
 				case 'internal_alert_level': 
 					$x = "public_alert_release." . $x;
@@ -122,7 +122,7 @@ class Pubrelease extends CI_Controller {
 
 	        $filter = [];
 	        if( $extraFilter['status'] != null ) $filter[ addTableName('status') ] = $extraFilter['status'];
-	        if( $extraFilter['site'] != null ) $filter[ addTableName('id') ] = $extraFilter['site'];
+	        if( $extraFilter['site'] != null ) $filter[ addTableName('site_id') ] = $extraFilter['site'];
 	        $filter = count($filter) == 0 ? null : $filter;
 
 	        $recordsFiltered = $this->pubrelease_model->getEventCount($search, $filter);
@@ -191,7 +191,7 @@ class Pubrelease extends CI_Controller {
 	public function insert () {
 		$status = $_POST["status"];
 		$latest_trigger_id = NULL;
-		$site_id = $_POST["site"];
+		$site_id = $_POST["site_id"];
 		if ((int) $site_id === 0 && $site_id !== "") $site_id = $this->pubrelease_model->getSiteID($site_id);
 		$event_validity = NULL;
 		$release_id = NULL;
@@ -209,11 +209,11 @@ class Pubrelease extends CI_Controller {
 
 		if ($status === "routine") {
 			foreach ($_POST["routine_list"] as $entry) {
-				$site_id = isset($entry["site_id"]) ? $entry["site_id"] : $this->pubrelease_model->getSiteID($entry["site"]);
+				$site_id = isset($entry["site_id"]) ? $entry["site_id"] : $this->pubrelease_model->getSiteID($entry["site_code"]);
 				$event_id = $this->createNewEvent($site_id, $_POST['timestamp_entry'], $status);
 
 				$release["event_id"] = $event_id;
-				$release["internal_alert_level"] = $entry["internal_alert"];
+				$release["internal_alert_level"] = $entry["internal_alert_level"];
 				$release["bulletin_number"] = $this->getAndUpdateBulletinNumber($site_id);
 				array_push($release_array, $release);
 			}
@@ -339,7 +339,7 @@ class Pubrelease extends CI_Controller {
 	}
 
 	public function saveTriggers($post, $event_id, $release_id, $event_validity) {
-		$lookup = array( "g" => "trigger_ground_1", "G" => "trigger_ground_2", "s" => "trigger_sensor_1", "S" => "trigger_sensor_2", "m" => "trigger_manifestation", "M" => "trigger_manifestation", "R" => "trigger_rain", "E" => "trigger_eq", "D" => "trigger_od" );
+		$lookup = array( "g" => "trigger_surficial_1", "G" => "trigger_surficial_2", "s" => "trigger_subsurface_1", "S" => "trigger_subsurface_2", "m" => "trigger_manifestation", "M" => "trigger_manifestation", "R" => "trigger_rainfall", "E" => "trigger_eq", "D" => "trigger_od" );
 		$list = [];
 		$return_data = [];
 
@@ -412,7 +412,7 @@ class Pubrelease extends CI_Controller {
 			else $id = preg_replace('/n?t?_?feature/i', "", $field);
 
 			$lookup = ["feature_name", "feature_type"];
-			$feature = array('site_id' => $post['site']);
+			$feature = array('site_id' => $post['site_id']);
 			foreach ($lookup as $key) 
 			{
 				$feature[$key] = is_null($post[$group_base . $key . $id]) || $post[$group_base . $key . $id] == "" ? null : $post[$group_base . $key . $id];

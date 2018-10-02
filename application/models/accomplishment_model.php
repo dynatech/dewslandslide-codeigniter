@@ -15,7 +15,7 @@
 
 		public function getShiftReleases($start, $end)
 		{
-			$this->db->select('public_alert_release.*, public_alert_event.*, sites.site_code AS name, u1.firstname AS mt_first, u1.lastname AS mt_last, u2.firstname AS ct_first, u2.lastname AS ct_last');
+			$this->db->select('public_alert_release.*, public_alert_event.*, sites.site_code, u1.firstname AS mt_first, u1.lastname AS mt_last, u2.firstname AS ct_first, u2.lastname AS ct_last');
 			$this->db->from('public_alert_release');
 			$this->db->join('public_alert_event', 'public_alert_event.event_id = public_alert_release.event_id');
 			$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
@@ -63,10 +63,10 @@
 
 		public function getNarratives($event_id)
 		{
-			$this->db->select("narratives.*, site.name");
+			$this->db->select("narratives.*, sites.site_code AS name");
 			$this->db->from("narratives");
 			$this->db->join("public_alert_event", "public_alert_event.event_id = narratives.event_id" );
-			$this->db->join("site", "public_alert_event.site_id = site.id");
+			$this->db->join("sites", "public_alert_event.site_id = sites.site_id");
 			$this->db->where_in('narratives.event_id', $event_id);
 			$query = $this->db->get();
 			$result = $query->result_array();
