@@ -26,11 +26,15 @@
         <div class="chat-body clearfix tagged" id="id_{{timestamp}}">
         <div class="header">
         {{#if isYou}}
-            <small class="pull-left text-muted"><i class="fa fa-clock-o"></i> <span id="timestamp-written" title="Timestamp: Written">{{ts_written}}</span>, <i class="fa fa-clock-o"></i> <span id="timestamp-sent" title="Timestamp: GSM Sent">{{ts_sent}}</span></small>
+            <small class="pull-left text-muted"><i class="fa fa-clock-o"></i> <span id="timestamp-written" title="{{title}}">{{ts_written}}</span>, <i class="fa fa-clock-o"></i> <span id="timestamp-sent" title="{{title}}">{{ts_sent}}</span></small>
             <strong class="primary-font right-content" id="chat-user" style="display: block;">{{user}}</strong>
             {{else}}
             <strong class="primary-font" id="chat-user" >{{user}}</strong>
-            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> <span>{{ts_received}}</span></small>
+            {{#if isGlobe}}
+                <small class="pull-right text-muted"><img src="/images/Chatterbox/globe.png" style="max-height: 17px; max-width: 17px;" title="NETWORK: GLOBE">&nbsp;<i class="fas fa-clock"></i><span>{{timestamp}}</span></small>
+            {{else}}
+                <small class="pull-right text-muted"><img src="/images/Chatterbox/smart.png" style="max-height: 17px; max-width: 17px;" title="NETWORK: SMART">&nbsp;<i class="fas fa-clock"></i><span>{{timestamp}}</span></small>
+            {{/if}}
         {{/if}}
         </div>
         <p>
