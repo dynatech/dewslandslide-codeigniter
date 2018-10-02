@@ -1070,7 +1070,12 @@
                                             <div id="gnd-sitenames-4" class="col-md-2 col-sm-2 col-xs-2 gndmeas-reminder-site"></div>
                                             <div id="gnd-sitenames-5" class="col-md-2 col-sm-2 col-xs-2 gndmeas-reminder-site"></div>                                          
                                         </div>
-                                    </div>                     
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-info" id="no-site-on-monitoring">
+											<div class="panel-heading" id="no-site-on-monitoring-msg"></div>
+										</div>
+                                    </div>                  
                                 </div>
                             </div>
                             <div class="col-sm-6">
