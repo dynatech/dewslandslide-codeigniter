@@ -55,7 +55,7 @@
 					    	<ul id="quick-inbox-display" class="friend-list"></ul>
 					    </div>
 					    <div role="tabpanel" class="tab-pane" id="unknown">
-					    	<ul id="quick-inbox-unknown-display" class="friend-list"></ul>
+					    	<ul id="quick-unregistered-inbox-display" class="friend-list"></ul>
 					    </div>
 					    <div role="tabpanel" class="tab-pane" id="event-inbox">
 					    	<ul id="quick-event-inbox-display" class="friend-list"></ul>
