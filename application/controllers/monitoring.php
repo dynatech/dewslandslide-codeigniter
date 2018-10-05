@@ -21,6 +21,8 @@ class Monitoring extends CI_Controller
 		$data['events'] = json_encode('null');
 		$data['sites'] = $this->monitoring_model->getSites();
 		$data['staff'] = $this->monitoring_model->getStaff();
+		$data['monitoring'] = $this->load->view('public_alert/monitoring_dashboard_tables', null, true);
+		$data['generated_alerts'] = $this->load->view('public_alert/generated_alerts', $data, true);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav');
@@ -155,7 +157,6 @@ class Monitoring extends CI_Controller
 		else {
 		}
 	}
-
 }
 
 /* End of file monitoring.php */
