@@ -27,15 +27,13 @@
 
 	$status = $event->status == "on-going" || $event->status == "finished" || $event->status == "extended" || $event->status == "invalid" ? "Event-Based" : "Routine";
 	
-	function returnName($id, $staff)
-	{
+	function returnName($id, $staff) {
 		$id_list = array_map( function($e) { return $e->id; }, $staff);
 		$key = array_search($id, $id_list);
 		return $staff[$key]->first_name . " " . $staff[$key]->last_name;
 	}
 
-	function getTriggers($release_id, $triggers)
-	{
+	function getTriggers($release_id, $triggers) {
 		$trigger_list = [];
 		foreach ($triggers as $trigger) {
 			if( $trigger->release_id == $release_id ) array_push($trigger_list, $trigger);
@@ -43,8 +41,7 @@
 		return $trigger_list;
 	}
 
-	function format($type, $timestamp)
-	{
+	function format($type, $timestamp) {
 		$lookup = array('R' => 'Rainfall (R)' , 'E' => 'Earthquake (E)', 'D' => 'On-demand (D)', 'g' => 'Surficial data movement (g/L2)', 'G' => 'Surficial data movement (G/L3)', 's' => 'Subsurface data movement (s/L2)', 'S' => 'Subsurface data movement (S/L3)', 'm' => 'Manifestation (m)', 'M' => 'Manifestation (M)');
 		return $lookup[$type] . ' alert triggered on ' . date("F jS Y, g:i A", strtotime($timestamp));
 	}
@@ -55,45 +52,17 @@
 		<!-- Page Heading -->
 
         <div id="to_highlight" value="<?php echo $to_highlight ?>" hidden="hidden"></div>
-
         <div class="row">
             <div class="col-sm-12" id="header">
-                <h2 class="page-header">
-                    Monitoring Page for <?php echo $address . " (" . strtoupper($event->site_code) . ")"; ?>
-                	<br><small><?php echo date("F jS Y, g:i A", strtotime($event->event_start)); if(!is_null($event->validity)) echo " to " . date("F jS Y, g:i A", strtotime($event->validity)); ?></small>
-                </h2>
-                
+                <h2 class="page-header" style="text-align: center;"><?php echo $status; ?> Monitoring Page</h2>
             </div>
-        </div>
+        </div> 
         
         <div class="row">
-        	<div class="col-sm-4">
-
-                <div>
-            		<div id="reveal" class="text-center"> 
-            			<?php echo strtoupper($status); ?> MONITORING PAGE FOR <br>
-            			<?php $temp = $event->sitio == null ? "" : $event->sitio . ", "; echo strtoupper("$temp$event->barangay,<br>$event->municipality, $event->province") . " (" . strtoupper($event->site_code) . ")"; ?><br>
-                    	<small><?php echo date("M j, Y, g:i A", strtotime($event->event_start));
-                    	if(!is_null($event->validity)) echo " to " . date("M j, Y, g:i A", strtotime($event->validity)); ?></small> 
-                    </div>
-
-                    <div id="bread">
-                        <ol class="breadcrumb">
-                            <li><a href="<?php echo base_url() . 'home'; ?>">Home</a></li>
-                            <li><a href="<?php echo base_url() . 'monitoring/events'; ?>">DEWS-Landslide All Events</a></li>
-                            <li class="active">Event No. <?php echo $event->event_id; ?></li>
-                        </ol>
-                    </div>
-                </div>
-
-		    	<div id="map-canvas" >
-		      		<div id="map"></div>
-		     	</div>
-		    </div>
-
-		    <div class="col-sm-8" id="column_2">
+            <!-- WHOLE TIMELINE DIV -->
+  		    <div class="col-sm-6" id="column_2">
 		    	<ul class="timeline">
-			        <li class="timeline-inverted">
+			        <li class="timeline">
 			        	<div class="timeline-badge <?php if($status == 'Event-Based') echo 'danger'; else echo 'success'; ?>"><i class="glyphicon glyphicon-<?php if($status == 'Event-Based') echo 'alert'; else echo 'ok'; ?>"></i></div>
 			        	<div class="timeline-panel">
 			            	<div class="timeline-heading">
@@ -168,14 +137,18 @@
                             <h3><b>&nbsp;Recent releases:</b></h3>
                         </div>
                     <?php foreach (array_reverse($releases) as $release): ?>
-			        <li class="timeline-inverted">
+
+                    
+                    <!-- THIS IS THE DYNAMIC TIMELINE -->
+    		        <li class="timeline">
 			        	<?php 
                             $x = substr($release->internal_alert_level, 0, 2);
                             $x = $x == "ND" ? ( strlen($release->internal_alert_level) > 3 ? "A1" : "A0" ) : $x;
 
-			        		if( $x == 'A0' && ($event->status == "extended" || $event->status == "finished")  ) 
+			        		if( $x == 'A0' && ($event->status == "extended" || $event->status == "finished") ) 
                             { 
-                                $class = "success"; $glyph = "ok";
+                                $class = "success";
+                                $glyph = "ok";
                                 $start = strtotime('tomorrow noon', strtotime($event->validity));
                                 $end = strtotime('+2 days', $start);
                                 $day = 3 - ceil(($end - (60*60*12) - strtotime($release->data_timestamp))/(60*60*24));
@@ -263,13 +236,38 @@
             				</div>
           				</div>
         			</li>
+                    
         			<?php 
                         endforeach;
                         endif;
                     ?>
 			    </ul>
 		    </div>
+            <!-- END OF WHOLE TIMELINE DIV -->
+
+<!--             <section id=timeline>
+                <h1><?php echo "" . strtoupper($event->site_code) . ""; ?></h1>
+                <h4 style="text-align: center;"><?php echo $address; ?></h4>
+                <h4 style="text-align: center;"><?php echo date("F jS Y, g:i A", strtotime($event->event_start)); if(!is_null($event->validity)) echo " to " . date("F jS Y, g:i A", strtotime($event->validity)); ?></h4>
+                <div class="demo-card-wrapper">
+                </div>
+            </section>  -->
+
 		</div>
+
+        <!-- Timeline Template -->
+        <div class="demo-card demo-card--step" hidden="hidden">
+            <div class="head">
+                <div class="number-box">
+                    <span>01</span>
+                </div>
+                <h2><span class="small">Subtitle</span> Technology</h2>
+            </div>
+            <div class="body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta reiciendis deserunt doloribus consequatur, laudantium odio dolorum laboriosam.</p>
+                <img src="http://placehold.it/1000x500" alt="Graphic">
+            </div>
+        </div>
 
         <!-- Modal for EDIT Entry -->
 		<div class="modal fade" id="edit" role="dialog">
