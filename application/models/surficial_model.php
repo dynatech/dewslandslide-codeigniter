@@ -3,24 +3,45 @@ class surficial_model extends CI_Model {
 
 	public function getSurficialDataByRange ($site_code, $start_date, $end_date) {
 		// $sc = $this->convertSiteCodesFromNewToOld($site_code);
+		// $this->db->select(
+		// 	"marker_observations.mo_id as mo_id, 
+		// 	marker_observations.ts, 
+		// 	UPPER(marker_names.marker_name) as crack_id,
+		// 	marker_data.measurement as measurement,
+		// 	marker_data.marker_id as marker_id,
+		// 	sites.site_code as site_id");
+		// $this->db->from("marker_observations");
+		// $this->db->join("marker_data", "marker_data.mo_id = marker_observations.mo_id");
+		// $this->db->join("marker_names", "marker_names.name_id = marker_data.marker_id");
+		// $this->db->join("sites", "sites.site_id = marker_observations.site_id");
+		// $this->db->where("marker_observations.ts >=", $start_date);
+		// if ($end_date !== null) $this->db->where("marker_observations.ts <=", $end_date);
+		// $this->db->where("sites.site_code", $site_code);
+		// $this->db->where("marker_data.measurement <=", "500");
+		// $this->db->order_by("sites.site_code");
+		// $this->db->order_by("marker_names.marker_name");
+		// $this->db->order_by("marker_observations.ts");
+
 		$this->db->select(
 			"marker_observations.mo_id as mo_id, 
 			marker_observations.ts, 
-			UPPER(marker_names.marker_name) as crack_id,
+			UPPER(site_markers.marker_name) as crack_id,
 			marker_data.measurement as measurement,
 			marker_data.marker_id as marker_id,
-			sites.site_code as site_id");
+			site_markers.site_code"
+		);
 		$this->db->from("marker_observations");
 		$this->db->join("marker_data", "marker_data.mo_id = marker_observations.mo_id");
-		$this->db->join("marker_names", "marker_names.name_id = marker_data.marker_id");
-		$this->db->join("sites", "sites.site_id = marker_observations.site_id");
+		$this->db->join("site_markers", "site_markers.marker_id = marker_data.marker_id");
 		$this->db->where("marker_observations.ts >=", $start_date);
+
 		if ($end_date !== null) $this->db->where("marker_observations.ts <=", $end_date);
-		$this->db->where("sites.site_code", $site_code);
+
+		$this->db->where("site_markers.site_code", $site_code);
 		$this->db->where("marker_data.measurement <=", "500");
-		$this->db->order_by("sites.site_code");
-		$this->db->order_by("marker_names.marker_name");
-		$this->db->order_by("marker_observations.ts");
+		$this->db->order_by("site_markers.marker_name");
+		$this->db->order_by("marker_observations.ts");		
+
 		$query = $this->db->get();
 		return $query->result(); 
 	}
@@ -42,16 +63,16 @@ class surficial_model extends CI_Model {
 		// $site_code = $this->convertSiteCodesFromNewToOld($site_code);
 		$this->db->select(
 			"marker_observations.mo_id as mo_id, 
-			marker_observations.ts, 
-			UPPER(marker_names.marker_name) as crack_id,
+			marker_observations.ts,
+			UPPER(site_markers.marker_name) as crack_id,
 			marker_data.measurement,
-			sites.site_id as site_id");
+			site_markers.site_id"
+		);
 		$this->db->from("marker_observations");
 		$this->db->join("marker_data", "marker_data.mo_id = marker_observations.mo_id");
-		$this->db->join("marker_names", "marker_names.name_id = marker_data.marker_id");
-		$this->db->join("sites", "sites.site_id = marker_observations.site_id");
+		$this->db->join("site_markers", "site_markers.marker_id = marker_data.marker_id");
 		$this->db->where_in("marker_observations.ts", $latest_ts_arr);
-		$this->db->where("sites.site_code", $site_code);
+		$this->db->where("site_markers.site_code", $site_code);
 		$this->db->where("marker_data.measurement <=", "500");
 		$this->db->order_by("marker_observations.ts");
 
@@ -61,12 +82,9 @@ class surficial_model extends CI_Model {
 
 	public function getGroundMarkerName ($site_code) {
 		// $site_code = $this->convertSiteCodesFromNewToOld($site_code);
-		$this->db->select("DISTINCT(marker_names.marker_name) as crack_id, marker_data.marker_id as marker_id");
-		$this->db->from("marker_observations");
-		$this->db->join("marker_data", "marker_data.mo_id = marker_observations.mo_id");
-		$this->db->join("marker_names", "marker_names.name_id = marker_data.marker_id");
-		$this->db->join("sites", "sites.site_id = marker_observations.site_id");
-		$this->db->where("sites.site_code", $site_code);
+		$this->db->select("DISTINCT(marker_name) as crack_id, marker_id");
+		$this->db->from("site_markers");
+		$this->db->where("site_code", $site_code);
 		$this->db->order_by("crack_id", "asc");
 
 		$query = $this->db->get();
