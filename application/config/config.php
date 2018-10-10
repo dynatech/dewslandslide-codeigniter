@@ -19,7 +19,6 @@
 $config['base_url'] = 'http://dynaslope.phivolcs.dost.gov.ph:1088/';
 // $config['base_url'] = 'http://localhost/';
 
-
 $config['server_root'] = $_SERVER['DOCUMENT_ROOT'];
 
 /*

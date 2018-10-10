@@ -61,14 +61,35 @@
     {{/each}}
 </script>
 
+<script id="event-inbox-template" type="text/x-handlebars-template">
+    {{#each event_inbox_messages}}
+    <li>
+        <input id="'{{mobile_id}}'" type="text" value="{{full_name}}" hidden>
+        <a href="#" class="clearfix">   
+            <img src="/images/Chatterbox/boy_avatar.png" alt="" class="img-circle">
+            <div class="friend-name">   
+                {{#if isunknown}}
+                <strong class="unknown-number">{{user_number}} </strong>
+                {{else}}
+                <strong>{{full_name}} </strong>
+                {{/if}}
+            </div>
+            <div class="last-message text-muted">{{msg}}</div>
+            <small class="time text-muted"> {{ts_received}}</small>
+        </a>
+    </li>  
+    {{/each}}
+</script>
+
 <script id="quick-release-template" type="text/x-handlebars-template">
     {{#each quick_release}}
     <li>
-        <input type="text" value="{{name}}" hidden>  
+        <input type="text" id="site_code" value="{{site_code}}" hidden> 
+        <input type="text" id="site_id" value="{{site_id}}" hidden>
         <a href="#" class="clearfix">   
             <img src="/images/Chatterbox/dewsl_03.png" alt="" class="img-circle">
             <div class="friend-name">   
-                <strong style="text-transform: uppercase;">{{name}} - Region ({{region}}) - {{internal_alert_level}}</strong>
+                <strong style="text-transform: uppercase;">{{site_code}} - Region ({{region}}) - {{internal_alert_level}}</strong>
             </div>
             <div class="last-message text-muted">{{barangay}}, {{municipality}},{{province}}</div>
         </a>

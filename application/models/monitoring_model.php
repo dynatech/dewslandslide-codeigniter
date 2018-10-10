@@ -160,5 +160,4 @@ class Monitoring_Model extends CI_Model
         $id = $this->db->insert_id();
         return $id;
     }
-
 }
