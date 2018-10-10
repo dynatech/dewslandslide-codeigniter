@@ -53,6 +53,7 @@ class Rainfall extends CI_Controller {
             $file_path = "C:/xampp/updews-pycodes/Liaison/";
         } elseif (strpos($os, "UBUNTU") !== false || strpos($os, "Linux") !== false) {
             $python_path = "/home/ubuntu/miniconda2/bin/python";
+            // $python_path = "/home/swat/anaconda2/bin/python";
             $file_path = "/var/www/updews-pycodes/web_plots/";
         } else {
             throw new Exception("Unknown OS for execution... Script discontinued...");
