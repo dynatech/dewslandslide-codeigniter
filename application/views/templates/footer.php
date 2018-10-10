@@ -1,3 +1,5 @@
+<!-- Server time-->
+<script type="text/javascript" src="/js/dewslandslide/server_time.js"></script>
 
 <footer class="footer">
 	<nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">

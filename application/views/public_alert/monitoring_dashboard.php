@@ -24,9 +24,6 @@
 <script type="text/javascript" src="js/dewslandslide/communications_beta/cbx_dashboard.js"></script>
 <script type="text/javascript" src="js/dewslandslide/communications_beta/websocket_server.js"></script>
 
-<!-- Server time-->
-<script type="text/javascript" src="/js/dewslandslide/server_time.js"></script>
-
 <?php  
 	$sites = json_decode($sites);
 	$staff = json_decode($staff);
