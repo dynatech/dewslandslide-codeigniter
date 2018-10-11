@@ -120,6 +120,7 @@ $route['generalinformation/updateGintagsId'] = "gintagshelper/updateGintagsByGin
  */
 
 $route['analysis/site_analysis'] = "site_analysis";
+$route['analysis/site_analysis/(:any)'] = "site_analysis";
 $route['analysis/eos_charts/(:any)/(:any)/(:any)/(:any)'] = "end_of_shift_charts";
 $route['analysis/manifestations'] = "manifestations";
 $route['analysis/manifestations/(:any)'] = "manifestations/individual_site/$1";
