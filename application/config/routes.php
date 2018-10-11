@@ -178,6 +178,8 @@ $route['gold/bulletin-builder/(:num)'] = "bulletin/build/$1";
 $route['gold/bulletin-editor/(:num)'] = "bulletin/edit/$1";
 $route['gold/bulletin-main/(:num)/(:any)'] = "bulletin/main/$1/$2";
 
+$route['site_info/index'] = "site_info/index";
+
 $route['default_controller'] = "lin";
 $route['404_override'] = '';
 
