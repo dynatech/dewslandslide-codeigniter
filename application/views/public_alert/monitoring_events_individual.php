@@ -145,32 +145,46 @@
                             $x = substr($release->internal_alert_level, 0, 2);
                             $x = $x == "ND" ? ( strlen($release->internal_alert_level) > 3 ? "A1" : "A0" ) : $x;
 
-			        		if( $x == 'A0' && ($event->status == "extended" || $event->status == "finished") ) 
-                            { 
+			        		if( $x == 'A0' && ($event->status == "extended" || $event->status == "finished") ) { 
                                 $class = "success";
                                 $glyph = "ok";
                                 $start = strtotime('tomorrow noon', strtotime($event->validity));
                                 $end = strtotime('+2 days', $start);
                                 $day = 3 - ceil(($end - (60*60*12) - strtotime($release->data_timestamp))/(60*60*24));
-                                if( $day > 0 )
-                                {
+                                if( $day > 0 ) {
                                     $title = "Day " . $day . " of Extended Monitoring:";
-                                } 
-                                else $title = "End of Monitoring:";
+                                } else $title = "End of Monitoring:";
 
+                            } elseif ($x == 'A0' && $event->status == 'invalid') { 
+                                $class = "danger"; 
+                                $title = "Invalidation Release for"; 
+                                $glyph = "trash"; 
+                            } else { 
+                                $class = "warning"; 
+                                $title = "Early Warning Release for"; 
+                                $glyph = "file"; 
                             }
-                            elseif ($x == 'A0' && $event->status == 'invalid') { $class = "danger"; $title = "Invalidation Release for"; $glyph = "trash"; }
-			        		else { $class = "warning"; $title = "Early Warning Release for"; $glyph = "file"; }
 			        	?>
         				<div class="timeline-badge <?php echo $class; ?>"><i class="glyphicon glyphicon-<?php echo $glyph; ?>"></i></div>
         				<div class="timeline-panel <?php if($to_highlight != null && $to_highlight == $release->release_id) { echo "highlight" . '"'; echo 'tabindex="-1"';} ?> id="<?php echo $release->release_id; ?>">
             				<div class="timeline-heading">
             					<div class="row">
 	              					<div class="col-sm-11">
-	              						<h4 class="timeline-title"><b><?php echo $title; ?> <?php if($release === end(array_reverse($releases))) echo date("F jS Y, g:i A", strtotime($release->data_timestamp)); else echo date("F jS Y, g:i A", strtotime($release->data_timestamp) + 1800); ?></h4>
+	              						<h4 class="timeline-title">
+                                            <b>
+                                                <?php echo $title; ?> 
+                                                <?php 
+                                                    if($release === end(array_reverse($releases))) 
+                                                        echo date("F jS Y, g:i A", strtotime($release->data_timestamp)); 
+                                                    else 
+                                                        echo date("F jS Y, g:i A", strtotime($release->data_timestamp) + 1800); 
+                                                ?>
+                                        </h4>
 	              					</b></div>
 	              					<div class="col-sm-1 text-right">
-	              						<span class="glyphicon glyphicon-edit" id="<?php echo "$release->release_id"; ?>"></span>
+	              						<a href="#" id="edit-release-btn">
+                                            <span class="glyphicon glyphicon-edit" id="<?php echo "$release->release_id"; ?>"></span>
+                                        </a>
 	              					</div>
               					<hr>
 						        </div>
@@ -245,27 +259,92 @@
 		    </div>
             <!-- END OF WHOLE TIMELINE DIV -->
 
-<!--             <section id=timeline>
-                <h1><?php echo "" . strtoupper($event->site_code) . ""; ?></h1>
-                <h4 style="text-align: center;"><?php echo $address; ?></h4>
-                <h4 style="text-align: center;"><?php echo date("F jS Y, g:i A", strtotime($event->event_start)); if(!is_null($event->validity)) echo " to " . date("F jS Y, g:i A", strtotime($event->validity)); ?></h4>
-                <div class="demo-card-wrapper">
+            <section id=timeline>
+                <h1 id="site-code"></h1>
+                <h4 id="address" style="text-align: center;"></h4>
+                <h4 id="event_timeframe" style="text-align: center;"></h4>
+                <div class="timeline-card-wrapper">
                 </div>
-            </section>  -->
+            </section>          
 
 		</div>
 
         <!-- Timeline Template -->
-        <div class="demo-card demo-card--step" hidden="hidden">
+        <div class="timeline-card" hidden="hidden">
+        <!-- <div class="timeline-card timeline-card--step"> -->
             <div class="head">
                 <div class="number-box">
-                    <span>01</span>
+                    <span>EWI</span>
                 </div>
-                <h2><span class="small">Subtitle</span> Technology</h2>
+                <div class="col-sm-7">
+                    <h4 class="timeline-title"><b><?php echo $title; ?> <?php if($release === end(array_reverse($releases))) echo date("F jS Y, g:i A", strtotime($release->data_timestamp)); else echo date("F jS Y, g:i A", strtotime($release->data_timestamp) + 1800); ?></h4>
+                </b></div>
+                <div class="col-sm-1 text-right">
+                    <a href="#" id="edit-release-btn">
+                        <span class="glyphicon glyphicon-edit" id="<?php echo "$release->release_id"; ?>"></span>
+                    </a>
+                </div>
             </div>
             <div class="body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta reiciendis deserunt doloribus consequatur, laudantium odio dolorum laboriosam.</p>
-                <img src="http://placehold.it/1000x500" alt="Graphic">
+                <div class="timeline-body">
+                    <div>
+                        Released: <span class="release_time"><?php echo date("g:i A", strtotime($release->release_time)); ?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Internal Alert Level:&nbsp;&nbsp;<span class="internal_alert_level"><?php echo $release->internal_alert_level; ?></span></b>
+                    </div>
+                    <hr>
+
+                    <?php 
+                        $trigger_list = getTriggers($release->release_id, $triggers);
+                        if( count($trigger_list) > 0 || count($release->extra_manifestations) > 0 ):
+                    ?>
+                    <div class="triggers">
+                        <ul>
+                            <?php foreach ($trigger_list as $trigger): ?>
+                                    <li><?php echo format($trigger->trigger_type, $trigger->timestamp); ?></li>
+                                    <?php if($trigger->info != null) echo "<ul><li>" . $trigger->info . "</li></ul>"; ?>
+                                    <?php if(strtoupper($trigger->trigger_type) == "M"): ?> 
+                                        <?php foreach ($trigger->manifestation_info as $man): ?>
+                                            <?php echo "<ul><ul><li>Feature: " . ucwords($man->feature_type) . " $man->feature_name (M$man->op_trigger)</li></ul>"; ?>
+                                            <?php echo "<ul><ul><li>Narrative: " . $man->narrative . "</li></ul></ul>"; ?>
+                                            <?php echo "<ul><ul><li>Reporter: " . $man->reporter . "</li></ul></ul>"; ?>
+                                            <?php echo "<ul><ul><li>Remarks: " . $man->remarks . "</li></ul></ul>"; ?>
+                                            <?php echo "</ul>"; ?>
+                                        <?php endforeach; ?>
+                                        <?php echo "<ul><ul><li>Validator: " . returnName($trigger->manifestation_info[0]->validator, $staff) . "</li></ul></ul>"; ?>
+                                    <?php endif; ?>
+                            <?php endforeach; ?>
+
+                            <?php if( count($trigger_list) > 0 && count($release->extra_manifestations) > 0 ) echo "<hr/>"; ?>
+
+                            <?php foreach ($release->extra_manifestations as $nt_feature ): ?>
+                                <li>Non-Triggering Feature: <?php echo ucwords($nt_feature->feature_type) . " $nt_feature->feature_name"; ?></li>
+                                    <?php echo "<ul><li>Narrative: " . $nt_feature->narrative . "</li></ul>"; ?>
+                                    <?php echo "<ul><li>Reporter: " . $nt_feature->reporter . "</li></ul>"; ?>
+                                    <?php echo "<ul><li>Remarks: " . $nt_feature->remarks . "</li></ul>"; ?>
+                            <?php endforeach; ?>
+
+                            <?php if( count($release->extra_manifestations) > 0 ):  ?>
+                                <?php echo "<li>Validator: " . returnName($release->extra_manifestations[0]->validator, $staff) . "</li>"; ?>
+                            <?php endif; ?>
+                        </ul>
+                        <hr>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if( $release->comments != NULL): ?>
+                    <div class="comments">
+                        <b>Comments:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $release->comments; ?>
+                    </div>
+                    <hr>
+                    <?php endif; ?>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-primary btn-xs print" value="<?php echo "$release->release_id"; ?>">Show Bulletin</button>
+                        </div>
+                        <div class="col-sm-9 reporters text-right">
+                            <?php echo returnName($release->reporter_id_mt, $staff); ?>, <?php echo returnName($release->reporter_id_ct, $staff); ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
