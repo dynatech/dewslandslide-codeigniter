@@ -1,19 +1,30 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/pms.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/site_info/site_info.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/third-party/bootstrap_v4.min.css">
+<link href="<?php echo base_url(); ?>css/third-party/bootstrap-fs-modal_v4.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo base_url(); ?>js/third-party/jquery_latest.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/third-party/bootstrap_v4.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/dewslandslide/overhaul/site_info.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/pms.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/third-party/bootstrap_v4.min.css">
-<link href="<?php echo base_url(); ?>css/third-party/bootstrap-fs-modal_v4.css" rel="stylesheet">
+
 
 
 <main class="page site_info">
     <section class="clean-block clean-cart ">
         <div class="container">
-            <div class="block-heading">
+            <!-- <div class="block-heading">
                 <h2 class="text-info" id="page-header" style="font-weight: 600;color: #17526D;border: solid #17526D;border-radius: 6px;margin-bottom: 40px;">SITE INFORMATION <button type="button" class="btn btn-block" data-toggle="modal" data-target="#modalLarge" id="modal_button" >
                                 Show Modal
                             </button></h2>
 
+            </div> -->
+
+            <div class="block-heading">
+                <h2  id="page-header" style="font-weight: 600;color: #17526D;border: solid #17526D;border-radius: 6px;margin-bottom: 80px;">SITE INFORMATION</h2>
+                <div class="container-line timeline-head">
+                    <span class="circle left"></span>
+                    <div class="container-line-text timeline-head-text">Dynaslope Teams</div>
+                    <span class="circle right"></span>
+                </div>
             </div>
             
             <div class="content">
