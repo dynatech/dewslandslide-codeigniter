@@ -4,7 +4,6 @@ class Rainfall extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('rainfall_model');
-		$this->load->model('Alert_model');
 		$this->load->helper('url');
 	}
 
