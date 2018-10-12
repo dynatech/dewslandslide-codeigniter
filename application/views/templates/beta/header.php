@@ -16,7 +16,7 @@
     <!-- Custom Bootstrap Admin Theme -->
     <link href="/css/third-party/sb-admin.css" rel="stylesheet">
     <!-- Public website general css -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/local/pms.css">
+    <link rel="stylesheet" type="text/css" href="/css/dewslandslide/misc/pms.css">
     <!-- Font Awesome -->
     <link href="/css/third-party/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -25,7 +25,7 @@
     <!-- jQuery UI Version 1.12.1 -->
     <script type="text/javascript" src="/js/third-party/jquery-ui-1.12.1.min.js"></script>
     <!-- Bootstrap JS v3.3.7 -->
-    <script src="/js/third-party/bootstrap.min.js"></script>
+    <!-- <script src="/js/third-party/bootstrap.min.js"></script> -->
     <!-- Moment.js -->
     <script type="text/javascript" src="/js/third-party/moment.js"></script>
     <!-- jQuery Validate -->
