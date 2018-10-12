@@ -85,6 +85,7 @@ class surficial_model extends CI_Model {
 		$this->db->select("DISTINCT(marker_name) as crack_id, marker_id");
 		$this->db->from("site_markers");
 		$this->db->where("site_code", $site_code);
+		$this->db->where("in_use", 1);
 		$this->db->order_by("crack_id", "asc");
 
 		$query = $this->db->get();
@@ -107,13 +108,43 @@ class surficial_model extends CI_Model {
 		return $query->result();
 	}
 
-	// FOR OLD DB
+	// =======================================================
+	public function insertIfNotExists($table, $data)
+	{
+		$temp = $data;
+		if ($table === "marker_data") {
+			unset($temp["measurement"]);
+			$result = $this->db->get_where($table, $temp);
+		} else if ($table === "marker_observations") {
+			$temp = array( 
+				"site_id" => $temp["site_id"],
+				"ts" => $temp["ts"]
+			);
+			$result = $this->db->get_where($table, $temp);
+		}
 
-	public function getGroundData ($site_code) {
-		$sc = $this->convertSiteCodesFromNewToOld($site_code);
-		$sql = "SELECT * from gndmeas y inner join (select distinct timestamp from gndmeas where site_id='$sc' order by timestamp desc limit 11) x on y.timestamp = x.timestamp where site_id='$sc'";
-		$query = $this->db->query($sql);
-		return $query->result();
+		if( $result->num_rows() > 0 ) {
+			$row = $result->row();
+			return array("does_exists" => true, "data" => $row);
+		} else {
+			$this->db->insert($table, $data);
+        	$id = $this->db->insert_id();
+        	return array("does_exists" => false, "data" => $id);
+		}
+    }
+
+    public function update($column, $key, $table, $data)
+	{
+		$this->db->where($column, $key);
+		$this->db->update($table, $data);
+	}
+
+	public function getMarkerID($site_id, $marker_name) {
+		$result = $this->db->get_where("site_markers", array(
+			"site_id" => $site_id,
+			"marker_name" => $marker_name
+		));
+		return $result->row()->marker_id;
 	}
 
 	// FOR OLD DB
