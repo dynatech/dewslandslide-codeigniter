@@ -147,7 +147,7 @@
 				$path = "/usr/share/php/PHPMailer/PHPMailerAutoload.php";	
 			}
 
-			if ($is_test) {
+			if ($is_test === "true") {
 				$cred = $this->bulletin_model->getEmailCredentials('dynaslopeswat');
 			} else {
 				$cred = $this->bulletin_model->getEmailCredentials('dewslmonitoring');
