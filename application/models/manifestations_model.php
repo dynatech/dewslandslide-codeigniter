@@ -30,9 +30,9 @@ class Manifestations_Model extends CI_Model
 		// 	RIGHT JOIN site ON mf.site_id = site.id";
 		
 		$query = "
-			SELECT sub_query.*, site.name, site.name AS site_code, 
-				site.sitio, site.barangay, site.municipality, site.province
-			FROM site
+			SELECT sub_query.*, sites.site_code, 
+				sites.sitio, sites.barangay, sites.municipality, sites.province
+			FROM sites
 			LEFT JOIN
 			(
 				SELECT
@@ -65,7 +65,7 @@ class Manifestations_Model extends CI_Model
 	    			LIMIT 1
 	    		)
     		) AS sub_query
-    		ON site.id = sub_query.site_id";
+    		ON sites.site_id = sub_query.site_id";
 
 		$result = $this->db->query($query);
 		return json_encode($result->result_object());
@@ -112,36 +112,31 @@ class Manifestations_Model extends CI_Model
 		return json_encode($result->result_object());
 	}
 
-	public function getSites()
+	public function getAllMOMforASite($search = null, $filter = null, $orderBy, $orderType, $start, $length)
 	{
-		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season 
-				FROM site 
-				ORDER BY site_code ASC";
-
-		$query = $this->db->query($sql);
-
-		$i = 0;
-	    foreach ($query->result_array() as $row)
-	    {
-	    	$sitio = $row["sitio"];
-	        $barangay = $row["barangay"];
-	        $municipality = $row["municipality"];
-	        $province = $row["province"];
-
-	        if ($sitio == null) {
-	          $address = "$barangay, $municipality, $province";
-	        } 
-	        else {
-	          $address = "$sitio, $barangay, $municipality, $province";
-	        }
-
-	        $site[$i]["site_id"] = $row["site_id"];
-	        $site[$i]["site_code"] = $row["site_code"];
-	        $site[$i]["season"] = $row["season"];
-	        $site[$i++]["address"] = $address;
-	    }
-
-	    	return json_encode($site);
+        $this->db->select('public_alert_manifestation.*, manifestation_features.*, public_alert_release.event_id, u.firstname AS first_name, u.lastname AS last_name');
+		$this->db->from('public_alert_manifestation');
+		$this->db->join('manifestation_features', 'public_alert_manifestation.feature_id = manifestation_features.feature_id');
+		$this->db->join('public_alert_release', 'public_alert_manifestation.release_id = public_alert_release.release_id', 'left');
+		$this->db->join('comms_db.users AS u', 'public_alert_manifestation.validator = u.user_id');
+		if( !is_null($filter) ) $this->db->where($filter);
+		if( !is_null($search) ) {
+			// $this->db->or_like($search);
+			$open = "("; $where = [];
+			foreach ($search as $key => $value) {
+				array_push($where, "$key LIKE '%$value%'");
+			}
+			$final = $open . implode(" OR ", $where) . ")";
+			$this->db->where($final);
+		}
+		$this->db->order_by($orderBy, $orderType);
+		$this->db->limit($length, $start);
+		$query = $this->db->get();
+		// if( !is_null($search) ) {
+		// 	$x = $this->db->last_query();
+		// 	var_dump( $x );
+		// }
+		return $query->result_array();
 	}
 
 	/**
@@ -179,33 +174,6 @@ class Manifestations_Model extends CI_Model
 		return $query->result_array()[0]["COUNT(*)"];
 	}
 
-	public function getAllMOMforASite($search = null, $filter = null, $orderBy, $orderType, $start, $length)
-	{
-        $this->db->select('public_alert_manifestation.*, manifestation_features.*, public_alert_release.event_id, u.first_name, u.last_name');
-		$this->db->from('public_alert_manifestation');
-		$this->db->join('manifestation_features', 'public_alert_manifestation.feature_id = manifestation_features.feature_id');
-		$this->db->join('public_alert_release', 'public_alert_manifestation.release_id = public_alert_release.release_id', 'left');
-		$this->db->join('comms_db.users AS u', 'public_alert_manifestation.validator = u.user_id');
-		if( !is_null($filter) ) $this->db->where($filter);
-		if( !is_null($search) ) {
-			// $this->db->or_like($search);
-			$open = "("; $where = [];
-			foreach ($search as $key => $value) {
-				array_push($where, "$key LIKE '%$value%'");
-			}
-			$final = $open . implode(" OR ", $where) . ")";
-			$this->db->where($final);
-		}
-		$this->db->order_by($orderBy, $orderType);
-		$this->db->limit($length, $start);
-		$query = $this->db->get();
-		// if( !is_null($search) ) {
-		// 	$x = $this->db->last_query();
-		// 	var_dump( $x );
-		// }
-		return $query->result_array();
-	}
-
 	public function getDistinctFeatureTypes()
 	{
 		$this->db->distinct();
@@ -217,9 +185,9 @@ class Manifestations_Model extends CI_Model
 
 	public function getSiteID($code)
 	{
-		$this->db->select("id");
-		$query = $this->db->get_where('site', array('name' => $code));
-		return $query->row()->id;
+		$this->db->select("site_id");
+		$query = $this->db->get_where('sites', array('site_code' => $code));
+		return $query->row()->site_id;
 	}
 
 	public function insertIfNotExists($table, $data)
