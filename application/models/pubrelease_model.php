@@ -11,7 +11,8 @@ class Pubrelease_Model extends CI_Model
 	public function getSites()
 	{
 		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
-				FROM sites 
+				FROM sites
+				WHERE active = 1
 				ORDER BY site_code ASC";
 
 		$query = $this->db->query($sql);
