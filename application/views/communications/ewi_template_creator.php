@@ -1,18 +1,30 @@
 <!-- Chatterbox Scripts -->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/pms.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/site_info/site_info.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/communications/ewi_template.css">
 <link rel="stylesheet" type="text/css" href="../css/dewslandslide/public_alert/monitoring_events_all.css">
 <link rel="stylesheet" type="text/css" href="../css/third-party/awesomplete.css">
 
 <script src="/js/third-party/handlebars.js"></script>
 <script src="/js/third-party/moment-locales.js"></script>
 <script src="/js/third-party/notify.min.js"></script>
-<script src="/js/dewslandslide/communications/dewsewi_template.js"></script>
+<script src="/js/dewslandslide/communications_beta/cbx_ewi_template_creator.js"></script>
 <script src="/js/third-party/awesomplete.min.js"></script>
 
-<div id="page-wrapper">
-    <div class="container-fluid">
-        <div class="page-header">
-            <h1>DEWS-Landslide Early Warning Information <small>Template Creator</small></h1>
-		</div>
+
+<main class="page ewi_template">
+    <section class="clean-block clean-cart ">
+        <div class="container">
+
+        <div class="block-heading">
+            <div class="container-line timeline-head">
+                <span class="circle left"></span>
+                <div id="title-page-container" class="container-line-text timeline-head-text">DEWS-Landslide Early Warning Information | <small>Template Creator</small></div>
+                <span class="circle right"></span>
+            </div>
+        </div>
+
+
 		<ul class="nav nav-tabs">
 		    <li class="active"><a data-toggle="tab" id="key_input_tab" href="#key-inputs">Key Inputs Template</a></li>
 		    <li><a data-toggle="tab" id="message_backbone_tab" href="#message-backbone">Message Backbone Template</a></li>
@@ -67,7 +79,8 @@
 			</div>
 		</div>
     </div>
-</div>
+</section>
+</main>
 
 <div id="template_modal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg">
@@ -82,12 +95,13 @@
 						<div class="col-md-4">
 							<label for="side_code">Site code:</label>
 							<select class="form-control" name="site_code" id="site_code">
+							<option> ... </option>
 							</select>	
 						</div>
 						<div class="col-md-4">
 							<label for="date-time-of-release">Time of release:</label>
 							<div class="input-group date datetime" id="date-time-of-release">		
-                                <input type="text" class="form-control" id="time_of_release" aria-required="true" aria-invalid="false">
+                                <input type="text" class="form-control" id="time_of_release" aria-required="true" aria-invalid="false" placeholder="Enter timestamp" >
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
