@@ -19,7 +19,6 @@
             </div> -->
 
             <div class="block-heading">
-                <h2  id="page-header" style="font-weight: 600;color: #17526D;border: solid #17526D;border-radius: 6px;margin-bottom: 80px;">SITE INFORMATION</h2>
                 <div class="container-line timeline-head">
                     <span class="circle left"></span>
                     <div class="container-line-text timeline-head-text">Dynaslope Teams</div>

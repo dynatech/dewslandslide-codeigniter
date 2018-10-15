@@ -125,13 +125,6 @@ class Contacts_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function getDistinctSites(){
-		$this->db->distinct();
-		$this->db->select('sitename');
-		$query = $this->db->get('communitycontacts');
-		return $query;
-	}
-
 	public function getDistinctOffice(){
 		$this->db->distinct();
 		$this->db->select('office');
