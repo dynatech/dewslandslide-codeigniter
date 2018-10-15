@@ -10,7 +10,7 @@ class Pubrelease_Model extends CI_Model
 
 	public function getSites()
 	{
-		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
+		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province
 				FROM sites 
 				ORDER BY site_code ASC";
 
@@ -33,7 +33,7 @@ class Pubrelease_Model extends CI_Model
 
 	        $site[$i]["site_id"] = $row["site_id"];
 	        $site[$i]["site_code"] = $row["site_code"];
-	        $site[$i]["season"] = $row["season"];
+	        // $site[$i]["season"] = $row["season"];
 	        $site[$i++]["address"] = $address;
 	    }
 	    
