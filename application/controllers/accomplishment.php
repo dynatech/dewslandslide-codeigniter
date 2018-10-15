@@ -7,6 +7,7 @@
 			$this->load->model('accomplishment_model');
 			$this->load->model('subsurface_column_model');
 			$this->load->model("surficial_model");
+			$this->load->model("bulletin_model");
 		}
 
 		public function index()
