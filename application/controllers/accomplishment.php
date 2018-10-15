@@ -74,13 +74,14 @@
 			$start_ts = date("Y-m-d H:i:s", strtotime($end . "-12 hours -30 minutes"));
 			$columns = $this->subsurface_column_model->getSiteSubsurfaceColumns($site_code);
 
-			foreach ($columns as $column) {
+			foreach ($columns as $key => $column) {
 				if (is_null($column["date_deactivated"])) {
 					$points = $this->subsurface_column_model->getSubsurfaceColumnData($column["tsm_name"], $start_ts, $end_ts);
-					$column["status"] = count($points) > 0 ? "with_data" : "no_data";
+					$status = count($points) > 0 ? "with_data" : "no_data";
 				} else {
-					$column["status"] = "deactivated";
+					$status = "deactivated";
 				}
+				$columns[$key]["status"] = $status;
 			}
 
 			$temp_arr = array_unique(array_column($columns, "tsm_name"));
