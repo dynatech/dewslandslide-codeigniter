@@ -20,38 +20,39 @@ class Site_info extends CI_Controller {
 		$this->load->view('templates/beta/footer');
 	}
 
-	public function insertNewSite($data){
+	public function insertNewSite(){
 		$data = array(
-			"site_code" => $this->input->post('name'),
-			"purok" => $this->input->post('name'),
-			"sitio" => $this->input->post('name'),
-			"barangay" => $this->input->post('name'),
-			"municipality" => $this->input->post('name'),
-			"province" => $this->input->post('name'),
-			"region" => $this->input->post('name'),
-			"psgc" => $this->input->post('name'),
-			"active" => $this->input->post('name'),
-			"households" => $this->input->post('name'),
-			"season" => $this->input->post('name')
+			"site_code" => $this->input->post("site_code"),
+			"purok" => $this->input->post("purok"),
+			"sitio" => $this->input->post("sitio"),
+			"barangay" => $this->input->post("barangay"),
+			"municipality" => $this->input->post("municipality"),
+			"province" => $this->input->post("province"),
+			"region" => $this->input->post("region"),
+			"psgc" => $this->input->post("psgc"),
+			"households" => $this->input->post("households"),
+			"season" => $this->input->post("season"),
+			"active" => $this->input->post("is_active")
 		);
 
 		$query = $this->site_information_model->insertNewSite($data);
+
 		return $query;
 	}
 
 	public function updateSite($site_id, $data){
 		$data = array(
-			"site_code" => $this->input->post('name'),
-			"purok" => $this->input->post('name'),
-			"sitio" => $this->input->post('name'),
-			"barangay" => $this->input->post('name'),
-			"municipality" => $this->input->post('name'),
-			"province" => $this->input->post('name'),
-			"region" => $this->input->post('name'),
-			"psgc" => $this->input->post('name'),
-			"active" => $this->input->post('name'),
-			"households" => $this->input->post('name'),
-			"season" => $this->input->post('name')
+			"site_code" => $this->input->post("site_code"),
+			"purok" => $this->input->post("purok"),
+			"sitio" => $this->input->post("sitio"),
+			"barangay" => $this->input->post("barangay"),
+			"municipality" => $this->input->post("municipality"),
+			"province" => $this->input->post("province"),
+			"region" => $this->input->post("region"),
+			"psgc" => $this->input->post("psgc"),
+			"households" => $this->input->post("households"),
+			"season" => $this->input->post("season"),
+			"active" => $this->input->post("is_active")
 		);
 
 		$query = $this->site_information_model->updateSite($data);
@@ -67,13 +68,22 @@ class Site_info extends CI_Controller {
 	public function getSiteInformation($site_id){
 		$sites = $this->site_information_model->getSiteInformation($site_id);
 
-		return json_encode($sites);
+		var_dump($sites);
 	}
 
 	public function getAllSites(){
+		$all_sites = [];
 		$sites = $this->site_information_model->getSites();
+		for ($counter = 0; $counter < sizeof($sites); $counter++) {
+			$sites[$counter] = (array) $sites[$counter];
+			$sites[$counter]['actions'] = "<div>".
+			"<span class='update glyphicon glyphicon-pencil' aria-hidden='true' style='margin-right: 25%;'></span>".
+			"<span class='delete glyphicon glyphicon-trash' aria-hidden='true' style='margin-right: 25%;'></span>".
+			"</div>";
+		}
+		$all_sites = $sites;
 
-		return json_encode($sites);
+		echo json_encode($all_sites);
 	}
 
 	public function is_logged_in() {
