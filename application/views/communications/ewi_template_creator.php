@@ -95,12 +95,13 @@
 						<div class="col-md-4">
 							<label for="side_code">Site code:</label>
 							<select class="form-control" name="site_code" id="site_code">
+							<option> ... </option>
 							</select>	
 						</div>
 						<div class="col-md-4">
 							<label for="date-time-of-release">Time of release:</label>
 							<div class="input-group date datetime" id="date-time-of-release">		
-                                <input type="text" class="form-control" id="time_of_release" aria-required="true" aria-invalid="false">
+                                <input type="text" class="form-control" id="time_of_release" aria-required="true" aria-invalid="false" placeholder="Enter timestamp" >
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
