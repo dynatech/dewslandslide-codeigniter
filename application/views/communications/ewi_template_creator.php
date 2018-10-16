@@ -52,11 +52,6 @@
 		        </div>
 			</div>
 			<div id="message-backbone" class="tab-pane fade in">
-				<div class="panel panel-danger">
-					<div class="panel-heading" style="text-align: center;">Please refrain from deleting the <b>"KEY INPUTS" ({SBMP}, {ALERT_LVL}, {GREETINGS}.. etc..)</b> of the template.<br>
-						For the list of Key Inputs you can refer <a href="#" id="show_key_inputs">to this link.</a>
-					</div>
-				</div>
 		        <div class="row" style="margin:10px;">
 		            <div class="col-md-12">
 		                <div class="table-responsive">          	
