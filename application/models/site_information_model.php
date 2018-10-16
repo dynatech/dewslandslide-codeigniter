@@ -13,12 +13,30 @@ class Site_information_model extends CI_Model {
 
 	public function insertNewSite($data){
 		$this->db->insert("sites", $data);
-		var_dump($data);
+
+		if ($this->db->affected_rows() > 0){
+		  return "true";
+		}else{
+		  return "false";
+		}
 	}
 
-	public function updateSenslopeSite($site_id, $data){
+	public function updateSite($site_id, $data){
 		$this->db->where("site_id", $site_id);
 		$this->db->update("sites", $data); 
+
+		return "true";
+	}
+
+	public function deleteSite($site_id){
+		$this->db->where("site_id", $site_id);
+		$this->db->delete("sites");
+
+		if ($this->db->affected_rows() > 0){
+		  return "true";
+		}else{
+		  return "false";
+		}
 	}
 }
 ?>
