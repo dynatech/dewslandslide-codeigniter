@@ -5,6 +5,8 @@ class Site_info extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		$this->load->model('site_information_model');
+		// $this->output->enable_profiler(TRUE);
+		// echo $this->session->userdata('id');
 	}
 	public function index() {
 		$this->is_logged_in();
@@ -37,10 +39,10 @@ class Site_info extends CI_Controller {
 
 		$query = $this->site_information_model->insertNewSite($data);
 
-		return $query;
+		echo $query;
 	}
 
-	public function updateSite($site_id, $data){
+	public function updateSite(){
 		$data = array(
 			"site_code" => $this->input->post("site_code"),
 			"purok" => $this->input->post("purok"),
@@ -54,21 +56,17 @@ class Site_info extends CI_Controller {
 			"season" => $this->input->post("season"),
 			"active" => $this->input->post("is_active")
 		);
+		$site_id = $this->input->post("site_id");
 
-		$query = $this->site_information_model->updateSite($data);
-		return $query;
+		$query = $this->site_information_model->updateSite($site_id, $data);
+		echo $query;
 	}
 
-	public function deleteSite($site_id){
+	public function deleteSite(){
+		$site_id = $this->input->post("site_id");
 		$query = $this->site_information_model->deleteSite($site_id);
-
-		return $query;
-	}
-
-	public function getSiteInformation($site_id){
-		$sites = $this->site_information_model->getSiteInformation($site_id);
-
-		var_dump($sites);
+		
+		echo $query;
 	}
 
 	public function getAllSites(){

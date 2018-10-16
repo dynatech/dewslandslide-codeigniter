@@ -34,7 +34,7 @@
 		        <div class="row" style="margin:10px;">
 		            <div class="col-md-12">
 		                <div class="table-responsive">          
-		                    <table class="table" id="template_table" style="width:100%;">
+		                    <table id="template_table" class="display table table-striped" cellspacing="0" width="100%">
 		                        <thead>
 		                            <tr></tr>
 		                        </thead>
@@ -44,18 +44,13 @@
 		                    </table>
 		                </div>
 		            </div>
-		        </div>
-		        <div class="row" style="margin:10px;">
-		        	<div class="col-md-12" style="text-align: center;">
-		        		<input type="button" class="btn btn-primary" id="add_template" value="ADD TEMPLATE">
-		        	</div>
 		        </div>
 			</div>
 			<div id="message-backbone" class="tab-pane fade in">
 		        <div class="row" style="margin:10px;">
 		            <div class="col-md-12">
 		                <div class="table-responsive">          	
-		                    <table class="table" id="backbone_table" style="width:100%;">
+		                    <table id="backbone_table" class="display table table-striped" cellspacing="0" width="100%">
 		                        <thead>
 		                            <tr></tr>
 		                        </thead>
@@ -65,11 +60,6 @@
 		                    </table>
 		                </div>
 		            </div>
-		        </div>
-		        <div class="row" style="margin:10px;">
-		        	<div class="col-md-12" style="text-align: center;">
-		        		<input type="button" class="btn btn-primary" id="add_backbone" value="ADD MESSAGE BACKBONE">
-		        	</div>
 		        </div>
 			</div>
 		</div>
