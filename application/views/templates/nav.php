@@ -53,10 +53,6 @@
                         <li class="dropdown-header">End-Of-Shift Report and Narratives</li>
                         <li><a href="<?php echo base_url(); ?>reports/accomplishment/form">Filing Form and Report Generator</a></li>
                         <li><a href="<?php echo base_url(); ?>reports/accomplishment/checker">Shift Events and Releases Checker</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Site Maintenance</li>
-                        <li><a href="<?php echo base_url(); ?>reports/site_maintenance/form">Filing Form</a></li>
-                        <li><a href="<?php echo base_url(); ?>reports/site_maintenance/all">All Reports Table</a></li>
                     </ul>
                 </li>
 

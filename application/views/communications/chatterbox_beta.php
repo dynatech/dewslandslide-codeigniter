@@ -13,10 +13,6 @@
 <script src="/js/dewslandslide/communications_beta/cbx_variables.js"></script>
 <script src="/js/dewslandslide/communications_beta/websocket_server.js"></script>
 
-
-<!-- Server time-->
-<!-- <script type="text/javascript" src="/js/dewslandslide/server_time.js"></script> -->
-
 <!-- ChatterBox CSS --> -->
 <link rel="stylesheet" type="text/css" href="/css/third-party/awesomplete.css">
 <link rel="stylesheet" type="text/css" href="/css/third-party/bootstrap-tagsinput.css">
