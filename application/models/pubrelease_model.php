@@ -35,7 +35,7 @@ class Pubrelease_Model extends CI_Model
 
 	        $site[$i]["site_id"] = $row["site_id"];
 	        $site[$i]["site_code"] = $row["site_code"];
-	        // $site[$i]["season"] = $row["season"];
+	        $site[$i]["season"] = $row["season"];
 	        $site[$i++]["address"] = $address;
 	    }
 	    
