@@ -10,6 +10,7 @@ class Pubrelease_Model extends CI_Model
 
 	public function getSites()
 	{
+
 		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
 				FROM sites
 				WHERE active = 1
@@ -34,7 +35,7 @@ class Pubrelease_Model extends CI_Model
 
 	        $site[$i]["site_id"] = $row["site_id"];
 	        $site[$i]["site_code"] = $row["site_code"];
-	        $site[$i]["season"] = $row["season"];
+	        // $site[$i]["season"] = $row["season"];
 	        $site[$i++]["address"] = $address;
 	    }
 	    
