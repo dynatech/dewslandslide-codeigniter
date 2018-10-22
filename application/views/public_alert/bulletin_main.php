@@ -452,18 +452,9 @@
 	</div>
 </div>
 
-</div> <!-- End of Text-Area div -->
-
-<!-- <div class="images" style="page-break-before:always;">
-	<img src="/images/Bulletin/landslide-alert.png"/>
 </div>
 
-<div class="images" style="page-break-before:always;">
-	<img src="/images/Bulletin/alert-table.png"/>
-</div> -->
-
-<?php  
-	
+<?php
 	function amPmConverter($date, $format = "F j, Y, h:i")
 	{
 		$temp = strtotime($date);
@@ -472,5 +463,4 @@
 		elseif ($hour == 12) return date($format . " \N\N", $temp);
 		else return date($format . " A", $temp);
 	}
-
 ?>

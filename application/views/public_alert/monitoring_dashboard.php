@@ -1,4 +1,4 @@
-<!-- 
+
 	
     Created by: Kevin Dhale dela Cruz
     A view page for monitoring sites with alerts; 
@@ -136,55 +136,6 @@
                 </div>  
             </div>
         </div> <!-- END OF SMS EWI MODAL -->
-
-		<!-- BULLETIN MODAL AREA -->
-	    <div class="modal fade" id="bulletinModal" role="dialog">
-	    	<div class="modal-dialog modal-lg">
-	            <!-- Modal content-->
-	            <div class="modal-content">
-	              	<div class="modal-header">
-	                	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	                	<h4 class="modal-title">Send Bulletin and EWI</h4>
-	              	</div>
-	              	<div class="modal-body">
-	              		<div class="form-group">
-							<label for="info">Mail Body:</label>
-							<textarea class="form-control" rows="3" id="info" name="info"></textarea>
-						</div>
-						<hr>
-						<div class="form-group">
-							<label for="recipients">Recipients:&emsp;</label>
-							<input type="text" class="form-control" id="recipients" name="recipients" data-role="tagsinput" />
-							&emsp;<span id="recipients_span"></span>
-						</div>
-						<hr>
-	              		<div id="bulletin_div"></div>
-	              	</div>
-	              	<div class="modal-footer">
-	              		<button id="edit-bulletin" class="btn btn-warning" role="button" type="submit">Edit</button>
-	              		<button id="send" class="btn btn-danger" role="button" type="submit">Send</button>
-	              		<button id="cancel" class="btn btn-info" data-dismiss="modal" role="button">Cancel</button>
-	            	</div>
-	            </div>
-	      	</div>
-	    </div> <!-- End of BULLETIN MODAL AREA -->
-
-        <!-- LOADING AND RENDERING MODAL AREA -->
-	    <div class="modal fade js-loading-bar" id="bulletinLoadingModal" role="dialog">
-			<div class="modal-dialog">
-   				<div class="modal-content">
-	   				<div class="modal-header" id="modalTitle" hidden>
-					</div>
-    				<div class="modal-body" id="modalBody">
-       					<div class="progress progress-popup">
-        					<div class="progress-bar progress-bar-striped active" style="width: 100%">Rendering Bulletin PDF...</div>
-       					</div>
-     				</div>
-     				<div class="modal-footer" id="modalTitle" hidden>
-		   			</div>
-   				</div>
- 			</div>
-		</div><!-- End of LOADING AND RENDERING MODAL AREA -->
 
 		<!-- JSON ERROR MODAL AREA -->
 		<div class="modal fade" id="errorProcessingModal" role="dialog">
@@ -595,5 +546,8 @@
 		    </div>
 		</div> <!-- End of MODAL AREA -->
 
+		<!-- IMPORT BULLETIN MODALS -->
+		<?php echo $bulletin_modals; ?>
+
 	</div> <!-- End of Container -->
-</div> <!-- End of Page Wrapper -->
+</div> <!-- End of Page Wrapper
