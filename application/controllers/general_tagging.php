@@ -31,6 +31,14 @@ class General_tagging extends CI_Controller {
 		}
 	}
 
+	public function getGeneralDataTagViaID() {
+
+	}
+
+	public function getAllGeneralDataTag() {
+
+	}
+
 	public function addNewGeneralDataTag() {
 
 	}
@@ -43,6 +51,18 @@ class General_tagging extends CI_Controller {
 
 	}
 
+	public function getGenTagPointViaID() {
+
+	}
+
+	public function getAllGenTagPoint(){
+
+	}
+
+	public function getAllGenTagPointViaTagname() {
+		
+	}
+
 	public function insertGenTagPoint() {
 
 	}
@@ -52,7 +72,7 @@ class General_tagging extends CI_Controller {
 	}
 
 	public function removeGenTagPoint() {
-		
+
 	}
 }
 ?>
