@@ -1,18 +1,30 @@
 <!-- Chatterbox Scripts -->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/pms.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/site_info/site_info.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/communications/ewi_template.css">
 <link rel="stylesheet" type="text/css" href="../css/dewslandslide/public_alert/monitoring_events_all.css">
 <link rel="stylesheet" type="text/css" href="../css/third-party/awesomplete.css">
 
 <script src="/js/third-party/handlebars.js"></script>
 <script src="/js/third-party/moment-locales.js"></script>
 <script src="/js/third-party/notify.min.js"></script>
-<script src="/js/dewslandslide/communications/dewsewi_template.js"></script>
+<script src="/js/dewslandslide/communications_beta/cbx_ewi_template_creator.js"></script>
 <script src="/js/third-party/awesomplete.min.js"></script>
 
-<div id="page-wrapper">
-    <div class="container-fluid">
-        <div class="page-header">
-            <h1>DEWS-Landslide Early Warning Information <small>Template Creator</small></h1>
-		</div>
+
+<main class="page ewi_template">
+    <section class="clean-block clean-cart ">
+        <div class="container">
+
+        <div class="block-heading">
+            <div class="container-line timeline-head">
+                <span class="circle left"></span>
+                <div id="title-page-container" class="container-line-text timeline-head-text">DEWS-Landslide Early Warning Information | <small>Template Creator</small></div>
+                <span class="circle right"></span>
+            </div>
+        </div>
+
+
 		<ul class="nav nav-tabs">
 		    <li class="active"><a data-toggle="tab" id="key_input_tab" href="#key-inputs">Key Inputs Template</a></li>
 		    <li><a data-toggle="tab" id="message_backbone_tab" href="#message-backbone">Message Backbone Template</a></li>
@@ -22,7 +34,7 @@
 		        <div class="row" style="margin:10px;">
 		            <div class="col-md-12">
 		                <div class="table-responsive">          
-		                    <table class="table" id="template_table" style="width:100%;">
+		                    <table id="template_table" class="display table table-striped" cellspacing="0" width="100%">
 		                        <thead>
 		                            <tr></tr>
 		                        </thead>
@@ -32,23 +44,13 @@
 		                    </table>
 		                </div>
 		            </div>
-		        </div>
-		        <div class="row" style="margin:10px;">
-		        	<div class="col-md-12" style="text-align: center;">
-		        		<input type="button" class="btn btn-primary" id="add_template" value="ADD TEMPLATE">
-		        	</div>
 		        </div>
 			</div>
 			<div id="message-backbone" class="tab-pane fade in">
-				<div class="panel panel-danger">
-					<div class="panel-heading" style="text-align: center;">Please refrain from deleting the <b>"KEY INPUTS" ({SBMP}, {ALERT_LVL}, {GREETINGS}.. etc..)</b> of the template.<br>
-						For the list of Key Inputs you can refer <a href="#" id="show_key_inputs">to this link.</a>
-					</div>
-				</div>
 		        <div class="row" style="margin:10px;">
 		            <div class="col-md-12">
 		                <div class="table-responsive">          	
-		                    <table class="table" id="backbone_table" style="width:100%;">
+		                    <table id="backbone_table" class="display table table-striped" cellspacing="0" width="100%">
 		                        <thead>
 		                            <tr></tr>
 		                        </thead>
@@ -58,16 +60,12 @@
 		                    </table>
 		                </div>
 		            </div>
-		        </div>
-		        <div class="row" style="margin:10px;">
-		        	<div class="col-md-12" style="text-align: center;">
-		        		<input type="button" class="btn btn-primary" id="add_backbone" value="ADD MESSAGE BACKBONE">
-		        	</div>
 		        </div>
 			</div>
 		</div>
     </div>
-</div>
+</section>
+</main>
 
 <div id="template_modal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg">
@@ -82,12 +80,13 @@
 						<div class="col-md-4">
 							<label for="side_code">Site code:</label>
 							<select class="form-control" name="site_code" id="site_code">
+							<option> ... </option>
 							</select>	
 						</div>
 						<div class="col-md-4">
 							<label for="date-time-of-release">Time of release:</label>
 							<div class="input-group date datetime" id="date-time-of-release">		
-                                <input type="text" class="form-control" id="time_of_release" aria-required="true" aria-invalid="false">
+                                <input type="text" class="form-control" id="time_of_release" aria-required="true" aria-invalid="false" placeholder="Enter timestamp" >
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>

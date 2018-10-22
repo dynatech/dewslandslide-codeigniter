@@ -125,13 +125,6 @@ class Contacts_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function getDistinctSites(){
-		$this->db->distinct();
-		$this->db->select('sitename');
-		$query = $this->db->get('communitycontacts');
-		return $query;
-	}
-
 	public function getDistinctOffice(){
 		$this->db->distinct();
 		$this->db->select('office');
@@ -140,7 +133,7 @@ class Contacts_model extends CI_Model {
 	}
 	
 	public function getSitioBangProvMun($site){
-		$query = $this->db->query("SELECT DISTINCT name,sitio,barangay,municipality,province FROM site WHERE name LIKE '%".$site."%'");
+		$query = $this->db->query("SELECT DISTINCT site_code as name,sitio,barangay,municipality,province FROM sites WHERE site_code LIKE '%".$site."%'");
 		return $query;
 	}
 
@@ -178,4 +171,11 @@ class Contacts_model extends CI_Model {
 		$result = $this->db->query($query);
 		return $result;
 	}
+
+	public function getDistinctSites(){
+		$query = "SELECT UPPER(site_code) as sitename , IFNULL(concat('Brgy.', barangay,', ',municipality, ', ',province),concat('Sitio ',sitio,' Brgy.', barangay,', ',municipality, ', ',province)) as address FROM sites ORDER BY site_code ASC";
+		$result = $this->db->query($query);
+		return $result;
+	}
+
 }
