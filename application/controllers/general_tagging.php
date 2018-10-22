@@ -30,5 +30,29 @@ class General_tagging extends CI_Controller {
 		else {
 		}
 	}
+
+	public function addNewGeneralDataTag() {
+
+	}
+
+	public function updateGeneralDataTag() {
+
+	}
+
+	public function deleteGeneralDataTag() {
+
+	}
+
+	public function insertGenTagPoint() {
+
+	}
+
+	public function modifyGenTagPoint() {
+
+	}
+
+	public function removeGenTagPoint() {
+		
+	}
 }
 ?>
