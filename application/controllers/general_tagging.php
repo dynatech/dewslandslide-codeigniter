@@ -10,12 +10,11 @@ class General_tagging extends CI_Controller {
 	}
 	public function index() {
 		$this->is_logged_in();
-		$page = 'General Data Tagging';
 		$data['first_name'] = $this->session->userdata('first_name');
 		$data['last_name'] = $this->session->userdata('last_name');
 		$data['user_id'] = $this->session->userdata("id");
 		
-		$data['title'] = $page;
+		$data['title'] = 'General Data Tagging';
 		$this->load->view('templates/beta/header', $data);
 		$this->load->view('templates/beta/nav');
 		$this->load->view('general_tagging/crud_page');
