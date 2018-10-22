@@ -2,7 +2,7 @@
 class General_tagging extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-		// $this->load->model('ewi_template_model');
+		$this->load->model('general_data_tagging_model');
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 	}
@@ -28,6 +28,50 @@ class General_tagging extends CI_Controller {
 		}
 		else {
 		}
+	}
+
+	public function getGeneralDataTagViaID() {
+		$data = $_POST['data'];
+	}
+
+	public function getAllGeneralDataTag() {
+
+	}
+
+	public function addNewGeneralDataTag() {
+		$data = $_POST['data'];
+	}
+
+	public function updateGeneralDataTag() {
+		$data = $_POST['data'];
+	}
+
+	public function deleteGeneralDataTag() {
+		$data = $_POST['data'];
+	}
+
+	public function getGenTagPointViaID() {
+		$data = $_POST['data'];
+	}
+
+	public function getAllGenTagPoint(){
+
+	}
+
+	public function getAllGenTagPointViaTagname() {
+		$data = $_POST['data'];
+	}
+
+	public function insertGenTagPoint() {
+		$data = $_POST['data'];
+	}
+
+	public function modifyGenTagPoint() {
+		$data = $_POST['data'];
+	}
+
+	public function removeGenTagPoint() {
+		$data = $_POST['data'];
 	}
 }
 ?>

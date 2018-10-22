@@ -140,49 +140,30 @@ $route['analysis/Eos_onModal/(:any)/(:any)/(:any)/(:any)'] = "Eos_modal";
  * Data Analysis Pages Routes
  */
 
+
+// Commons
+$route['site_info/index'] = "site_info/index";
+
+$route['general_data_tagging/index'] = "general_tagging/index";
+$route['general_data_tagging/add_gen_tag'] = "general_tagging/addNewGeneralDataTag";
+$route['general_data_tagging/update_gen_tag'] = "general_tagging/updateGeneralDataTag";
+$route['general_data_tagging/delete_gen_tag'] = "general_tagging/deleteGeneralDataTag";
+$route['general_data_tagging/insert_tag_point'] = "general_tagging/insertGenTagPoint";
+$route['general_data_tagging/modify_tag_point'] = "general_tagging/modifyGenTagPoint";
+$route['general_data_tagging/remove_tag_point'] = "general_tagging/removeGenTagPoint";
+$route['general_data_tagging/get_gen_tag'] = "general_tagging/getGeneralDataTagViaID";
+$route['general_data_tagging/get_all_gen_tag'] = "general_tagging/getAllGeneralDataTag";
+$route['general_data_tagging/get_tag_point'] = "general_tagging/getGenTagPointViaID";
+$route['general_data_tagging/get_all_tag_point'] = "general_tagging/getAllGenTagPoint";
+$route['general_data_tagging/get_tag_point_via_id'] = "general_tagging/getAllGenTagPointViaTagname";
+
+
 $route['staff/all'] = "staff_profile/index";
 $route['staff/get_all_staff'] = "staff_profile/getAllStaffProfile";
 $route['staff/profile'] = "staff_profile/getStaffProfile";
 $route['staff/add_profile'] = "staff_profile/addNewProfile";
 $route['staff/update_profile'] = "staff_profile/updateStaffProfile";
 $route['staff/change_profile_pic'] = "staff_profile/changeProfilePic";
-
-//Gold
-//$route['gold'] = "monitoring/index";
-$route['logout'] = "gold/logout";
-$route['gold/logout'] = "gold/logout";
-$route['gold/node/(:any)/(:num)/(:num)/(:num)'] = "gold/view/node/$1/$2/$3/$4";
-$route['gold/node/(:any)/(:num)/(:num)'] = "gold/view/node/$1/$2/$3";
-$route['gold/node/(:any)/(:num)'] = "gold/view/node/$1/$2";
-$route['gold/site/(:any)/(:num)'] = "gold/view/node/$1/$2";
-$route['gold/site/(:any)'] = "gold/view/site/$1";
-$route['gold/monitoring'] = "gold/view/monitoring";
-
-
-$route['gold/publicrelease'] = "pubrelease/index/publicrelease";
-$route['gold/publicrelease/individual/(:num)'] = "pubrelease/index/publicrelease_individual/$1";
-$route['gold/publicrelease/event/individual/(:num)'] = "pubrelease/index/publicrelease_event_individual/$1";
-$route['gold/publicrelease/event/all'] = "pubrelease/index/publicrelease_event_all";
-$route['gold/publicrelease/faq'] = "pubrelease/index/publicrelease_faq";
-
-$route['gold/accomplishmentreport'] = "accomplishment/index/accomplishmentreport";
-$route['gold/accomplishmentreport/individual/(:num)'] = "gold/view/accomplishmentreport_individual/$1";
-$route['gold/accomplishmentreport/all'] = "gold/view/accomplishmentreport_all";
-
-$route['gold/sitemaintenancereport/individual/(:num)'] = "gold/view/sitemaintenancereport_individual/$1";
-$route['gold/sitemaintenancereport/all'] = "gold/view/sitemaintenancereport_all";
-$route['gold/monitoring_dashboard'] = "monitoring/index";
-
-$route['gold/sample_view'] = "sample/index";
-$route['gold/bulletin/(:any)'] = "bulletin/view/$1";
-$route['gold/bulletin-builder/(:num)'] = "bulletin/build/$1";
-$route['gold/bulletin-editor/(:num)'] = "bulletin/edit/$1";
-$route['gold/bulletin-main/(:num)/(:any)'] = "bulletin/main/$1/$2";
-
-
-// Commons
-$route['site_info/index'] = "site_info/index";
-$route['general_data_tagging/index'] = "general_tagging/index";
 
 $route['default_controller'] = "lin";
 $route['404_override'] = '';
