@@ -5,6 +5,8 @@ class General_tagging extends CI_Controller {
 		$this->load->model('general_data_tagging_model');
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
+		$config_app = switch_db("commons_db");
+		$this->db = $this->load->database($config_app, TRUE);
 	}
 	public function index() {
 		$this->is_logged_in();
@@ -22,7 +24,6 @@ class General_tagging extends CI_Controller {
 
 	public function is_logged_in() {
 		$is_logged_in = $this->session->userdata('is_logged_in');
-		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
 			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
 			die();
@@ -36,7 +37,8 @@ class General_tagging extends CI_Controller {
 	}
 
 	public function getAllGeneralDataTag() {
-
+		$result = $this->general_data_tagging_model->getAllGDT();
+		print json_encode($result);
 	}
 
 	public function addNewGeneralDataTag() {
@@ -56,7 +58,8 @@ class General_tagging extends CI_Controller {
 	}
 
 	public function getAllGenTagPoint(){
-
+		$result = $this->general_data_tagging_model->getAllGDTPoint();
+		print json_encode($result);
 	}
 
 	public function getAllGenTagPointViaTagname() {
