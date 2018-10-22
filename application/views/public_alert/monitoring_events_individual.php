@@ -108,7 +108,7 @@
             </div>
 
             <div class="comments-div">
-                Comments:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span class="comments">Dummy Comment</span></strong>
+                Comments:&ensp;<strong><span class="comments">Dummy Comment</span></strong>
                 <div class="row"><hr></div>
             </div>
             

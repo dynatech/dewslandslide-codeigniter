@@ -11,7 +11,7 @@
 
 <?php  
 
-	$event = array_pop(json_decode($event));
+	$event = json_decode($event);
 	$release = json_decode($release);
 	$triggers = json_decode($triggers);
 	$responses = json_decode($responses);

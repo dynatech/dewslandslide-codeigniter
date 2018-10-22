@@ -26,7 +26,7 @@
 				break;
 			}
 
-			$temp = json_decode($this->bulletin_model->getRelease($release_id));
+			$temp = $this->bulletin_model->getRelease($release_id);
 			if( $temp == null) {
 				show_404();
 				break;
@@ -43,7 +43,10 @@
 			$data['triggers'] = $this->bulletin_model->getAllEventTriggers($event_id);
 			$triggers = json_decode($data['triggers']);
 
-			$data['event'] = $this->bulletin_model->getEvent($event_id);
+			$temp2 = $this->bulletin_model->getEvent($event_id);
+			$data['event'] = json_encode($temp2);
+			$event_status = $temp2->status;
+
 			$data['reporters'] = array(
 				'reporter_mt' => $this->bulletin_model->getName($temp->reporter_id_mt),
 				'reporter_ct' => $this->bulletin_model->getName($temp->reporter_id_ct),  
@@ -79,7 +82,8 @@
 				}
 				$data['validity'] = $flag === true ? date("Y-m-d H:i:s", strtotime($temp->data_timestamp) + 4.5 * 3600) : $computed_validity;
 			} else {
-				$data['previous_internal_alert'] = $this->bulletin_model->getPreviousNonA0Release($event_id);
+				if ($event_status !== "routine")
+					$data['previous_internal_alert'] = $this->bulletin_model->getPreviousNonA0Release($event_id);
 			}
 			
 			return $this->load->view('public_alert/bulletin_main', $data, $bool);
