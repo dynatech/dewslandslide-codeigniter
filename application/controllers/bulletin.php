@@ -138,22 +138,19 @@
 				$subject = $_POST['subject'];
 				$text = $_POST['text'];
 				$filename = $_POST['filename'];
+				$is_test = $_POST['is_test'];
 			}
 
-			if (base_url() == "http://www.dewslandslide.com/") {
-				// FOR LINUX
-				$path = "/usr/share/php/PHPMailer/PHPMailerAutoload.php";
-				$cred = $this->bulletin_model->getEmailCredentials('dewslmonitoring');
-			}	
-			else
-			{
-				if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
-				{
-					// FOR WINDOWS
-					$path = "C:\\xampp\PHPMailer\PHPMailerAutoload.php";
-				}
-				else $path = "/usr/share/php/PHPMailer/PHPMailerAutoload.php";
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+				$path = "C:\\xampp\PHPMailer\PHPMailerAutoload.php";
+			} else {
+				$path = "/usr/share/php/PHPMailer/PHPMailerAutoload.php";	
+			}
+
+			if ($is_test === "true") {
 				$cred = $this->bulletin_model->getEmailCredentials('dynaslopeswat');
+			} else {
+				$cred = $this->bulletin_model->getEmailCredentials('dewslmonitoring');
 			}
 
 			if(is_string($cred)) { echo $cred; return; }

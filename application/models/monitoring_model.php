@@ -61,7 +61,7 @@ class Monitoring_Model extends CI_Model
 
 	public function getSites()
 	{
-		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season 
+		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
 				FROM sites 
 				ORDER BY site_code ASC";
 
@@ -123,7 +123,7 @@ class Monitoring_Model extends CI_Model
 		$this->db->from('public_alert_release');
 		$this->db->where('public_alert_release.release_id = (SELECT MIN(r.release_id) FROM public_alert_release r WHERE r.event_id = ' . $event_id . ')', NULL, FALSE);
 		$this->db->join('public_alert_trigger', 'public_alert_release.release_id = public_alert_trigger.release_id', 'left');
-		$this->db->join('lut_triggers', 'lut_triggers.trigger_type = public_alert_trigger.trigger_type COLLATE utf8_bin');
+		$this->db->join('lut_triggers', 'lut_triggers.trigger_type = public_alert_trigger.trigger_type COLLATE utf8_bin', 'left');
 		$this->db->order_by('public_alert_release.release_id', 'desc');
 		$this->db->order_by('public_alert_trigger.timestamp', 'asc');
 		$data = $this->db->get();
@@ -160,5 +160,4 @@ class Monitoring_Model extends CI_Model
         $id = $this->db->insert_id();
         return $id;
     }
-
 }
