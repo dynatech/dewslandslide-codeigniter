@@ -144,6 +144,7 @@ $route['analysis/Eos_onModal/(:any)/(:any)/(:any)/(:any)'] = "Eos_modal";
 // Commons
 $route['site_info/index'] = "site_info/index";
 
+$route['general_data_tagging/index'] = "general_tagging/index";
 $route['general_data_tagging/add_gen_tag'] = "general_tagging/addNewGeneralDataTag";
 $route['general_data_tagging/update_gen_tag'] = "general_tagging/updateGeneralDataTag";
 $route['general_data_tagging/delete_gen_tag'] = "general_tagging/deleteGeneralDataTag";
