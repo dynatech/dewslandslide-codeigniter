@@ -61,7 +61,7 @@
 			$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
 			$this->db->where('public_alert_event.event_id', $event_id);
 			$query = $this->db->get();
-			return json_encode($query->result_object());
+			return $query->row();
 		}
 
 		public function getAllEventTriggers($event_id, $release_id = null)
@@ -106,7 +106,7 @@
 		public function getRelease($release_id)
 		{
 			$query = $this->db->get_where('public_alert_release', array('release_id' => $release_id));
-			return count($query->result_array()) > 0 ? json_encode($query->result_array()[0]) : null;
+			return count($query->result_array()) > 0 ? $query->row() : null;
 		}
 
 		public function getPreviousNonA0Release($event_id)

@@ -120,6 +120,7 @@ $route['generalinformation/updateGintagsId'] = "gintagshelper/updateGintagsByGin
  */
 
 $route['analysis/site_analysis'] = "site_analysis";
+$route['analysis/site_analysis/(:any)'] = "site_analysis";
 $route['analysis/eos_charts/(:any)/(:any)/(:any)/(:any)'] = "end_of_shift_charts";
 $route['analysis/manifestations'] = "manifestations";
 $route['analysis/manifestations/(:any)'] = "manifestations/individual_site/$1";
@@ -177,6 +178,8 @@ $route['gold/bulletin/(:any)'] = "bulletin/view/$1";
 $route['gold/bulletin-builder/(:num)'] = "bulletin/build/$1";
 $route['gold/bulletin-editor/(:num)'] = "bulletin/edit/$1";
 $route['gold/bulletin-main/(:num)/(:any)'] = "bulletin/main/$1/$2";
+
+$route['site_info/index'] = "site_info/index";
 
 $route['default_controller'] = "lin";
 $route['404_override'] = '';
