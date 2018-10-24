@@ -50,19 +50,26 @@ class General_tagging extends CI_Controller {
 	}
 
 	public function addNewGeneralDataTag() {
-		$data = $_POST['data'];
+		$data = $_POST['data_tags'];
+		$result = $this->general_data_tagging_model->addGDT($data);
+		echo json_encode($result);
 	}
 
 	public function updateGeneralDataTag() {
-		$data = $_POST['data'];
+		$data = $_POST['data_tags'];
+		$result = $this->general_data_tagging_model->updateGDT($data);
+		echo json_encode($result);
 	}
 
 	public function deleteGeneralDataTag() {
-		$data = $_POST['data'];
+		$data = $_POST['data_tags'];
+		$result = $this->general_data_tagging_model->deleteGDT($data);
+		$result = ($result == true) ? true : false;
+		echo json_encode($result);
 	}
 
 	public function getGenTagPointViaID() {
-		$data = $_POST['data'];
+		$data = $_POST['data_tags'];
 	}
 
 	public function getAllGenTagPoint(){
