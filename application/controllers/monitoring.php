@@ -147,9 +147,10 @@ class Monitoring extends CI_Controller
 		$overdue = $_POST['overdue'];
 	}
 
-	public function getStaffNames()
+	public function getStaffNames($include_inactive = false)
 	{
-		echo $this->monitoring_model->getStaff();
+		if ($include_inactive === "1") $include_inactive = true;
+		echo $this->monitoring_model->getStaff($include_inactive);
 	}
 
 	public function is_logged_in() 
