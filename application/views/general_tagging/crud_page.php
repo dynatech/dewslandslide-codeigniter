@@ -125,7 +125,7 @@
             </div>
             <div class="col-md-12">
                 <div class="form-group hideable">
-                    <label class="control-label" for="data_description">Description</label>
+                    <label class="control-label" for="data_description">Description / Script Corrector</label>
                         <textarea type="text" class="form-control" id="data_description" name="data_description" placeholder="Enter tag description" ></textarea>
                 </div>
             </div>
