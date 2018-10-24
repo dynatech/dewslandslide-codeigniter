@@ -630,27 +630,4 @@ class Pubrelease_Model extends CI_Model
 
 		return json_encode($data);
 	}
-
-	public function getAlertHistory($site)
-	{
-		$sql = "SELECT 
-            		public_alert.public_alert_id,
-            		public_alert.entry_timestamp,
-            		lut_alerts.public_alert_level
-            	FROM 
-                	public_alert 
-            	INNER JOIN 
-                	lut_alerts
-              	ON 
-                	public_alert.internal_alert_level = lut_alerts.internal_alert_level
-              	WHERE 
-                	site = '$site' ORDER BY entry_timestamp DESC";
-
-        $query = $this->db->query($sql);
-        $result = $query->result_object();
-		$data = $result;
-
-		return json_encode($data);
-	}
-
 }
