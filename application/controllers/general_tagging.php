@@ -30,14 +30,23 @@ class General_tagging extends CI_Controller {
 		else {
 		}
 	}
-
+	
 	public function getGeneralDataTagViaID() {
 		$data = $_POST['data'];
 	}
 
 	public function getAllGeneralDataTag() {
-		$result = $this->general_data_tagging_model->getAllGDT();
-		print json_encode($result);
+		$all_tags = [];
+		$tags = $this->general_data_tagging_model->getAllGDT();
+		for ($counter = 0; $counter < sizeof($tags); $counter++) {
+			$tags[$counter] = (array) $tags[$counter];
+			$tags[$counter]['actions'] = "<div>".
+			"<span class='update glyphicon glyphicon-pencil' aria-hidden='true' style='margin-right: 25%;'></span>".
+			"<span class='delete glyphicon glyphicon-trash' aria-hidden='true' style='margin-right: 25%;'></span>".
+			"</div>";
+		}
+		$all_tags['data'] = $tags;
+		echo json_encode($all_tags);
 	}
 
 	public function addNewGeneralDataTag() {
