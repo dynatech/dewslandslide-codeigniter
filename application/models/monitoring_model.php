@@ -96,7 +96,7 @@ class Monitoring_Model extends CI_Model
 	 *
 	 * @author Kevin Dhale dela Cruz
 	 **/
-	public function getStaff($include_inactive)
+	public function getStaff($include_inactive = false)
 	{
 		$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
 		$this->db->from('comms_db.users AS u');
