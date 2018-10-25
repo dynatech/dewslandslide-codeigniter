@@ -95,12 +95,13 @@ class Monitoring_Model extends CI_Model
 	 *
 	 * @author Kevin Dhale dela Cruz
 	 **/
-	// public function getStaff() // CAUTION - already in users_model
-	// {
+
+
+	// public function getStaff($include_inactive = false) { // CAUTION - already in users_model
 	// 	$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
 	// 	$this->db->from('comms_db.users AS u');
 	// 	$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
-	// 	$this->db->where('is_active','1');
+	// 	if (!$include_inactive) $this->db->where('is_active','1');
 	// 	$this->db->order_by("u.lastname", "asc");
 	// 	$query = $this->db->get();
 	// 	return json_encode($query->result_array());
