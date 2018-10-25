@@ -7,6 +7,7 @@
 			$this->load->model('accomplishment_model');
 			$this->load->model('subsurface_column_model');
 			$this->load->model("surficial_model");
+			$this->load->model("bulletin_model");
 		}
 
 		public function index()
@@ -74,13 +75,14 @@
 			$start_ts = date("Y-m-d H:i:s", strtotime($end . "-12 hours -30 minutes"));
 			$columns = $this->subsurface_column_model->getSiteSubsurfaceColumns($site_code);
 
-			foreach ($columns as $column) {
+			foreach ($columns as $key => $column) {
 				if (is_null($column["date_deactivated"])) {
 					$points = $this->subsurface_column_model->getSubsurfaceColumnData($column["tsm_name"], $start_ts, $end_ts);
-					$column["status"] = count($points) > 0 ? "with_data" : "no_data";
+					$status = count($points) > 0 ? "with_data" : "no_data";
 				} else {
-					$column["status"] = "deactivated";
+					$status = "deactivated";
 				}
+				$columns[$key]["status"] = $status;
 			}
 
 			$temp_arr = array_unique(array_column($columns, "tsm_name"));
@@ -175,9 +177,11 @@
 			return $surficial;
 		}
 
-		public function getEndOfShiftDataAnalysis ()
+		public function getEndOfShiftDataAnalysis ($shift_start = null, $event_id = null)
 		{
-			$data = $this->accomplishment_model->getEndOfShiftDataAnalysis($_GET["shift_start"], $_GET["event_id"]);
+			if ($shift_start === null) $shift_start = $_GET["shift_start"];
+			if ($event_id === null) $event_id = $_GET["event_id"];
+			$data = $this->accomplishment_model->getEndOfShiftDataAnalysis($shift_start, $event_id);
 			echo json_encode($data);
 		}
 
@@ -235,21 +239,18 @@
 			$body = $_POST['body'];
 			$event_start = $this->accomplishment_model->getEvent($_POST['event_id'])->event_start;
 			$subject = strtoupper($_POST['site_code']) . " " . strtoupper(date("d M Y", strtotime($event_start)));
+			$is_test = $_POST["is_test"];
 
-			if (base_url() == "http://www.dewslandslide.com/") {
-				// FOR LINUX
-				$path = "/usr/share/php/PHPMailer/PHPMailerAutoload.php";
-				$cred = $this->accomplishment_model->getEmailCredentials('dewslmonitoring');
-			}	
-			else
-			{
-				if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
-				{
-					// FOR WINDOWS
-					$path = "C:\\xampp\PHPMailer\PHPMailerAutoload.php";
-				}
-				else $path = "/usr/share/php/PHPMailer/PHPMailerAutoload.php";
-				$cred = $this->accomplishment_model->getEmailCredentials('dynaslopeswat');
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+				$path = "C:\\xampp\PHPMailer\PHPMailerAutoload.php";
+			} else {
+				$path = "/usr/share/php/PHPMailer/PHPMailerAutoload.php";	
+			}
+
+			if ($is_test === "true") {
+				$cred = $this->bulletin_model->getEmailCredentials('dynaslopeswat');
+			} else {
+				$cred = $this->bulletin_model->getEmailCredentials('dewslmonitoring');
 			}
 
 			if(is_string($cred)) { echo $cred; return; }

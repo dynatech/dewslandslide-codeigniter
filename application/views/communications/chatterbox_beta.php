@@ -13,10 +13,6 @@
 <script src="/js/dewslandslide/communications_beta/cbx_variables.js"></script>
 <script src="/js/dewslandslide/communications_beta/websocket_server.js"></script>
 
-
-<!-- Server time-->
-<!-- <script type="text/javascript" src="/js/dewslandslide/server_time.js"></script> -->
-
 <!-- ChatterBox CSS --> -->
 <link rel="stylesheet" type="text/css" href="/css/third-party/awesomplete.css">
 <link rel="stylesheet" type="text/css" href="/css/third-party/bootstrap-tagsinput.css">
@@ -55,7 +51,7 @@
 					    	<ul id="quick-inbox-display" class="friend-list"></ul>
 					    </div>
 					    <div role="tabpanel" class="tab-pane" id="unknown">
-					    	<ul id="quick-inbox-unknown-display" class="friend-list"></ul>
+					    	<ul id="quick-unregistered-inbox-display" class="friend-list"></ul>
 					    </div>
 					    <div role="tabpanel" class="tab-pane" id="event-inbox">
 					    	<ul id="quick-event-inbox-display" class="friend-list"></ul>

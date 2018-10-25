@@ -1,4 +1,5 @@
-<!-- 
+
+	
     Created by: Kevin Dhale dela Cruz
     A view page for monitoring sites with alerts; 
     acts as a homepage
@@ -23,13 +24,11 @@
 <script type="text/javascript" src="js/dewslandslide/communications_beta/cbx_dashboard.js"></script>
 <script type="text/javascript" src="js/dewslandslide/communications_beta/websocket_server.js"></script>
 
-<!-- Server time-->
-<script type="text/javascript" src="/js/dewslandslide/server_time.js"></script>
-
 <?php  
 	$sites = json_decode($sites);
 	$staff = json_decode($staff);
 	$events = json_decode($events);
+	// $publicAlerts = json_decode($publicJSON)
 ?>
 
 <div id="page-wrapper" style="height: 100%;">
@@ -71,115 +70,24 @@
 			    		</div>
 			    	</div>
 		    	</div>
-		    	
 
-		    	<div class="row">
-			    	<div class="panel panel-default" id="candidate-panel">
-						<div class="panel-heading"><div class="row">
-							<div class="col-sm-8">Latest Candidate Triggers and Releases</div><div class="col-sm-4 text-right row-count">Row count: 0</div>
-						</div></div>
-						<div class="panel-body clearfix">
-							<div class="col-md-12" style="text-align:center; font-size: 12px;"><b>Legend: &emsp;&emsp;&emsp;<span class="glyphicon glyphicon-stop valid-square"></span> No reported invalid trigger(s) &emsp;&emsp;&emsp;<span class="glyphicon glyphicon-stop partial-square"></span> Released alert with trigger(s) tagged invalid &emsp;&emsp;&emsp;<span class="glyphicon glyphicon-stop invalid-square"></span> Tagged invalid
-							</b></div>
-							<div class="col-md-12"><div class="table-responsive">
-				                <table class="table" id="candidate">
-				                    <thead>
-				                        <tr>
-				                            <th>Site Name</th>
-				                            <th>Data Timestamp</th>
-				                            <th>Latest Trigger Timestamp</th>
-				                            <th>Trigger Type</th>
-				                            <th>Validity</th>
-				                            <th>Action</th>
-				                        </tr>
-				                    </thead>
-				                    <tbody>
-				                    </tbody>
-				              </table>
-							</div></div>
-				    	</div>
-					</div>
-				</div>
+			</div>
+		</div>
 
-		    	<div class="row">
-			    	<div class="panel panel-default" id="latest-panel">
-						<div class="panel-heading"><div class="row">
-							<div class="col-sm-8">Latest Site Alerts</div><div class="col-sm-4 text-right row-count">Row count: 0</div>
-						</div></div>
-						<div class="panel-body clearfix">
-							<div class="col-md-12"><div class="table-responsive">
-				                <table class="table" id="latest">
-				                    <thead>
-				                        <tr>
-				                            <th class="col-sm-1">Site Name</th>
-				                            <th class="col-sm-2">Event Start</th>
-				                            <th class="col-sm-2">Latest Trigger Timestamp</th>
-				                            <th class="col-sm-1">Internal Alert</th>
-				                            <th class="col-sm-2">Validity</th>
-				                            <th class="col-sm-2">Last Alert Release</th>
-				                            <th class="col-sm-2">Send EWI</th>
-				                        </tr>
-				                    </thead>
-				                    <tbody>
-				                    </tbody>
-				              </table>
-							</div></div>
-				    	</div>
-					</div>
-				</div>
+		<div class="row">
+			<ul class="nav nav-tabs nav-justified">
+	    		<li class="active"><a data-toggle="tab" href="#monitoring-tab"><strong>DASHBOARD TABLES</strong></a></li>
+	    		<li><a data-toggle="tab" href="#generated-alerts-tab"><strong>GENERATED ALERTS</strong></a></li>
+	    	</ul>
+    	</div>
 
-				<div class="row">
-			    	<div class="panel panel-default" id="extended-panel">
-			    		<div class="panel-heading"><div class="row">
-							<div class="col-sm-8">Sites Under 3-Day Extended Monitoring</div><div class="col-sm-4 text-right row-count">Row count: 0</div>
-						</div></div>
-						<div class="panel-body clearfix">
-							<div class="col-md-12" style="text-align:center; font-size: 12px;"><b>Legend: &emsp;&emsp;&emsp;<span class="glyphicon glyphicon-stop day-one-square"></span> First Day &emsp;&emsp;&emsp;<span class="glyphicon glyphicon-stop day-two-square"></span> Second Day &emsp;&emsp;&emsp;<span class="glyphicon glyphicon-stop day-three-square"></span> Third Day &emsp;&emsp;&emsp;<span class="glyphicon glyphicon-stop day-overdue-square"></span> Overdue</b></div>
-							<div class="col-md-12"><div class="table-responsive">
-				                <table class="table" id="extended">
-				                    <thead>
-				                        <tr>
-				                            <th class="col-sm-1">Site Name</th>
-				                            <th class="col-sm-3">End of Event</th>
-				                            <th class="col-sm-3">Monitoring Start</th>
-				                            <th class="col-sm-3">Monitoring End</th>
-				                            <th class="col-sm-2">Send EWI</th>
-				                        </tr>
-				                    </thead>
-				                    <tbody>
-				                    </tbody>
-				              </table>
-							</div></div>
-				    	</div>
-					</div>
-				</div>
-
-			    <div class="row">
-			    	<div class="panel panel-default" id="overdue-panel">
-						<div class="panel-heading"><div class="row">
-							<div class="col-sm-8">Sites with Due Alerts</div><div class="col-sm-4 text-right row-count">Row count: 0</div>
-						</div></div>
-						<div class="panel-body clearfix">
-							<div class="col-md-12"><div class="table-responsive">
-				                <table class="table" id="overdue">
-				                    <thead>
-				                        <tr>
-				                            <th class="col-sm-1">Site Name</th>
-				                            <th class="col-sm-2">Event Start</th>
-				                            <th class="col-sm-2">Latest Trigger Timestamp</th>
-				                            <th class="col-sm-1">Internal Alert</th>
-				                            <th class="col-sm-2">Validity</th>
-				                            <th class="col-sm-2">Last Alert Release</th>
-				                            <th class="col-sm-1">Send EWI</th>
-				                        </tr>
-				                    </thead>
-				                    <tbody>
-				                    </tbody>
-				              </table>
-							</div></div>
-				    	</div>
-					</div>
-				</div>
+		<div class="tab-content">
+			<div id="monitoring-tab" class="tab-pane fade in active">
+				<br/>
+				<?php echo $monitoring ?>
+			</div>
+			<div id="generated-alerts-tab" class="tab-pane fade in">
+				<?php echo $generated_alerts ?>
 			</div>
 		</div>
 
@@ -228,55 +136,6 @@
                 </div>  
             </div>
         </div> <!-- END OF SMS EWI MODAL -->
-
-		<!-- BULLETIN MODAL AREA -->
-	    <div class="modal fade" id="bulletinModal" role="dialog">
-	    	<div class="modal-dialog modal-lg">
-	            <!-- Modal content-->
-	            <div class="modal-content">
-	              	<div class="modal-header">
-	                	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	                	<h4 class="modal-title">Send Bulletin and EWI</h4>
-	              	</div>
-	              	<div class="modal-body">
-	              		<div class="form-group">
-							<label for="info">Mail Body:</label>
-							<textarea class="form-control" rows="3" id="info" name="info"></textarea>
-						</div>
-						<hr>
-						<div class="form-group">
-							<label for="recipients">Recipients:&emsp;</label>
-							<input type="text" class="form-control" id="recipients" name="recipients" data-role="tagsinput" />
-							&emsp;<span id="recipients_span"></span>
-						</div>
-						<hr>
-	              		<div id="bulletin_div"></div>
-	              	</div>
-	              	<div class="modal-footer">
-	              		<button id="edit-bulletin" class="btn btn-warning" role="button" type="submit">Edit</button>
-	              		<button id="send" class="btn btn-danger" role="button" type="submit">Send</button>
-	              		<button id="cancel" class="btn btn-info" data-dismiss="modal" role="button">Cancel</button>
-	            	</div>
-	            </div>
-	      	</div>
-	    </div> <!-- End of BULLETIN MODAL AREA -->
-
-        <!-- LOADING AND RENDERING MODAL AREA -->
-	    <div class="modal fade js-loading-bar" id="bulletinLoadingModal" role="dialog">
-			<div class="modal-dialog">
-   				<div class="modal-content">
-	   				<div class="modal-header" id="modalTitle" hidden>
-					</div>
-    				<div class="modal-body" id="modalBody">
-       					<div class="progress progress-popup">
-        					<div class="progress-bar progress-bar-striped active" style="width: 100%">Rendering Bulletin PDF...</div>
-       					</div>
-     				</div>
-     				<div class="modal-footer" id="modalTitle" hidden>
-		   			</div>
-   				</div>
- 			</div>
-		</div><!-- End of LOADING AND RENDERING MODAL AREA -->
 
 		<!-- JSON ERROR MODAL AREA -->
 		<div class="modal fade" id="errorProcessingModal" role="dialog">
@@ -687,5 +546,8 @@
 		    </div>
 		</div> <!-- End of MODAL AREA -->
 
+		<!-- IMPORT BULLETIN MODALS -->
+		<?php echo $bulletin_modals; ?>
+
 	</div> <!-- End of Container -->
-</div> <!-- End of Page Wrapper -->
+</div> <!-- End of Page Wrapper

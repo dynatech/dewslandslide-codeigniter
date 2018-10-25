@@ -28,7 +28,8 @@
                         <li class="dropdown-header">Miscellaneous</li>
                         <li><a href="<?php echo base_url(); ?>monitoring/faq">Manuals, Primer, and FAQs</a></li>
                         <li><a href="<?php echo base_url(); ?>monitoring/issues_and_reminders">Monitoring Issues and Reminders</a></li>
-                        <li><a href="<?php echo base_url(); ?>gintags/manager"><span class="text-primary">GINTAGs Manager <span class="text-warning" style="color: #f2ff45"><i>*NEW*</i></span></span></a></li>
+                        <li><a href="<?php echo base_url(); ?>gintags/manager">GINTAGs Manager</span></a></li>
+                        <li><a href="<?php echo base_url(); ?>site_info/index">Site information</span></a></li>
                     </ul>
                 </li>
                 
@@ -36,15 +37,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Analysis</a>
                     <ul class="dropdown-menu">
                        <li class="dropdown-header">Sensors and Rain Gauges</li>
-                        <li><a href="<?php echo base_url(); ?>analysis/sensor_overview">Overview</a></li>
                         <li><a href="<?php echo base_url(); ?>analysis/site_analysis">Site Analysis</a></li>
-                        <li><a href="<?php echo base_url(); ?>analysis/column">Column Level</a></li>
-                        <li><a href="<?php echo base_url(); ?>analysis/node">Node Level</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="<?php echo base_url(); ?>analysis/surficial">Surficial Data</a></li>
-                        <li role="separator" class="divider"></li>
                         <li><a href="<?php echo base_url(); ?>analysis/rainfall_scanner">Rainfall Scanner</a></li>
-                        <li role="separator" class="divider"></li>
                         <li><a href="<?php echo base_url(); ?>analysis/manifestations">Manifestations of Movement Page</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Communication</li>
@@ -56,16 +50,9 @@
                 <li class="dropdown dropdown-nav">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header">Node Status</li>
-                        <li><a href="<?php echo base_url(); ?>analysis/nodereport">Update Form</a></li>
-                        <li role="separator" class="divider"></li>
                         <li class="dropdown-header">End-Of-Shift Report and Narratives</li>
                         <li><a href="<?php echo base_url(); ?>reports/accomplishment/form">Filing Form and Report Generator</a></li>
                         <li><a href="<?php echo base_url(); ?>reports/accomplishment/checker">Shift Events and Releases Checker</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Site Maintenance</li>
-                        <li><a href="<?php echo base_url(); ?>reports/site_maintenance/form">Filing Form</a></li>
-                        <li><a href="<?php echo base_url(); ?>reports/site_maintenance/all">All Reports Table</a></li>
                     </ul>
                 </li>
 

@@ -16,6 +16,9 @@
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/subsurface_node_plotter.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/download_site_charts.js"></script>
 
+<!-- d3 -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
 <!-- CSS Files -->
 <link rel="stylesheet" type="text/css" href="/css/dewslandslide/data_analysis/site_analysis.css">
 
@@ -26,6 +29,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">
                     Integrated Site Analysis Page
+                    <button id="target"> TARGET</button>
                 </h1>
             </div>
         </div>
@@ -164,3 +168,10 @@
         </div>
     </div>
 </div> <!-- End of MODAL AREA -->
+<script type="text/javascript">
+    $('#target').click(function() {
+    var svg = d3.select("#highcharts-ft680iu-0 svg").selectAll("g");
+    console.log(svg)
+})
+   
+</script>

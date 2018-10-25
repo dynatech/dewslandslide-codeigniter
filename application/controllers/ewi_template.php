@@ -19,11 +19,11 @@ class Ewi_template extends CI_Controller {
 		$data['jquery'] = "old";
 		$data['title'] = $page;
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
 		$this->load->view('communications/handlebars-chatterbox_beta');
 		$this->load->view('communications/ewi_template_creator');
-		$this->load->view('templates/footer');
+		$this->load->view('templates/beta/footer');
 	}
 
 	public function is_logged_in() {
