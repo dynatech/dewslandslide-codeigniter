@@ -248,25 +248,25 @@
 			return json_encode($final);
 		}
 
-		public function getSites()
-		{
-			$sql = "SELECT DISTINCT LEFT(name , 3) as name, sitio, barangay, municipality, province FROM site_column ORDER BY name ASC";
+		// public function getSites() // CAUTION - this code was not used in any controller. Might be an unused code.
+		// {
+		// 	$sql = "SELECT DISTINCT LEFT(name , 3) as name, sitio, barangay, municipality, province FROM site_column ORDER BY name ASC";
 			
-			$query = $this->db->query($sql);
-			$result = [];
-			$i = 0;
-			foreach ($query->result() as $row) {
-				$result[$i]["name"] = $row->name;
+		// 	$query = $this->db->query($sql);
+		// 	$result = [];
+		// 	$i = 0;
+		// 	foreach ($query->result() as $row) {
+		// 		$result[$i]["name"] = $row->name;
 
-				if (is_null($row->sitio)) $address = "$row->barangay, $row->municipality, $row->province";
-				else $address = "$row->sitio, $row->barangay, $row->municipality, $row->province";
+		// 		if (is_null($row->sitio)) $address = "$row->barangay, $row->municipality, $row->province";
+		// 		else $address = "$row->sitio, $row->barangay, $row->municipality, $row->province";
 
-				$result[$i]["address"] = $address;
-				$i = $i + 1;
-			}
+		// 		$result[$i]["address"] = $address;
+		// 		$i = $i + 1;
+		// 	}
 
-			return json_encode($result);
-		}
+		// 	return json_encode($result);
+		// }
 
 		public function getAlerts()
 		{

@@ -6,6 +6,7 @@ class Manifestations_Model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->model('sites_model');
 	}
 
 	/**
@@ -71,23 +72,23 @@ class Manifestations_Model extends CI_Model
 		return json_encode($result->result_object());
 	}
 
-	public function getLastEventStatus($site_id)
-	{
-		$this->db->select("status");
-		$this->db->from("public_alert_event");
-		$this->db->where("site_id", $site_id);
-		$this->db->order_by("event_start", "desc");
-		$this->db->limit(1);
-		$result = $this->db->get();
+	// public function getLastEventStatus($site_id) // CAUTION - already in public_alert_event_model
+	// {
+	// 	$this->db->select("status");
+	// 	$this->db->from("public_alert_event");
+	// 	$this->db->where("site_id", $site_id);
+	// 	$this->db->order_by("event_start", "desc");
+	// 	$this->db->limit(1);
+	// 	$result = $this->db->get();
 
-		return json_encode($result->row()->status);
-	}
+	// 	return json_encode($result->row()->status);
+	// }
 
 	public function getMOMApi($site_code = "all", $start = null, $end = null)
 	{
 		$site_id = null;
 		if( $site_code !== "all" ) {
-			$site_id = $this->getSiteID($site_code);
+			$site_id = $this->sites_model->getSiteID($site_code);
 		}
 
 		$this->db->select("pm.*, mf.*, u.first_name AS validator_first, u.last_name AS validator_last, s.name AS site_code");
@@ -144,16 +145,16 @@ class Manifestations_Model extends CI_Model
 	 *
 	 * @author Kevin Dhale dela Cruz
 	 **/
-	public function getStaff()
-	{
-		$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
-		$this->db->from('comms_db.users AS u');
-		$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
-		$this->db->where('is_active','1');
-		$this->db->order_by("u.lastname", "asc");
-		$query = $this->db->get();
-		return json_encode($query->result_array());
-	}
+	// public function getStaff() // CAUTION - Already in users_model
+	// {
+	// 	$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
+	// 	$this->db->from('comms_db.users AS u');
+	// 	$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
+	// 	$this->db->where('is_active','1');
+	// 	$this->db->order_by("u.lastname", "asc");
+	// 	$query = $this->db->get();
+	// 	return json_encode($query->result_array());
+	// }
 
 	public function getCount($search = null, $filter = null)
 	{
@@ -183,13 +184,6 @@ class Manifestations_Model extends CI_Model
 		return json_encode($query->result_array());
 	}
 
-	public function getSiteID($code)
-	{
-		$this->db->select("site_id");
-		$query = $this->db->get_where('sites', array('site_code' => $code));
-		return $query->row()->site_id;
-	}
-
 	public function insertIfNotExists($table, $data)
 	{
 		$result = $this->db->get_where($table, $data);
@@ -209,5 +203,13 @@ class Manifestations_Model extends CI_Model
         $id = $this->db->insert_id();
         return $id;
     }
+
+	/**
+	 * Note: originally from Pubrelease_model
+	 **/
+	public function getFeatureNames($site_id, $type) {
+		$query = $this->db->get_where("manifestation_features", array("site_id" => $site_id, "feature_type" => $type));
+		return json_encode($query->result_object());
+	}    
 
 }

@@ -6,6 +6,10 @@ class Pubrelease extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('pubrelease_model');
+		$this->load->model('sites_model');
+		$this->load->model('users_model');
+		$this->load->model('public_alert_event_model');
+		$this->load->model('manifestations_model');
 		$this->load->library('../controllers/monitoring');
 	}
 
@@ -21,9 +25,9 @@ class Pubrelease extends CI_Controller {
 		{
 			case 'alert_release_form':
 				$data['title'] = "DEWS-Landslide Early Warning Release Form";
-				$data['sites'] = $this->pubrelease_model->getSites();
-				$data['staff'] = $this->pubrelease_model->getStaff();
-				$data['active'] = $this->pubrelease_model->getOnGoingAndExtended();
+				$data['sites'] = $this->sites_model->getActiveSites();
+				$data['staff'] = $this->users_model->getDEWSLUsers();
+				$data['active'] = $this->public_alert_event_model->getOnGoingAndExtendedSitesAndStatus();
 				break;
 
 			case 'monitoring_events_individual':
@@ -41,7 +45,7 @@ class Pubrelease extends CI_Controller {
 				$data['title'] = "DEWS-Landslide Individual Monitoring Event Page";
 				$data['releases'] = $this->pubrelease_model->getAllRelease($id);
 				$data['triggers'] = $this->pubrelease_model->getAllEventTriggers($id);
-				$data['staff'] = $this->pubrelease_model->getStaff();
+				$data['staff'] = $this->users_model->getDEWSLUsers();
 				$data['bulletin_modals'] = $this->load->view('public_alert/bulletin_modals', $data, true);
 				break;
 
@@ -155,13 +159,13 @@ class Pubrelease extends CI_Controller {
 
 	public function getSites()
 	{
-		$result = $this->pubrelease_model->getSites();
+		$result = $this->sites_model->getActiveSites();
 		echo "$result";
 	}
 
 	public function getLastSiteEvent($site_id)
 	{
-		$result = $this->pubrelease_model->getLastSiteEvent($site_id);
+		$result = $this->public_alert_event_model->getLastSiteEvent($site_id);
 		echo "$result";
 	}
 
@@ -191,7 +195,7 @@ class Pubrelease extends CI_Controller {
 
 	public function getFeatureNames($site_id, $type)
 	{
-		$result = $this->pubrelease_model->getFeatureNames($site_id, $type);
+		$result = $this->manifestations_model->getFeatureNames($site_id, $type);
 		echo "$result";
 	}
 
@@ -199,7 +203,7 @@ class Pubrelease extends CI_Controller {
 		$status = $_POST["status"];
 		$latest_trigger_id = NULL;
 		$site_id = $_POST["site_id"];
-		if ((int) $site_id === 0 && $site_id !== "") $site_id = $this->pubrelease_model->getSiteID($site_id);
+		if ((int) $site_id === 0 && $site_id !== "") $site_id = $this->sites_model->getSiteID($site_id);
 		$event_validity = NULL;
 		$release_id = NULL;
 
@@ -216,7 +220,7 @@ class Pubrelease extends CI_Controller {
 
 		if ($status === "routine") {
 			foreach ($_POST["routine_list"] as $entry) {
-				$site_id = isset($entry["site_id"]) ? $entry["site_id"] : $this->pubrelease_model->getSiteID($entry["site_code"]);
+				$site_id = isset($entry["site_id"]) ? $entry["site_id"] : $this->sites_model->getSiteID($entry["site_code"]);
 				$event_id = $this->createNewEvent($site_id, $_POST['timestamp_entry'], $status);
 
 				$release["event_id"] = $event_id;
@@ -240,7 +244,7 @@ class Pubrelease extends CI_Controller {
 			} else if (in_array($status, ["on-going", "extended", "invalid", "finished"])) {
 				$release["event_id"] = $event_id = $_POST["current_event_id"];
 				
-				$a = $this->pubrelease_model->getEventValidity($event_id);
+				$a = $this->public_alert_event_model->getEventValidity($event_id);
 				$event_validity = $a[0]->validity;
 
 				if (in_array($status, ["extended", "invalid", "finished"])) {
@@ -296,7 +300,7 @@ class Pubrelease extends CI_Controller {
 	}
 
 	public function isNewYear($site_id, $timestamp) {
-		$event = json_decode($this->pubrelease_model->getLastSiteEvent($site_id));
+		$event = json_decode($this->public_alert_event_model->getLastSiteEvent($site_id));
 		$release = json_decode($this->pubrelease_model->getLastRelease($event->event_id));
 		$previous_timestamp = date_parse($release->data_timestamp);
 		$current_timestamp = date_parse($timestamp);
@@ -499,7 +503,7 @@ class Pubrelease extends CI_Controller {
 	 **/
 	public function showStaff()
 	{
-		$data = $this->pubrelease_model->getStaff();
+		$data = $this->users_model->getDEWSLUsers();
 		echo "$data";
 	}
 

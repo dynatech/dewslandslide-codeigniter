@@ -13,8 +13,7 @@ class Monitoring_Model extends CI_Model
 	 * 
 	 * @author Kevin Dhale dela Cruz
 	 **/
-	public function getOnGoingAndExtended()
-	{
+	public function getOnGoingAndExtended() {
 		$this->db->select('ev.event_id, ev.site_id, ev.event_start, ev.validity, ev.status, sites.*');
 		$this->db->from('public_alert_event AS ev');
 		$this->db->join('sites', 'ev.site_id = sites.site_id');
@@ -59,53 +58,53 @@ class Monitoring_Model extends CI_Model
 		return $result;
 	}
 
-	public function getSites()
-	{
-		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
-				FROM sites 
-				ORDER BY site_code ASC";
+	// public function getSites() // CAUTION - already in sites_model
+	// {
+	// 	$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
+	// 			FROM sites 
+	// 			ORDER BY site_code ASC";
 
-		$query = $this->db->query($sql);
+	// 	$query = $this->db->query($sql);
 
-		$i = 0;
-	    foreach ($query->result_array() as $row)
-	    {
-	    	$sitio = $row["sitio"];
-	        $barangay = $row["barangay"];
-	        $municipality = $row["municipality"];
-	        $province = $row["province"];
+	// 	$i = 0;
+	//     foreach ($query->result_array() as $row)
+	//     {
+	//     	$sitio = $row["sitio"];
+	//         $barangay = $row["barangay"];
+	//         $municipality = $row["municipality"];
+	//         $province = $row["province"];
 
-	        if ($sitio == null) {
-	          $address = "$barangay, $municipality, $province";
-	        } 
-	        else {
-	          $address = "$sitio, $barangay, $municipality, $province";
-	        }
+	//         if ($sitio == null) {
+	//           $address = "$barangay, $municipality, $province";
+	//         } 
+	//         else {
+	//           $address = "$sitio, $barangay, $municipality, $province";
+	//         }
 
-	        $site[$i]["site_id"] = $row["site_id"];
-	        $site[$i]["site_code"] = $row["site_code"];
-	        $site[$i]["season"] = $row["season"];
-	        $site[$i++]["address"] = $address;
-	    }
+	//         $site[$i]["site_id"] = $row["site_id"];
+	//         $site[$i]["site_code"] = $row["site_code"];
+	//         $site[$i]["season"] = $row["season"];
+	//         $site[$i++]["address"] = $address;
+	//     }
 
-	    	return json_encode($site);
-	}
+	//     	return json_encode($site);
+	// }
 
 	/**
 	 * Gets all staff
 	 *
 	 * @author Kevin Dhale dela Cruz
 	 **/
-	public function getStaff()
-	{
-		$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
-		$this->db->from('comms_db.users AS u');
-		$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
-		$this->db->where('is_active','1');
-		$this->db->order_by("u.lastname", "asc");
-		$query = $this->db->get();
-		return json_encode($query->result_array());
-	}
+	// public function getStaff() // CAUTION - already in users_model
+	// {
+	// 	$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
+	// 	$this->db->from('comms_db.users AS u');
+	// 	$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
+	// 	$this->db->where('is_active','1');
+	// 	$this->db->order_by("u.lastname", "asc");
+	// 	$query = $this->db->get();
+	// 	return json_encode($query->result_array());
+	// }
 
 	public function getOnGoingEvents()
 	{

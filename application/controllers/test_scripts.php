@@ -6,6 +6,8 @@ class Test_scripts extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('pubrelease_model');
+		$this->load->model('sites_model');
+		$this->load->model('public_alert_event_model');
 		$this->load->model('monitoring_model');
 	}
 
@@ -23,7 +25,7 @@ class Test_scripts extends CI_Controller {
 		// $this->load->view('templates/footer');
 		
 		$alerts = $this->getOnGoingAndExtended();
-		$sites = json_decode($this->monitoring_model->getSites());
+		$sites = json_decode($this->sites_model->getSites());
 
 		$withAlerts = array_merge($alerts['latest'], $alerts['overdue']);
 		$extended = $alerts['extended'];
@@ -278,7 +280,7 @@ class Test_scripts extends CI_Controller {
 			$release_id = $this->pubrelease_model->insert('public_alert_release', $release);
 			$this->pubrelease_model->update('event_id', $event_id, 'public_alert_event', array('latest_release_id' => $release_id) );
 			
-			$a = $this->pubrelease_model->getEventValidity($event_id);
+			$a = $this->public_alert_event_model->getEventValidity($event_id);
 			$event_validity = $a[0]->validity;
 
 			if( isset($post['extend_ND']) )
@@ -335,7 +337,7 @@ class Test_scripts extends CI_Controller {
 
 	public function getLastSiteEvent($site_id)
 	{
-		$result = $this->pubrelease_model->getLastSiteEvent($site_id);
+		$result = $this->public_alert_event_model->getLastSiteEvent($site_id);
 		echo "$result";
 	}
 
@@ -365,7 +367,7 @@ class Test_scripts extends CI_Controller {
 
 	public function isNewYear($site_id, $timestamp)
 	{
-		$event = json_decode($this->pubrelease_model->getLastSiteEvent($site_id));
+		$event = json_decode($this->public_alert_event_model->getLastSiteEvent($site_id));
 		$release = json_decode($this->pubrelease_model->getLastRelease($event->event_id));
 		$previous_timestamp = date_parse($release->data_timestamp);
 		$current_timestamp = date_parse($timestamp);

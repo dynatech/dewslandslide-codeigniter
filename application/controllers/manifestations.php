@@ -7,6 +7,9 @@ class Manifestations extends CI_Controller
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('manifestations_model');
+		$this->load->model('sites_model');
+		$this->load->model('users_model');
+		$this->load->model('public_alert_event_model');
 	}
 
 	public function index()
@@ -19,8 +22,8 @@ class Manifestations extends CI_Controller
 		$data['user_id'] = $this->session->userdata("id");
 
 		// $data['events'] = json_encode('null');
-		// $data['sites'] = $this->monitoring_model->getSites();
-		// $data['staff'] = $this->monitoring_model->getStaff();
+		// $data['sites'] = $this->sites_model->getSites();
+		// $data['staff'] = $this->users_model->getDEWSLUsers();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav');
@@ -38,9 +41,9 @@ class Manifestations extends CI_Controller
 		$data['user_id'] = $this->session->userdata("id");
 
 		$data['site_code'] = $site_code;
-		$data['site_id'] = $this->manifestations_model->getSiteID($site_code);
-		$data['event_status'] = $this->manifestations_model->getLastEventStatus($data['site_id']);
-		$data['staff'] = $this->manifestations_model->getStaff();
+		$data['site_id'] = $this->sites_model->getSiteID($site_code);
+		$data['event_status'] = $this->public_alert_event_model->getLastEventStatus($data['site_id']);
+		$data['staff'] = $this->users_model->getDEWSLUsers();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav');
@@ -70,7 +73,7 @@ class Manifestations extends CI_Controller
 		$extraFilter = $_POST['extra_filter'];
 
 		$extraFilter['hasFilter'] = true;
-		$site_id = $this->manifestations_model->getSiteID($site_code);
+		$site_id = $this->sites_model->getSiteID($site_code);
 		$extraFilter['filterList']['site_id'] = $site_id;
 
 		function addTableName($x)

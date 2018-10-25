@@ -7,6 +7,7 @@ class API extends CI_Controller {
 		$this->load->model('node_level_model');
 		$this->load->model('comm_health_model');
 		$this->load->model('pubrelease_model');
+		$this->load->model('users_model');
 	}
 		public function latestSensorData($site){ // example http://localhost/api/latestSensorData/agbsb
 			$result = $this->node_level_model->getlatestSensorData($site);
@@ -667,7 +668,7 @@ class API extends CI_Controller {
 		}
 	
 	public function getStaff () {
-		echo $this->pubrelease_model->getStaff();
+		echo $this->users_model->getDEWSLUsers();
 	}
 
 	public function getAllReleasesWithEventDetails () {

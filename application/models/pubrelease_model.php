@@ -8,83 +8,82 @@ class Pubrelease_Model extends CI_Model
 		$this->load->database();
 	}
 
-	public function getSites()
-	{
+	// public function getSites() // CAUTION - already in sites_model
+	// {
+	// 	$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
+	// 			FROM sites
+	// 			WHERE active = 1
+	// 			ORDER BY site_code ASC";
 
-		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
-				FROM sites
-				WHERE active = 1
-				ORDER BY site_code ASC";
+	// 	$query = $this->db->query($sql);
 
-		$query = $this->db->query($sql);
+	// 	$i = 0;
+	//     foreach ($query->result_array() as $row)
+	//     {
+	//     	$sitio = $row["sitio"];
+	//         $barangay = $row["barangay"];
+	//         $municipality = $row["municipality"];
+	//         $province = $row["province"];
 
-		$i = 0;
-	    foreach ($query->result_array() as $row)
-	    {
-	    	$sitio = $row["sitio"];
-	        $barangay = $row["barangay"];
-	        $municipality = $row["municipality"];
-	        $province = $row["province"];
+	//         if ($sitio == null) {
+	//           $address = "$barangay, $municipality, $province";
+	//         } 
+	//         else {
+	//           $address = "$sitio, $barangay, $municipality, $province";
+	//         }
 
-	        if ($sitio == null) {
-	          $address = "$barangay, $municipality, $province";
-	        } 
-	        else {
-	          $address = "$sitio, $barangay, $municipality, $province";
-	        }
-
-	        $site[$i]["site_id"] = $row["site_id"];
-	        $site[$i]["site_code"] = $row["site_code"];
-	        $site[$i]["season"] = $row["season"];
-	        $site[$i++]["address"] = $address;
-	    }
+	//         $site[$i]["site_id"] = $row["site_id"];
+	//         $site[$i]["site_code"] = $row["site_code"];
+	//         $site[$i]["season"] = $row["season"];
+	//         $site[$i++]["address"] = $address;
+	//     }
 	    
-	    return json_encode($site);
-	}
+	//     return json_encode($site);
+	// }
 
-	public function getSitesWithRegions() {
-		$query = $this->db->order_by("region")->get("sites");
-		return $query->result();
-	}
+	// public function getSitesWithRegions() { // CAUTION - already in sites_model
+	// 	$query = $this->db->order_by("region")->get("sites");
+	// 	return $query->result();
+	// }
 
 	/**
 	 * Gets all staff
 	 *
 	 * @author Kevin Dhale dela Cruz
 	 **/
-	public function getStaff()
-	{
-		$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
-		$this->db->from('comms_db.users AS u');
-		$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
-		$this->db->where('is_active','1');
-		$this->db->order_by("u.lastname", "asc");
-		$query = $this->db->get();
-		return json_encode($query->result_array());
-	}
+	// public function getStaff() // CAUTION - already in users_model.php
+	// {
+	// 	$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
+	// 	$this->db->from('comms_db.users AS u');
+	// 	$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
+	// 	$this->db->where('is_active','1');
+	// 	$this->db->order_by("u.lastname", "asc");
+	// 	$query = $this->db->get();
+	// 	return json_encode($query->result_array());
+	// }
 
-	public function getOnGoingAndExtended()
-	{
-		$this->db->select('site_id, status');
-		$this->db->where('status','on-going');
- 		$this->db->or_where('status','extended');
-		$query = $this->db->get('public_alert_event');
-		//$query = $this->db->get_where('public_alert_event', array('status' => 'on-going'));
-		return json_encode($query->result_array());
-	}
+	// public function getOnGoingAndExtended() // CAUTION - already in public_alert_event_model as getOnGoingAndExtendedSitesAndStatus 
+	// {
+	// 	$this->db->select('site_id, status');
+	// 	$this->db->where('status','on-going');
+ // 		$this->db->or_where('status','extended');
+	// 	$query = $this->db->get('public_alert_event');
+	// 	//$query = $this->db->get_where('public_alert_event', array('status' => 'on-going'));
+	// 	return json_encode($query->result_array());
+	// }
 
-	public function getLastSiteEvent($site_id)
-	{
-		$sql = "SELECT * 
-				FROM public_alert_event
-				WHERE site_id = '$site_id'
-				ORDER BY event_id 
-				DESC LIMIT 1";
+	// public function getLastSiteEvent($site_id) // CAUTION - already in public_alert_event_model
+	// {
+	// 	$sql = "SELECT * 
+	// 			FROM public_alert_event
+	// 			WHERE site_id = '$site_id'
+	// 			ORDER BY event_id 
+	// 			DESC LIMIT 1";
 
-		$result = $this->db->query($sql);
+	// 	$result = $this->db->query($sql);
 
-		return json_encode($result->row());
-	}
+	// 	return json_encode($result->row());
+	// }
 
 	public function getLastRelease($event_id)
 	{
@@ -165,21 +164,14 @@ class Pubrelease_Model extends CI_Model
 		$this->db->where('public_alert_release.data_timestamp', $timestamp);
 		$query = $this->db->get();
 		return json_encode($query->result_object());
-	}	
-
-	public function getEventValidity($event_id)
-	{
-		$this->db->select('validity');
-		$query = $this->db->get_where('public_alert_event', array('event_id' => $event_id));
-		return $query->result_object();
 	}
 
-	public function getSiteID($site_code)// refdb
-	{
-		$this->db->select("site_id");
-		$query = $this->db->get_where("sites", array("site_code" => $site_code));
-		return $query->row()->site_id;
-	}
+	// public function getEventValidity($event_id) // CAUTION - already in public_alert_event_model
+	// {
+	// 	$this->db->select('validity');
+	// 	$query = $this->db->get_where('public_alert_event', array('event_id' => $event_id));
+	// 	return $query->result_object();
+	// }
 
 	public function getBulletinNumber($site)
 	{
@@ -257,7 +249,6 @@ class Pubrelease_Model extends CI_Model
 		}
     }
 
-
 	public function update($column, $key, $table, $data)
 	{
 		$this->db->where($column, $key);
@@ -329,7 +320,7 @@ class Pubrelease_Model extends CI_Model
 		return json_encode($query->result_object());
 	}
 
-	public function getFeatureNames($site_id, $type)
+	public function getFeatureNames($site_id, $type) // CAUTION - already in manifestations_model
 	{
 		$query = $this->db->get_where("manifestation_features", array("site_id" => $site_id, "feature_type" => $type));
 		return json_encode($query->result_object());

@@ -7,6 +7,8 @@ class Monitoring extends CI_Controller
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('monitoring_model');
+		$this->load->model('sites_model');
+		$this->load->model('users_model');
 	}
 
 	public function index()
@@ -19,8 +21,8 @@ class Monitoring extends CI_Controller
 		$data['user_id'] = $this->session->userdata("id");
 
 		$data['events'] = json_encode('null');
-		$data['sites'] = $this->monitoring_model->getSites();
-		$data['staff'] = $this->monitoring_model->getStaff();
+		$data['sites'] = $this->sites_model->getSites();
+		$data['staff'] = $this->users_model->getDEWSLUsers();
 		$data['monitoring'] = $this->load->view('public_alert/monitoring_dashboard_tables', null, true);
 		$data['generated_alerts'] = $this->load->view('public_alert/generated_alerts', $data, true);
 		$data['bulletin_modals'] = $this->load->view('public_alert/bulletin_modals', $data, true);
@@ -103,7 +105,7 @@ class Monitoring extends CI_Controller
 
 	public function getSites()
 	{
-		$data = $this->monitoring_model->getSites();
+		$data = $this->sites_model->getSites();
 		echo "$data";
 	}
 
@@ -149,7 +151,7 @@ class Monitoring extends CI_Controller
 
 	public function getStaffNames()
 	{
-		echo $this->monitoring_model->getStaff();
+		echo $this->users_model->getDEWSLUsers();
 	}
 
 	public function is_logged_in() 
