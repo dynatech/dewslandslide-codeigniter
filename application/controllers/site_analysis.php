@@ -301,8 +301,9 @@ class Site_analysis extends CI_Controller {
         }
 
         $interp = $dvt->interp;
-        for ($i = 0; $i < count($interp->ts); $i++) { 
-            array_push($interpolation_data, array($interp->ts[$i], $interp->surfdisp[$i]));
+        for ($i = 0; $i < count($interp->ts); $i++) {
+            $surfdisp = isset($interp->surfdisp[$i]) ? $interp->surfdisp[$i] : 0;
+            array_push($interpolation_data, array($interp->ts[$i], $surfdisp));
         }
 
         $displacement_interpolation = array(
@@ -319,9 +320,11 @@ class Site_analysis extends CI_Controller {
         $timestamps = [];
 
         $vat = $data->vat;
-        for ($i = 0; $i < count($vat->ts_n); $i++) { 
-            array_push($acceleration, $vat->a_n[$i]);
-            array_push($velocity, $vat->v_n[$i]);
+        for ($i = 0; $i < count($vat->ts_n); $i++) {
+            $a_n = isset($vat->a_n[$i]) ? $vat->a_n[$i] : 0;
+            $v_n = isset($vat->v_n[$i]) ? $vat->v_n[$i] : 0;
+            array_push($acceleration, $a_n);
+            array_push($velocity, $v_n);
             array_push($timestamps, $vat->ts_n[$i]);
         }
 
