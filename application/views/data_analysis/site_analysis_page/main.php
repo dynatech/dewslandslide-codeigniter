@@ -189,7 +189,7 @@
 
         <div class="form-group hideable" id="data-tag-container">
             <label class="control-label" for="data-tag">Data Tag</label>
-            <input type="text" class="form-control" name="data-tag"/>
+            <input type="text" class="form-control" id="data-tag" name="tag"/>
         </div>
         <table class="table" id="tag-details">
             <thead>
