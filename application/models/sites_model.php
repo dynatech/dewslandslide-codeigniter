@@ -18,9 +18,15 @@ class Sites_Model extends CI_Model {
 	 * as getCompleteSiteInformation(). The other 3 functions are also from the same model. 
 	 * The following functions are in short, CRUD functions for the sites table.
 	 **/
-	public function getCompleteSiteInformation() {
+	public function getCompleteSiteInformation($site_filter = "all", $get_active_sites = true) { // 2 parameters, site_id and active - set a ifelse
 		$this->db->select("*");
 		$this->db->from("sites");
+
+		if(intval($site_filter) == 0) {
+			if($site_filter != "all") $this->db->where("site_code", $site_filter);
+		} else $this->db->where("site_id", $site_filter);
+
+		if($get_active_sites) $this->db->where("active", 1);
 
 		$query = $this->db->get();
 		return $query->result();

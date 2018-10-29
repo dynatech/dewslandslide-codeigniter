@@ -72,7 +72,7 @@ class Site_info extends CI_Controller {
 
 	public function getAllSites(){
 		$all_sites = [];
-		$sites = $this->sites_model->getCompleteSiteInformation();
+		$sites = $this->sites_model->getCompleteSiteInformation("all",false);
 		for ($counter = 0; $counter < sizeof($sites); $counter++) {
 			$sites[$counter] = (array) $sites[$counter];
 			$sites[$counter]['actions'] = "<div>".
