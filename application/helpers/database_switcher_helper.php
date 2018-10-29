@@ -12,5 +12,5 @@ function switch_db($name_db) {
 	    $config_app['pconnect'] = FALSE;
 	    $config_app['db_debug'] = TRUE;
 	    return $config_app;
-	}
+}
 ?>

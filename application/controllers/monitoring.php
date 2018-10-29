@@ -23,6 +23,7 @@ class Monitoring extends CI_Controller
 		$data['staff'] = $this->monitoring_model->getStaff();
 		$data['monitoring'] = $this->load->view('public_alert/monitoring_dashboard_tables', null, true);
 		$data['generated_alerts'] = $this->load->view('public_alert/generated_alerts', $data, true);
+		$data['bulletin_modals'] = $this->load->view('public_alert/bulletin_modals', $data, true);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav');
@@ -144,6 +145,12 @@ class Monitoring extends CI_Controller
 		$latest = $_POST['latest'];
 		$extended = $_POST['extended'];
 		$overdue = $_POST['overdue'];
+	}
+
+	public function getStaffNames($include_inactive = false)
+	{
+		if ($include_inactive === "1") $include_inactive = true;
+		echo $this->monitoring_model->getStaff($include_inactive);
 	}
 
 	public function is_logged_in() 

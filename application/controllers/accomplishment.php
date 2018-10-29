@@ -177,9 +177,11 @@
 			return $surficial;
 		}
 
-		public function getEndOfShiftDataAnalysis ()
+		public function getEndOfShiftDataAnalysis ($shift_start = null, $event_id = null)
 		{
-			$data = $this->accomplishment_model->getEndOfShiftDataAnalysis($_GET["shift_start"], $_GET["event_id"]);
+			if ($shift_start === null) $shift_start = $_GET["shift_start"];
+			if ($event_id === null) $event_id = $_GET["event_id"];
+			$data = $this->accomplishment_model->getEndOfShiftDataAnalysis($shift_start, $event_id);
 			echo json_encode($data);
 		}
 

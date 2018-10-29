@@ -86,13 +86,20 @@
 
 		public function getEndOfShiftDataAnalysis($shift_start, $event_id)
 		{
-			$this->db->select("analysis")->from("end_of_shift_analysis")
-				->where(array("event_id" => $event_id, "shift_start" => $shift_start));
+			$selection = "analysis";
+			$where_arr = array("event_id" => $event_id);
+
+			if ($shift_start !== "all") $where_arr["shift_start"] = $shift_start;
+			else $selection = "*";
+
+			$this->db->select($selection)->from("end_of_shift_analysis")
+				->where($where_arr);
 			$query = $this->db->get();
+			
 			if ($query->num_rows() ===  0) return array("analysis" => null);
+			if ($shift_start === "all") return $query->result_object();
 			return $query->result_object()[0];
 		}
-
 
 		public function getSubsurfaceColumns ($site_code)
 		{

@@ -42,6 +42,7 @@ class Pubrelease extends CI_Controller {
 				$data['releases'] = $this->pubrelease_model->getAllRelease($id);
 				$data['triggers'] = $this->pubrelease_model->getAllEventTriggers($id);
 				$data['staff'] = $this->pubrelease_model->getStaff();
+				$data['bulletin_modals'] = $this->load->view('public_alert/bulletin_modals', $data, true);
 				break;
 
 			case 'monitoring_events_all':
@@ -65,7 +66,13 @@ class Pubrelease extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	public function getEvent($event_id)
+	public function getAllRelease ($id) 
+	{
+		$result = $this->pubrelease_model->getAllRelease($id);
+		echo $result;
+	}
+
+	public function getEvent ($event_id)
 	{
 		$result = $this->pubrelease_model->getEvent($event_id);
 		echo "$result";
