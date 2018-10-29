@@ -8,6 +8,10 @@
 			$this->load->model('subsurface_column_model');
 			$this->load->model("surficial_model");
 			$this->load->model("bulletin_model");
+			$this->load->model('public_alert_event_model');
+			$this->load->model('public_alert_trigger_model');
+			$this->load->model('narratives_model');
+			$this->load->model('eos_data_analysis_model');
 		}
 
 		public function index()
@@ -47,8 +51,8 @@
 
 		public function getShiftTriggers()
 		{
-			$data['shiftTriggers'] = $shift = $this->accomplishment_model->getShiftTriggers($_GET['releases']);
-			$data['allTriggers'] = $this->accomplishment_model->getAllTriggers($_GET['events']);
+			$data['shiftTriggers'] = $shift = $this->public_alert_trigger_model->getShiftTriggers($_GET['releases']);
+			$data['allTriggers'] = $this->public_alert_trigger_model->getAllTriggers($_GET['events']);
 			echo json_encode($data);
 		}
 
@@ -64,7 +68,7 @@
 
 		public function getNarrativesForShift()
 		{
-			$data = $this->accomplishment_model->getNarrativesForShift($_GET['event_id'], $_GET['start'], $_GET['end']);
+			$data = $this->narratives_model->getNarrativesForShift($_GET['event_id'], $_GET['start'], $_GET['end']);
 			echo "$data";
 		}
 
@@ -181,7 +185,7 @@
 		{
 			if ($shift_start === null) $shift_start = $_GET["shift_start"];
 			if ($event_id === null) $event_id = $_GET["event_id"];
-			$data = $this->accomplishment_model->getEndOfShiftDataAnalysis($shift_start, $event_id);
+			$data = $this->eos_data_analysis_model->getEndOfShiftDataAnalysis($shift_start, $event_id);
 			echo json_encode($data);
 		}
 
@@ -237,7 +241,7 @@
 		{
 			$recipients = json_decode($_POST['recipients']);
 			$body = $_POST['body'];
-			$event_start = $this->accomplishment_model->getEvent($_POST['event_id'])->event_start;
+			$event_start = $this->public_alert_event_model->getEventDetails($_POST['event_id'])->event_start;
 			$subject = strtoupper($_POST['site_code']) . " " . strtoupper(date("d M Y", strtotime($event_start)));
 			$is_test = $_POST["is_test"];
 

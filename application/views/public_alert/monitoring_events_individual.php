@@ -114,7 +114,7 @@
             
             <div class="row">
                 <div class="col-sm-3">
-                    <button type="button" class="btn btn-primary btn-xs print" data-name="hello">Show Bulletin</button>
+                    <button type="button" class="btn btn-primary btn-xs print">Show Bulletin</button>
                 </div>
                 <div class="col-sm-9 reporters text-right">
                     <span class="mt">Reporter MT</span> | <span class="ct">Reporter CT</span>

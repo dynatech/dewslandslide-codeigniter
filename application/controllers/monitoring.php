@@ -115,11 +115,11 @@ class Monitoring extends CI_Controller
 		echo "$data";
 	}
 
-	public function showSavedAlerts()
-	{
-		$data = $this->monitoring_model->getAlertsForVerification();
-		echo "$data";
-	}
+	// public function showSavedAlerts() // CAUTION - unused codes
+	// {
+	// 	$data = $this->monitoring_model->getAlertsForVerification();
+	// 	echo "$data";
+	// }
 
 	public function saveToVerificationTable()
 	{

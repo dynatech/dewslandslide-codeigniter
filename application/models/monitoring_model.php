@@ -58,55 +58,6 @@ class Monitoring_Model extends CI_Model
 		return $result;
 	}
 
-	// public function getSites() // CAUTION - already in sites_model
-	// {
-	// 	$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
-	// 			FROM sites 
-	// 			ORDER BY site_code ASC";
-
-	// 	$query = $this->db->query($sql);
-
-	// 	$i = 0;
-	//     foreach ($query->result_array() as $row)
-	//     {
-	//     	$sitio = $row["sitio"];
-	//         $barangay = $row["barangay"];
-	//         $municipality = $row["municipality"];
-	//         $province = $row["province"];
-
-	//         if ($sitio == null) {
-	//           $address = "$barangay, $municipality, $province";
-	//         } 
-	//         else {
-	//           $address = "$sitio, $barangay, $municipality, $province";
-	//         }
-
-	//         $site[$i]["site_id"] = $row["site_id"];
-	//         $site[$i]["site_code"] = $row["site_code"];
-	//         $site[$i]["season"] = $row["season"];
-	//         $site[$i++]["address"] = $address;
-	//     }
-
-	//     	return json_encode($site);
-	// }
-
-	/**
-	 * Gets all staff
-	 *
-	 * @author Kevin Dhale dela Cruz
-	 **/
-
-
-	// public function getStaff($include_inactive = false) { // CAUTION - already in users_model
-	// 	$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
-	// 	$this->db->from('comms_db.users AS u');
-	// 	$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
-	// 	if (!$include_inactive) $this->db->where('is_active','1');
-	// 	$this->db->order_by("u.lastname", "asc");
-	// 	$query = $this->db->get();
-	// 	return json_encode($query->result_array());
-	// }
-
 	public function getOnGoingEvents()
 	{
 		$this->db->select("sites.*, public_alert_event.*");
@@ -128,30 +79,6 @@ class Monitoring_Model extends CI_Model
 		$this->db->order_by('public_alert_trigger.timestamp', 'asc');
 		$data = $this->db->get();
 		return json_encode($data->result_array());
-	}
-
-	/**
-	 * Gets data from alert_verification table
-	 * 
-	 * @author Kevin Dhale dela Cruz
-	 **/
-	public function getAlertsForVerification()
-	{
-	    $sql = "SELECT *
-				FROM alert_verification
-				WHERE status = 'pending'
-				OR status = 'valid'
-				ORDER BY id DESC";
-
-		$query = $this->db->query($sql);
-
-		$i = 0;
-	    foreach ($query->result_array() as $row)
-	    {
-	        $data[$i++] = $row;
-	    }
-
-	    return json_encode($data);
 	}
 
 	public function insert($table, $data)

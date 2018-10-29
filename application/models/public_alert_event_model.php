@@ -9,6 +9,27 @@ class Public_Alert_Event_Model extends CI_Model
 	}
 
 	/**
+	 * Note: originally from accomplishment_model
+	 **/	
+	public function getEventDetails($event_id) // CAUTION - already in events_model
+	{
+		$query = $this->db->get_where('public_alert_event', array("event_id" => $event_id));
+		return $query->result_object()[0];
+	}
+
+	/**
+	 * Note: originally from bulletin and pubrelease model
+	 **/
+	public function getEventWithSiteDetails($event_id) {
+		$this->db->select('public_alert_event.*, sites.*');
+		$this->db->from('public_alert_event');
+		$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
+		$this->db->where('public_alert_event.event_id', $event_id);
+		$query = $this->db->get();
+		return $query->result_object();
+	}
+
+	/**
 	 * Note: originally from Pubrelease_model
 	 **/
 	public function getEventValidity($event_id)	{

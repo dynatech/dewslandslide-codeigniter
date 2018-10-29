@@ -28,4 +28,14 @@ class Users_Model extends CI_Model {
 		return json_encode($query->result_array());
 	}
 
+	public function getFullNameOfUserbyID($user_id) {
+		$this->db->select('u.firstname, u.lastname');
+		$this->db->from('comms_db.users AS u');
+		$this->db->where('u.user_id', $user_id);
+		$result = $this->db->get()->row();
+		return $result->firstname . " " . $result->lastname;
+	}
+
 }
+
+?>

@@ -194,15 +194,15 @@ class Pubrelease_Model extends CI_Model
 	    return $data;
 	}
 
-	public function getEvent($event_id)
-	{
-		$this->db->select('public_alert_event.*, sites.*');
-		$this->db->from('public_alert_event');
-		$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
-		$this->db->where('public_alert_event.event_id', $event_id);
-		$query = $this->db->get();
-		return json_encode($query->result_object());
-	}
+	// public function getEvent($event_id) // CAUTION - Already in public_alert_event_model
+	// {
+	// 	$this->db->select('public_alert_event.*, sites.*');
+	// 	$this->db->from('public_alert_event');
+	// 	$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
+	// 	$this->db->where('public_alert_event.event_id', $event_id);
+	// 	$query = $this->db->get();
+	// 	return $query->result_object();
+	// }
 
 	public function getAllRelease($event_id)
 	{
@@ -375,7 +375,7 @@ class Pubrelease_Model extends CI_Model
 	        $alert_level[$i++]["response_community"] = $row["response_community"];
 		}
 		
-		return json_encode( $alert_level );
+		return $alert_level;
 	}
 
 	public function getPublicAlerts($site)

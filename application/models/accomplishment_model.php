@@ -31,24 +31,23 @@
 			return json_encode($result);
 		}
 
-		public function getShiftTriggers($releases)
-		{
-			$this->db->where_in('release_id', $releases);
-			$this->db->order_by("timestamp", "desc");
-			$query = $this->db->get('public_alert_trigger');
-			$result = $query->result_array();
-			return $result;
-		}
+		// public function getShiftTriggers($releases) // CAUTION - already in public_alert_trigger_model
+		// {
+		// 	$this->db->where_in('release_id', $releases);
+		// 	$this->db->order_by("timestamp", "desc");
+		// 	$query = $this->db->get('public_alert_trigger');
+		// 	$result = $query->result_array();
+		// 	return $result;
+		// }
 
-		public function getAllTriggers($events)
-		{
-			$this->db->where_in('event_id', $events);
-			$this->db->order_by("timestamp", "desc");
-			$query = $this->db->get('public_alert_trigger');
-			$result = $query->result_array();
-			return $result;
-		}
-
+		// public function getAllTriggers($events) // CAUTION - already in public_alert_trigger_model
+		// {
+		// 	$this->db->where_in('event_id', $events);
+		// 	$this->db->order_by("timestamp", "desc");
+		// 	$query = $this->db->get('public_alert_trigger');
+		// 	$result = $query->result_array();
+		// 	return $result;
+		// }
 
 		public function getSitesWithAlerts()
 		{
@@ -73,54 +72,35 @@
 			return json_encode($result);
 		}
 
-		public function getNarrativesForShift($event_id, $start, $end)
-		{
-			$this->db->where_in('event_id', $event_id);
-			$this->db->where('timestamp >=', $start);
-			if( $end != '' )$this->db->where('timestamp <=', $end);
-			$this->db->order_by("timestamp", "asc");
-			$query = $this->db->get('narratives');
-			$result = $query->result_array();
-			return json_encode($result);
-		}
+		// public function getNarrativesForShift($event_id, $start, $end) // CAUTION - this is already in narratives_model
+		// {
+		// 	$this->db->where_in('event_id', $event_id);
+		// 	$this->db->where('timestamp >=', $start);
+		// 	if( $end != '' )$this->db->where('timestamp <=', $end);
+		// 	$this->db->order_by("timestamp", "asc");
+		// 	$query = $this->db->get('narratives');
+		// 	$result = $query->result_array();
+		// 	return json_encode($result);
+		// }
 
-		public function getEndOfShiftDataAnalysis($shift_start, $event_id)
-		{
-			$selection = "analysis";
-			$where_arr = array("event_id" => $event_id);
+		// public function getEndOfShiftDataAnalysis($shift_start, $event_id) // CAUTION - already in eos_data_analysis_model
+		// {
+		// 	$selection = "analysis";
+		// 	$where_arr = array("event_id" => $event_id);
 
-			if ($shift_start !== "all") $where_arr["shift_start"] = $shift_start;
-			else $selection = "*";
+		// 	if ($shift_start !== "all") $where_arr["shift_start"] = $shift_start;
+		// 	else $selection = "*";
 
-			$this->db->select($selection)->from("end_of_shift_analysis")
-				->where($where_arr);
-			$query = $this->db->get();
+		// 	$this->db->select($selection)->from("end_of_shift_analysis")
+		// 		->where($where_arr);
+		// 	$query = $this->db->get();
 			
-			if ($query->num_rows() ===  0) return array("analysis" => null);
-			if ($shift_start === "all") return $query->result_object();
-			return $query->result_object()[0];
-		}
+		// 	if ($query->num_rows() ===  0) return array("analysis" => null);
+		// 	if ($shift_start === "all") return $query->result_object();
+		// 	return $query->result_object()[0];
+		// }
 
-		public function getSubsurfaceColumns ($site_code)
-		{
-			$this->db->select("name AS column_name, installation_status AS status")
-				->from("site_column")
-				->where("name LIKE '$site_code%'")
-				->order_by("name");
-			$query = $this->db->get();
-			return $query->result_object();
-		}
-
-		public function getColumnDataPointCount ($column_name, $start, $end) {
-			$this->db->select("COUNT(DISTINCT timestamp) AS point_count")
-				->from($column_name)
-				->where("timestamp >=", $start)
-				->where("timestamp <=", $end);
-			$query = $this->db->get();
-			return $query->row()->point_count;
-		}
-
-		public function getEvent($event_id)
+		public function getEvent($event_id) // CAUTION - already in events_model
 		{
 			$query = $this->db->get_where('public_alert_event', array("event_id" => $event_id));
 			return $query->result_object()[0];
@@ -204,205 +184,6 @@
 		// TEST CASE
 		/*SELECT r.*, e.* FROM public_alert_release r INNER JOIN public_alert_event e ON e.event_id = r.event_id WHERE r.data_timestamp > '2016-09-30 07:30:00' AND r.data_timestamp <= '2016-09-30 20:00:00' AND e.status != 'routine'*/
 
-
-
-		/**************************************/
-
-		public function getInstructions()
-		{
-			$sql = "SELECT overtime_type, instruction FROM lut_accomplishment";
-
-			$query = $this->db->query($sql);
-			$result = [];
-			$i = 0;
-			foreach ($query->result() as $row) {
-				$result[$i]["overtime_type"] = $row->overtime_type;
-				$result[$i]["instruction"] = $row->instruction;
-				$i = $i + 1;
-			}
-			
-			return json_encode($result);
-		}
-
-		public function getBasis()
-		{
-			$sql = "SELECT * FROM lut_basis_lower";
-			$query = $this->db->query($sql);
-			$result = []; $temp = []; $final = [];
-
-			foreach ($query->result() as $row) {
-				$result[$row->alert] = $row->description;
-			}
-			array_push($temp, $result);
-
-			$final['lower'] = $temp;
-			$sql = "SELECT * FROM lut_basis_raise";
-			$query = $this->db->query($sql);
-			$temp = [];
-			foreach ($query->result() as $row) {
-				$result[$row->alert] = $row->description;
-			}
-			array_push($temp, $result);
-
-			$final['raise'] = $temp;
-			return json_encode($final);
-		}
-
-		// public function getSites() // CAUTION - this code was not used in any controller. Might be an unused code.
-		// {
-		// 	$sql = "SELECT DISTINCT LEFT(name , 3) as name, sitio, barangay, municipality, province FROM site_column ORDER BY name ASC";
-			
-		// 	$query = $this->db->query($sql);
-		// 	$result = [];
-		// 	$i = 0;
-		// 	foreach ($query->result() as $row) {
-		// 		$result[$i]["name"] = $row->name;
-
-		// 		if (is_null($row->sitio)) $address = "$row->barangay, $row->municipality, $row->province";
-		// 		else $address = "$row->sitio, $row->barangay, $row->municipality, $row->province";
-
-		// 		$result[$i]["address"] = $address;
-		// 		$i = $i + 1;
-		// 	}
-
-		// 	return json_encode($result);
-		// }
-
-		public function getAlerts()
-		{
-			$sql = "SELECT DISTINCT public_alert_level FROM lut_alerts ORDER BY public_alert_level ASC";
-			
-			$query = $this->db->query($sql);
-			$result = [];
-			$i = 0;
-			foreach ($query->result() as $row) {
-				$result[$i]["alert_level"] = $row->public_alert_level;
-				$i = $i + 1;
-			}
-
-			return json_encode($result);
-		}
-
-    	/**
-    	 * Gets info from database to be viewed on
-    	 * accomlishmentreport_individual and _all
-    	 * 
-    	 * $id = 0 means get all (used in _all)
-    	 * else if $id > 0, get specific row id (used in _individual)
-    	 * 
-    	 **/
-    	public function getReport($id)
-		{
-			if ($id == 0) 
-			{
-				$sql = "SELECT * FROM accomplishment_report";
-			} else {
-				$sql = "SELECT * FROM accomplishment_report WHERE ar_id = '$id'";
-			}
-			
-			$query = $this->db->query($sql);
-
-			if ($query->num_rows() == 0) {
-				$result = null;
-				return $result;
-			}
-
-			$result;
-			if($id == 0) { $resultlist; $i = 0; };
-
-			foreach ($query->result() as $row) {
-				$result["ar_id"] = $row->ar_id;
-				$result["shift_start"] = $row->shift_start;
-				$result["shift_end"] = $row->shift_end;
-				$result["overtime_type"] = $row->overtime_type;
-				$result["on_duty"] = $row->on_duty;
-				if($id == 0)
-				{
-					$resultlist[$i] = $result; $i += 1;
-				}
-			}
-
-			$result['sitesWithAlerts'] = null;
-			if($id != 0) {
-				if( $result["overtime_type"] == "Event-Based Monitoring") {
-					$result["info"] = $this->getShiftReleases($result['shift_start'], $result['shift_end']);
-					$temp = json_decode($result["info"]);
-					$sitesWithAlerts = []; $i = 0;
-					foreach ($temp as $key) {
-						$sitesWithAlerts[$i]['public_alert_id'] = $key->public_alert_id;
-						$sitesWithAlerts[$i]['site'] = $key->site;
-						$sitesWithAlerts[$i]['internal_alert_level'] = $key->internal_alert_level;
-						$sitesWithAlerts[$i]['public_alert_level'] = $key->public_alert_level;
-						$sitesWithAlerts[$i++]['comments'] = $key->comments;
-					}
-					$result['sitesWithAlerts'] = $sitesWithAlerts;
-				}
-				else {
-					$sql = "SELECT info FROM accomplishment_report_extra WHERE ar_id = '$id'";
-					$query = $this->db->query($sql);
-
-					if ($query->num_rows() > 0) {
-						foreach ($query->result() as $row) {
-							$result["info"] = $row->info;
-						}
-					} else {
-						$result["info"] = null;
-					}
-				}
-			}
-
-			if($id == 0) return json_encode($resultlist);
-
-			return json_encode($result);
-		}
-
-		public function getMarkers($sitesWithAlerts)
-		{
-			if(is_null($sitesWithAlerts)) {
-				$result = null;
-				return json_encode($result);
-			}
-
-			for ($i=0; $i < count($sitesWithAlerts); $i++) 
-			{ 
-				$site = $sitesWithAlerts[$i]->site;
-				$sql = "SELECT DISTINCT name, sitio, barangay, municipality, province, lat, lon, region FROM site_column WHERE name LIKE '".$site."%'";
-			
-				$query = $this->db->query($sql);
-				$result;
-				foreach ($query->result() as $row) {
-					$result[$i]["name"] = $row->name;
-
-					if (is_null($row->sitio)) $address = "$row->barangay, $row->municipality, $row->province, $row->region";
-					else $address = "$row->sitio, $row->barangay, $row->municipality, $row->province, $row->region";
-
-					$result[$i]["address"] = $address;
-					$result[$i]["lat"] = $row->lat;
-					$result[$i]["lon"] = $row->lon;
-				}
-			}
-
-			return json_encode($result);
-		}
-
-		public function checkDuty($start, $end)
-		{
-			$sql = "SELECT *
-					FROM accomplishment_report
-					WHERE shift_start = '$start'
-					AND shift_end = '$end'
-					AND overtime_type = 'Event-Based Monitoring'";
-
-			$query = $this->db->query($sql);
-			if($query->num_rows() > 0)
-			{
-				$data = $query->result_array();
-			} else {
-				$data = null;
-			}
-
-			return json_encode($data);
-		}
 	}
 
 ?>

@@ -2,15 +2,12 @@
 class Rainfall extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('rainfall_model');
 		$this->load->helper('url');
 	}
 	public function index() {
 		echo "Rainfall controller";
 	}
 	public function getRainDataSourcesPerSite($site_code) {
-		// $result = $this->rainfall_model->getRainDataSourcesPerSite($site_code);
-		// echo json_encode($result);
 		$rain_sources = $this->getRainDataSources($site_code);
         echo json_encode($rain_sources);
 	}

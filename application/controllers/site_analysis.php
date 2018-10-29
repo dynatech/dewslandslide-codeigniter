@@ -4,10 +4,7 @@ class Site_analysis extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
-        $this->load->model('monitoring_model');
-        $this->load->model('pubrelease_model');
         $this->load->model('sites_model');
-        $this->load->model('rainfall_model');
         $this->load->model('surficial_model');
         $this->load->model('subsurface_column_model');
         $this->load->model('subsurface_node_model');

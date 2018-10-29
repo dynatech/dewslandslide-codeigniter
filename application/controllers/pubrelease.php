@@ -36,7 +36,8 @@ class Pubrelease extends CI_Controller {
 				if($release_id != NULL) $data['to_highlight'] = $release_id;
 				else $data['to_highlight'] = null;
 
-				$data['event'] = $this->pubrelease_model->getEvent($id);
+				$temp = $this->public_alert_event_model->getEventWithSiteDetails($id);
+				$data['event'] = json_encode($temp);
 				if( $data['event'] == "[]") {
 				 	show_404();
 				 	break;
@@ -78,7 +79,7 @@ class Pubrelease extends CI_Controller {
 
 	public function getEvent ($event_id)
 	{
-		$result = $this->pubrelease_model->getEvent($event_id);
+		$result = json_encode($this->public_alert_event_model->getEventWithSiteDetails($event_id));
 		echo "$result";
 	}
 
@@ -486,7 +487,7 @@ class Pubrelease extends CI_Controller {
 
 	public function showAlerts()
 	{
-		$alerts = $this->pubrelease_model->getAlerts();
+		$alerts = json_encode($this->pubrelease_model->getAlerts());
 
 		if ($alerts == "[]") {
 			echo "Variable is empty<Br><Br>";

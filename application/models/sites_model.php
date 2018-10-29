@@ -13,7 +13,7 @@ class Sites_Model extends CI_Model {
 	}
 
 	/**
-	 * Get complete site informtion for site information CRUD page
+	 * Get complete site information for site information CRUD page
 	 * Note: This was the getSites() fnx w/c came from site_information_model.php renamed
 	 * as getCompleteSiteInformation(). The other 3 functions are also from the same model. 
 	 * The following functions are in short, CRUD functions for the sites table.
@@ -144,3 +144,5 @@ class Sites_Model extends CI_Model {
 	}
 
 }
+
+?>

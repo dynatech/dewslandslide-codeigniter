@@ -9,6 +9,7 @@
 			//$this->is_logged_in();
 			$this->load->helper('url');
 			$this->load->model('bulletin_model');
+			$this->load->model('users_model');
 		}
 
 		public function index()
@@ -48,8 +49,8 @@
 			$event_status = $temp2->status;
 
 			$data['reporters'] = array(
-				'reporter_mt' => $this->bulletin_model->getName($temp->reporter_id_mt),
-				'reporter_ct' => $this->bulletin_model->getName($temp->reporter_id_ct),  
+				'reporter_mt' => $this->users_model->getFullNameOfUserbyID($temp->reporter_id_mt),
+				'reporter_ct' => $this->users_model->getFullNameOfUserbyID($temp->reporter_id_ct),  
 			);
 
 			$data['responses'] = $this->bulletin_model->getResponses($data['public_alert_level'], $internal_alert);
