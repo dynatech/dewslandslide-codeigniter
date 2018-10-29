@@ -5,11 +5,13 @@ class Pubrelease extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
+		$this->load->model('api_model');
 		$this->load->model('pubrelease_model');
 		$this->load->model('sites_model');
 		$this->load->model('users_model');
 		$this->load->model('public_alert_event_model');
 		$this->load->model('manifestations_model');
+		$this->load->model('lut_model');
 		$this->load->library('../controllers/monitoring');
 	}
 
@@ -178,14 +180,14 @@ class Pubrelease extends CI_Controller {
 
 	public function getAllEventTriggers($event_id, $release_id = null)
 	{
-		$result = $this->pubrelease_model->getAllEventTriggers($event_id, $release_id);
-		echo "$result";
+		$result = json_encode($this->pubrelease_model->getAllEventTriggers($event_id, $release_id));
+		echo $result;
 	}
 
 	public function getRelease($release_id)
 	{
-		$result = $this->pubrelease_model->getRelease($release_id);
-		echo "$result";
+		$result = json_encode($this->pubrelease_model->getRelease($release_id));
+		echo $result;
 	}
 
 	public function getSentRoutine()
@@ -240,7 +242,7 @@ class Pubrelease extends CI_Controller {
 				// This $event_id came from EXTENDED to NEW event
 				$previous_event_id = isset($_POST['previous_event_id']) ? $_POST['previous_event_id'] : NULL;
 				if($previous_event_id != NULL &&  $previous_event_id != '') {
-					$this->pubrelease_model->update('event_id', $previous_event_id, 'public_alert_event', array('status' => 'finished'));
+					$this->api_model->update('event_id', $previous_event_id, 'public_alert_event', array('status' => 'finished'));
 				}
 			} else if (in_array($status, ["on-going", "extended", "invalid", "finished"])) {
 				$release["event_id"] = $event_id = $_POST["current_event_id"];
@@ -256,7 +258,7 @@ class Pubrelease extends CI_Controller {
 		}
 
 		foreach ($release_array as $release) {
-			$release_id = $this->pubrelease_model->insert("public_alert_release", $release);
+			$release_id = $this->api_model->insert("public_alert_release", $release);
 			$update_event_tbl["latest_release_id"] = $release_id;
 
 			if ($status === "routine") {
@@ -271,7 +273,7 @@ class Pubrelease extends CI_Controller {
 			}
 
 			echo $event_id;
-			$this->pubrelease_model->update("event_id", $event_id, "public_alert_event", $update_event_tbl);	
+			$this->api_model->update("event_id", $event_id, "public_alert_event", $update_event_tbl);	
 		}
 		
 
@@ -290,13 +292,13 @@ class Pubrelease extends CI_Controller {
 			"event_start" => $timestamp_entry,
 			"status" => $status
 		);
-		$event_id = $this->pubrelease_model->insert("public_alert_event", $event);
+		$event_id = $this->api_model->insert("public_alert_event", $event);
 		return $event_id;
 	}
 
 	public function getAndUpdateBulletinNumber ($site_id) {
 		$bulletin_number = $this->pubrelease_model->getBulletinNumber($site_id) + 1;
-		$this->pubrelease_model->update("site_id", $site_id, "bulletin_tracker", array("bulletin_number" => $bulletin_number));
+		$this->api_model->update("site_id", $site_id, "bulletin_tracker", array("bulletin_number" => $bulletin_number));
 		return $bulletin_number;
 	}
 
@@ -327,7 +329,7 @@ class Pubrelease extends CI_Controller {
     	$select = "event_id";
     	$table = "public_alert_event";
     	$where_array = array('site_id' => '4', 'event_start' => '2016-11-02 11:30:00', 'status' => 'routine' );
-    	$a = $this->pubrelease_model->doesExists($select, $table, $where_array);
+    	$a = $this->api_model->doesExists($select, $table, $where_array);
     	if( count($a) == 0 ) echo "Insert"; else echo $a[0]->event_id;
     }
 
@@ -374,7 +376,7 @@ class Pubrelease extends CI_Controller {
 				$trigger['trigger_type'] = $entry['type'];
 				$trigger['info'] = $entry['info'];
 				$last_timestamp = $trigger['timestamp'] = $entry['timestamp'];
-				$latest_trigger_id = $this->pubrelease_model->insert('public_alert_trigger', $trigger);
+				$latest_trigger_id = $this->api_model->insert('public_alert_trigger', $trigger);
 				
 				// Save additional data for Earthquake trigger
 				if( $entry['type'] == "E" ) {
@@ -382,13 +384,13 @@ class Pubrelease extends CI_Controller {
 					$eq['magnitude'] = $post['magnitude'];
 					$eq['latitude'] = $post['latitude'];
 					$eq['longitude'] = $post['longitude'];
-					$this->pubrelease_model->insert('public_alert_eq', $eq);
+					$this->api_model->insert('public_alert_eq', $eq);
 				} else if( $entry['type'] == "D" ) {
 					$od['trigger_id'] = $latest_trigger_id;
 					$od['is_llmc'] = isset($post['llmc']) ? true : false;
 					$od['is_lgu'] = isset($post['lgu']) ? true : false;
 					$od['reason'] = $post['reason'];
-					$this->pubrelease_model->insert('public_alert_on_demand', $od);
+					$this->api_model->insert('public_alert_on_demand', $od);
 				} else if( strtoupper($entry['type']) == "M" ) {	
 					$this->saveManifestation($post['feature_groups'], "feature_groups", $post, $release_id, $entry['type']);
 				}
@@ -429,7 +431,7 @@ class Pubrelease extends CI_Controller {
 			{
 				$feature[$key] = is_null($post[$group_base . $key . $id]) || $post[$group_base . $key . $id] == "" ? null : $post[$group_base . $key . $id];
 			}
-			$feature_id = $this->pubrelease_model->insertIfNotExists('manifestation_features', $feature);
+			$feature_id = $this->api_model->insertIfNotExists('manifestation_features', $feature);
 
 			switch ($trigger) {
 				case 'm': $op_trigger = 2; break;
@@ -448,14 +450,14 @@ class Pubrelease extends CI_Controller {
 				$temp = isset($post[$group_base . $post_name . $id]) ? $post[$group_base . $post_name . $id] : null;
 				$manifestation[$db_name] = $temp !== "" ? $temp : null;
 			}
-			$this->pubrelease_model->insert('public_alert_manifestation', $manifestation);
+			$this->api_model->insert('public_alert_manifestation', $manifestation);
 		}
 	}
 
 
 	public function update()
 	{
-		$this->pubrelease_model->update('release_id', $_POST['release_id'], 'public_alert_release', array('data_timestamp' => $_POST['data_timestamp'], 'release_time' => $_POST['release_time'], 'comments' => $_POST['comments'] ));
+		$this->api_model->update('release_id', $_POST['release_id'], 'public_alert_release', array('data_timestamp' => $_POST['data_timestamp'], 'release_time' => $_POST['release_time'], 'comments' => $_POST['comments'] ));
 		
 		if($_POST['trigger_list'] != null)
 		{
@@ -463,19 +465,19 @@ class Pubrelease extends CI_Controller {
 			{
 				$data['timestamp'] = $_POST[ $trigger[0] ];
 				$data['info'] = $_POST[ $trigger[0] . "_info" ];
-				$this->pubrelease_model->update('trigger_id', $trigger[1], 'public_alert_trigger', $data);
+				$this->api_model->update('trigger_id', $trigger[1], 'public_alert_trigger', $data);
 
 				if( $trigger[0] == "trigger_od") {
 					$data2['is_llmc'] = isset($_POST['llmc']) ? true : false; 
 					$data2['is_lgu'] = isset($_POST['lgu']) ? true : false;
 					$data2['reason'] = $_POST['reason'];
-					$this->pubrelease_model->update('trigger_id', $trigger[1], 'public_alert_on_demand', $data2);	
+					$this->api_model->update('trigger_id', $trigger[1], 'public_alert_on_demand', $data2);	
 				}
 				else if( $trigger[0] == "trigger_eq") {
 					$data2['magnitude'] = $_POST['magnitude'];
 					$data2['latitude'] = $_POST['latitude'];
 					$data2['longitude'] = $_POST['longitude'];
-					$this->pubrelease_model->update('trigger_id', $trigger[1], 'public_alert_eq', $data2);
+					$this->api_model->update('trigger_id', $trigger[1], 'public_alert_eq', $data2);
 				}
 			}
 		}
@@ -487,7 +489,7 @@ class Pubrelease extends CI_Controller {
 
 	public function showAlerts()
 	{
-		$alerts = json_encode($this->pubrelease_model->getAlerts());
+		$alerts = json_encode($this->lut_model->getAlerts());
 
 		if ($alerts == "[]") {
 			echo "Variable is empty<Br><Br>";
@@ -524,7 +526,7 @@ class Pubrelease extends CI_Controller {
 		//echo "Received Data: $timestamp, $site, $alert, $timeRelease, $comments, $recipient, $acknowledged, $flagger";
 
 		if ($bool == 0) //Insert Data
-			$id = $this->pubrelease_model->insert('public_alert', $data);
+			$id = $this->api_model->insert('public_alert', $data);
 		else
 			$data['public_alert_id'] = $id;
 		
@@ -556,7 +558,7 @@ class Pubrelease extends CI_Controller {
 		}
 
 		if ($bool == 0) //Insert Data
-			$this->pubrelease_model->insert('public_alert_extra', $data2);
+			$this->api_model->insert('public_alert_extra', $data2);
 		else //Prepare Only Data for Update
 		{
 			$this->updatedata($data, $data2);
@@ -587,7 +589,7 @@ class Pubrelease extends CI_Controller {
 				}	
 			}
 
-			$this->pubrelease_model->insert('bulletin_tracker', $data3);
+			$this->api_model->insert('bulletin_tracker', $data3);
 		}
 
 		

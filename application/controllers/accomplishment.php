@@ -4,10 +4,11 @@
 		public function __construct() {
 			parent::__construct();
 			$this->load->helper('url');
+			$this->load->model('api_model');
 			$this->load->model('accomplishment_model');
 			$this->load->model('subsurface_column_model');
-			$this->load->model("surficial_model");
-			$this->load->model("bulletin_model");
+			$this->load->model('users_model');
+			$this->load->model('surficial_model');
 			$this->load->model('public_alert_event_model');
 			$this->load->model('public_alert_trigger_model');
 			$this->load->model('narratives_model');
@@ -208,13 +209,13 @@
 			if(count($forInsert) > 0)
 			{
 				foreach ($forInsert as $x) {
-					echo $this->accomplishment_model->insert('narratives', $x);
+					echo $this->api_model->insert('narratives', $x);
 				}
 			}
 			if(count($forUpdate) > 0)
 			{
 				foreach ($forUpdate as $x) {
-					$this->accomplishment_model->update('id', $x->id, 'narratives', $x);
+					$this->api_model->update('id', $x->id, 'narratives', $x);
 				}
 			}
 		}
@@ -222,7 +223,7 @@
 		public function deleteNarrative()
 		{
 			$data = array( 'id' => $_POST['narrative_id'] );
-			$this->accomplishment_model->delete('narratives', $data);
+			$this->api_model->delete('narratives', $data);
 		}
 
 		public function insertData()
@@ -233,7 +234,7 @@
 		 		'shift_end' => $_POST['shift_end'],
 		 		'summary' => $_POST['summary']
 		 	);
-		 	$id = $this->accomplishment_model->insert('accomplishment_report', $data);
+		 	$id = $this->api_model->insert('accomplishment_report', $data);
     		echo "$id";
 		}
 
@@ -252,9 +253,9 @@
 			}
 
 			if ($is_test === "true") {
-				$cred = $this->bulletin_model->getEmailCredentials('dynaslopeswat');
+				$cred = $this->users_model->getEmailCredentials('dynaslopeswat');
 			} else {
-				$cred = $this->bulletin_model->getEmailCredentials('dewslmonitoring');
+				$cred = $this->users_model->getEmailCredentials('dewslmonitoring');
 			}
 
 			if(is_string($cred)) { echo $cred; return; }
@@ -344,7 +345,7 @@
 
 			$on_update = ['analysis'];
 
-			$id = $this->accomplishment_model->updateIfExistsElseInsert('end_of_shift_analysis', $data, $on_update);
+			$id = $this->api_model->updateIfExistsElseInsert('end_of_shift_analysis', $data, $on_update);
     		echo "$id";
 		}
 

@@ -10,6 +10,8 @@
 			$this->load->helper('url');
 			$this->load->model('bulletin_model');
 			$this->load->model('users_model');
+			$this->load->model('lut_model');
+			$this->load->model('pubrelease_model');
 		}
 
 		public function index()
@@ -27,7 +29,7 @@
 				break;
 			}
 
-			$temp = $this->bulletin_model->getRelease($release_id);
+			$temp = $this->pubrelease_model->getRelease($release_id);
 			if( $temp == null) {
 				show_404();
 				break;
@@ -41,7 +43,7 @@
 			$data['public_alert_level'] = $public_alert;
 
 			$event_id = $temp->event_id;
-			$data['triggers'] = $this->bulletin_model->getAllEventTriggers($event_id);
+			$data['triggers'] = json_encode($this->bulletin_model->getAllEventTriggers($event_id));
 			$triggers = json_decode($data['triggers']);
 
 			$temp2 = $this->bulletin_model->getEvent($event_id);
@@ -53,7 +55,7 @@
 				'reporter_ct' => $this->users_model->getFullNameOfUserbyID($temp->reporter_id_ct),  
 			);
 
-			$data['responses'] = $this->bulletin_model->getResponses($data['public_alert_level'], $internal_alert);
+			$data['responses'] = $this->lut_model->getResponses($data['public_alert_level'], $internal_alert);
 			$data['alert_description'] = $this->getAlertDescription($internal_alert);
 
 			// Get most recent validity for the said release
@@ -88,6 +90,10 @@
 			}
 			
 			return $this->load->view('public_alert/bulletin_main', $data, $bool);
+		}
+		
+		public function getEvents($event_id) {
+			echo json_encode($this->bulletin_model->getEvent($event_id));
 		}
 
 		public function getAlertDescription ($internal_alert) {
@@ -153,9 +159,9 @@
 			}
 
 			if ($is_test === "true") {
-				$cred = $this->bulletin_model->getEmailCredentials('dynaslopeswat');
+				$cred = $this->users_model->getEmailCredentials('dynaslopeswat');
 			} else {
-				$cred = $this->bulletin_model->getEmailCredentials('dewslmonitoring');
+				$cred = $this->users_model->getEmailCredentials('dewslmonitoring');
 			}
 
 			if(is_string($cred)) { echo $cred; return; }

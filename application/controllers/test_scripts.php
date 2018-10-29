@@ -243,7 +243,7 @@ class Test_scripts extends CI_Controller {
 			$event['site_id'] = $site_id;
 			$event['event_start'] = $post['timestamp_entry'];
 			$event['status'] = 'on-going';
-			$event_id = $this->pubrelease_model->insert('public_alert_event', $event);
+			$event_id = $this->api_model->insert('public_alert_event', $event);
 			
 			//Prepare and save on public_alert_release
 			$release['event_id'] = $event_id;
@@ -255,7 +255,7 @@ class Test_scripts extends CI_Controller {
 			$release['reporter_id_ct'] = $post['reporter_2'];
 			$release['bulletin_number'] = $this->pubrelease_model->getBulletinNumber($site_id) + 1;
 			$this->pubrelease_model->update('site_id', $site_id, 'bulletin_tracker', array('bulletin_number' => $release['bulletin_number']) );
-			$release_id = $this->pubrelease_model->insert('public_alert_release', $release);
+			$release_id = $this->api_model->insert('public_alert_release', $release);
 			$this->pubrelease_model->update('event_id', $event_id, 'public_alert_event', array('latest_release_id' => $release_id) );
 
 			$this->saveTriggers($post, $event_id, $release_id, $event_validity);
@@ -277,7 +277,7 @@ class Test_scripts extends CI_Controller {
 			$release['reporter_id_ct'] = $post['reporter_2'];
 			$release['bulletin_number'] = $this->pubrelease_model->getBulletinNumber($site_id) + 1;
 			$this->pubrelease_model->update('site_id', $site_id, 'bulletin_tracker', array('bulletin_number' => $release['bulletin_number']) );
-			$release_id = $this->pubrelease_model->insert('public_alert_release', $release);
+			$release_id = $this->api_model->insert('public_alert_release', $release);
 			$this->pubrelease_model->update('event_id', $event_id, 'public_alert_event', array('latest_release_id' => $release_id) );
 			
 			$a = $this->public_alert_event_model->getEventValidity($event_id);
@@ -306,7 +306,7 @@ class Test_scripts extends CI_Controller {
 				$event['site_id'] = $site_id;
 				$event['event_start'] = $post['timestamp_entry'];
 				$event['status'] = $status;
-				$event_id = $this->pubrelease_model->insert('public_alert_event', $event);
+				$event_id = $this->api_model->insert('public_alert_event', $event);
 
 				//Prepare and save on public_alert_release
 				$release['event_id'] = $event_id;
@@ -318,7 +318,7 @@ class Test_scripts extends CI_Controller {
 				$release['reporter_id_ct'] = $post['reporter_2'];
 				$release['bulletin_number'] = $this->pubrelease_model->getBulletinNumber($site_id) + 1;
 				$this->pubrelease_model->update('site_id', $site_id, 'bulletin_tracker', array('bulletin_number' => $release['bulletin_number']) );
-				$release_id = $this->pubrelease_model->insert('public_alert_release', $release);
+				$release_id = $this->api_model->insert('public_alert_release', $release);
 				$this->pubrelease_model->update('event_id', $event_id, 'public_alert_event', array('latest_release_id' => $release_id) );
 			}
 
@@ -442,7 +442,7 @@ class Test_scripts extends CI_Controller {
 				$trigger['trigger_type'] = $entry['type'];
 				$trigger['info'] = $entry['info'];
 				$last_timestamp = $trigger['timestamp'] = $entry['timestamp'];
-				$latest_trigger_id = $this->pubrelease_model->insert('public_alert_trigger', $trigger);
+				$latest_trigger_id = $this->api_model->insert('public_alert_trigger', $trigger);
 				
 				// Save additional data for Earthquake trigger
 				if( $entry['type'] == "E" )
@@ -451,14 +451,14 @@ class Test_scripts extends CI_Controller {
 					$eq['magnitude'] = $post['magnitude'];
 					$eq['latitude'] = $post['latitude'];
 					$eq['longitude'] = $post['longitude'];
-					$this->pubrelease_model->insert('public_alert_eq', $eq);
+					$this->api_model->insert('public_alert_eq', $eq);
 				} else if( $entry['type'] == "D" )
 				{
 					$od['trigger_id'] = $latest_trigger_id;
 					$od['is_llmc'] = isset($post['llmc']) ? true : false;
 					$od['is_lgu'] = isset($post['lgu']) ? true : false;
 					$od['reason'] = $post['reason'];
-					$this->pubrelease_model->insert('public_alert_on_demand', $od);
+					$this->api_model->insert('public_alert_on_demand', $od);
 				}
 			}
 

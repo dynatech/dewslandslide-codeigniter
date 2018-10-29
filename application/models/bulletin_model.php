@@ -21,18 +21,18 @@
 		// 	return $result->firstname . " " . $result->lastname;
 		// }
 
-		public function getResponses ($public_alert) {
-			$query = $this->db->get_where('lut_responses', array('public_alert_level' => $public_alert));
-			$query3 = $this->db->get('lut_triggers');
-			$data['response'] = $query->result_array()[0];
-			foreach ($query3->result_object() as $line) {
-				$data['trigger_desc'][$line->trigger_type] = $line->detailed_desc;
-			}
+		// public function getResponses ($public_alert) { // CAUTION - already in lut_model
+		// 	$query = $this->db->get_where('lut_responses', array('public_alert_level' => $public_alert));
+		// 	$query3 = $this->db->get('lut_triggers');
+		// 	$data['response'] = $query->result_array()[0];
+		// 	foreach ($query3->result_object() as $line) {
+		// 		$data['trigger_desc'][$line->trigger_type] = $line->detailed_desc;
+		// 	}
 
-			return json_encode($data);
-		}
+		// 	return json_encode($data);
+		// }
 
-		public function getEvent ($event_id) {
+		public function getEvent ($event_id) { // CAUTION FOR REFACTORING WITH EVENT MODEL
 			$this->db->select('public_alert_event.*, sites.*');
 			$this->db->from('public_alert_event');
 			$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
@@ -59,32 +59,28 @@
 				{
 					$this->db->where('trigger_id', $arr['trigger_id']);
 					$query = $this->db->get('public_alert_eq');
-
 					$arr['eq_info'] = array_pop($query->result_array());
 				} else if ($arr['trigger_type'] == 'D') 
 				{
 					$this->db->where('trigger_id', $arr['trigger_id']);
 					$query = $this->db->get('public_alert_on_demand');
-
 					$arr['od_info'] = array_pop($query->result_object());
 				} else if (strtoupper($arr['trigger_type']) == 'M') 
 				{
 					$this->db->where('release_id', $arr['release_id']);
 					$query = $this->db->get('public_alert_manifestation');
-
 					$arr['manifestation_info'] = array_pop($query->result_object());
 				}
-
 			}
 
-			return json_encode($data);
+			return $data;
 		}
 		
-		public function getRelease($release_id)
-		{
-			$query = $this->db->get_where('public_alert_release', array('release_id' => $release_id));
-			return count($query->result_array()) > 0 ? $query->row() : null;
-		}
+		// public function getRelease($release_id) // CAUTION - already in pubrelease_model
+		// {
+		// 	$query = $this->db->get_where('public_alert_release', array('release_id' => $release_id));
+		// 	return count($query->result_array()) > 0 ? $query->row() : null;
+		// }
 
 		public function getPreviousNonA0Release($event_id)
 		{
@@ -96,19 +92,6 @@
 						->limit(1)
 						->get();
 			return $query->result_array()[0]['internal_alert_level'];
-		}
-
-		public function getEmailCredentials($username)
-		{
-			$query = $this->db->select("*")
-						->from("comms_db.membership AS mem")
-						->join("comms_db.user_emails AS um", "mem.user_fk_id = um.user_id")
-						->where("mem.username", $username)
-						->get();
-
-			if( $query->num_rows() == 0 ) $result = "No '" . $username . "' username on the database.";
-			else $result = $query->result_array()[0];
-			return $result;
 		}
 
 	}

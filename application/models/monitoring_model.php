@@ -80,11 +80,5 @@ class Monitoring_Model extends CI_Model
 		$data = $this->db->get();
 		return json_encode($data->result_array());
 	}
-
-	public function insert($table, $data)
-	{
-        $this->db->insert($table, $data);
-        $id = $this->db->insert_id();
-        return $id;
-    }
+	
 }

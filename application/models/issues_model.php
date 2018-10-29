@@ -85,14 +85,14 @@
 			return $query->result_array();
 		}
 
-		public function insert_row($table, $data)
+		public function insert_row($table, $data) // CAUTION - redundant with api_model insert
 		{
 	        $this->db->insert($table, $data);
 	        $id = $this->db->insert_id();
 	        return $id;
 	    }
 
-	    public function update_row($column, $key, $table, $data)
+	    public function update_row($column, $key, $table, $data) // CAUTION - redundant with api_model
 		{
 			$this->db->where($column, $key);
 			$this->db->update($table, $data);
@@ -100,7 +100,7 @@
 			else return false;
 		}
 
-		public function delete_row($column, $key, $table)
+		public function delete_row($column, $key, $table) // CAUTION - redundant with api_model
 		{
 			$this->db->where($column, $key);
 			$this->db->delete($table);

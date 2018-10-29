@@ -72,18 +72,6 @@ class Manifestations_Model extends CI_Model
 		return json_encode($result->result_object());
 	}
 
-	// public function getLastEventStatus($site_id) // CAUTION - already in public_alert_event_model
-	// {
-	// 	$this->db->select("status");
-	// 	$this->db->from("public_alert_event");
-	// 	$this->db->where("site_id", $site_id);
-	// 	$this->db->order_by("event_start", "desc");
-	// 	$this->db->limit(1);
-	// 	$result = $this->db->get();
-
-	// 	return json_encode($result->row()->status);
-	// }
-
 	public function getMOMApi($site_code = "all", $start = null, $end = null)
 	{
 		$site_id = null;
@@ -140,22 +128,6 @@ class Manifestations_Model extends CI_Model
 		return $query->result_array();
 	}
 
-	/**
-	 * Gets all staff
-	 *
-	 * @author Kevin Dhale dela Cruz
-	 **/
-	// public function getStaff() // CAUTION - Already in users_model
-	// {
-	// 	$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
-	// 	$this->db->from('comms_db.users AS u');
-	// 	$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
-	// 	$this->db->where('is_active','1');
-	// 	$this->db->order_by("u.lastname", "asc");
-	// 	$query = $this->db->get();
-	// 	return json_encode($query->result_array());
-	// }
-
 	public function getCount($search = null, $filter = null)
 	{
 		$this->db->select('COUNT(*)');
@@ -183,26 +155,6 @@ class Manifestations_Model extends CI_Model
 		$query = $this->db->get();
 		return json_encode($query->result_array());
 	}
-
-	public function insertIfNotExists($table, $data)
-	{
-		$result = $this->db->get_where($table, $data);
-		if( $result->num_rows() > 0 ) {
-			$row = $result->row();
-			return $row->feature_id;
-		} else {
-			$this->db->insert($table, $data);
-        	$id = $this->db->insert_id();
-        	return $id;
-		}
-    }
-
-	public function insert($table, $data)
-	{
-        $this->db->insert($table, $data);
-        $id = $this->db->insert_id();
-        return $id;
-    }
 
 	/**
 	 * Note: originally from Pubrelease_model

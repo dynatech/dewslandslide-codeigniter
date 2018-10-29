@@ -5,7 +5,6 @@ class API extends CI_Controller {
 		parent::__construct();
 		$this->load->model('site_level_model');
 		$this->load->model('node_level_model');
-		$this->load->model('comm_health_model');
 		$this->load->model('pubrelease_model');
 		$this->load->model('users_model');
 	}
@@ -35,21 +34,6 @@ class API extends CI_Controller {
 
 		public function PiezometerAllData($site){ // example  http://localhost/api/PiezometerAllData/ltesapzpz
 			$result = $this->site_level_model->getPiezometer($site);
-			print json_encode($result);
-		}
-
-		public function CommunicationHealthColumn($site){ // example  http://localhost/api/CommunicationHealthColumn/agbsb
-			$result = $this->comm_health_model->getHealth($site);
-			print json_encode($result);
-		}
-
-		public function TotalHealth($site){ // example  http://localhost/api/TotalHealth/agbsb
-			$result = $this->comm_health_model->getHealthTotal($site, 'json');
-			print json_encode($result);
-		}
-
-		public function DataPresence($site){ // example  http://localhost/api/DataPresence/agbsb
-			$result = $this->comm_health_model->getDataPresenceTotal($site, 'json');
 			print json_encode($result);
 		}
 

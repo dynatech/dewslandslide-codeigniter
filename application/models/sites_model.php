@@ -113,7 +113,7 @@ class Sites_Model extends CI_Model {
 	 * getSites() removed from pubrelease_model and renamed getActiveSites() since other implementations
 	 * on the models did not have "WHERE active = 1" in their queries.
 	 **/
-	public function getActiveSites() {
+	public function getActiveSites() { // CAUTION - for refactoring - remove the foreach
 		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
 				FROM sites
 				WHERE active = 1

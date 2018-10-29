@@ -6,10 +6,12 @@ class Manifestations extends CI_Controller
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
+		$this->load->model('api_model');
 		$this->load->model('manifestations_model');
 		$this->load->model('sites_model');
 		$this->load->model('users_model');
 		$this->load->model('public_alert_event_model');
+
 	}
 
 	public function index()
@@ -148,7 +150,7 @@ class Manifestations extends CI_Controller
 			'feature_type' => $_POST['feature_type']
 		);
 
-		$feature_id = $this->manifestations_model->insertIfNotExists('manifestation_features', $feature);
+		$feature_id = $this->api_model->insertIfNotExists('manifestation_features', $feature);
 
 		$manifestation = array(
 			"release_id" => null,
@@ -161,7 +163,7 @@ class Manifestations extends CI_Controller
 			"remarks" => isset($_POST['feature_remarks']) ? $_POST['feature_remarks'] : null
 		);
 
-		$this->manifestations_model->insert('public_alert_manifestation', $manifestation);
+		$this->api_model->insert('public_alert_manifestation', $manifestation);
 	}
 
 	public function getDistinctFeatureTypes()
