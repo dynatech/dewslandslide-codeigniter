@@ -7,8 +7,10 @@ class General_data_tagging_model extends CI_Model {
 		return $result->result();
 	}
 
-	public function getGDTViaID() {
-
+	public function getGDTViaTag($tag_name) {
+		$query = "SELECT * FROM gintag_reference WHERE tag_name = '".$tag_name."'";
+		$result = $this->db->query($query);
+		return $result->result();
 	}
 
 	public function addGDT($data) {
@@ -29,8 +31,19 @@ class General_data_tagging_model extends CI_Model {
 		return $result;
 	}
 
-	public function insertGDTPoint() {
+	public function insertGDTPoint($data,$table_name) {
+		$insert_gdt_point_query = "INSERT INTO gintag_details VALUES (0, '".date("Y-m-d H:i:s", time())."', ".$data['data_start_id'].",".$data['data_end_id'].",'".$table_name."')";
+		$result = $this->db->query($insert_gdt_point_query);
+		if ($result == true) {
+			$data = $this->db->insert_id();
+		}
+		return $data;
+	}
 
+	public function insertGDTReference($gdt_id, $tag_id) {
+		$query = "INSERT INTO gintags VALUES (0, '".$gdt_id."', '".$tag_id."')";
+		$result = $this->db->query($query);
+		return $result;
 	}
 
 	public function modifyGDTPoint() {
@@ -53,6 +66,28 @@ class General_data_tagging_model extends CI_Model {
 
 	public function getGDTPointViaTag() {
 
+	}
+
+	public function checkTableIfExisting($table_name) {
+		$query = "SELECT * FROM dynaslope_table_list WHERE table_name = '".$table_name."'";
+		$result = $this->db->query($query);
+		return $result->result();
+	}
+
+	public function insertTableReference($table_name) {
+		$data = [];
+		$query = "INSERT INTO dynaslope_table_list VALUES (0,'".$table_name."')";
+		$result = $this->db->query($query);
+		if ($result == true) {
+			$data = $this->db->insert_id();
+		}
+		return $data;
+	}
+
+	public function checkTagIfExisting($tag_name) {
+		$query = "SELECT * FROM gintag_reference WHERE tag_name = '".$tag_name."'";
+		$result = $this->db->query($query);
+		return $result->result();
 	}
 
 }

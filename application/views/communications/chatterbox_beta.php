@@ -18,7 +18,6 @@
 <link rel="stylesheet" type="text/css" href="/css/third-party/bootstrap-tagsinput.css">
 <link rel="stylesheet" type="text/css" href="/css/dewslandslide/dewschatterbox_beta.css">
 
-
 <img id="bg-img-chatterbox" src="../../../images/dews-l-logo.png" >
 <div class="container-fluid">
 	<div class="row chatterbox-panel-margin-top">

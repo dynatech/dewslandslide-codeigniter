@@ -69,7 +69,8 @@ class General_tagging extends CI_Controller {
 	}
 
 	public function getGenTagPointViaID() {
-		$data = $_POST['data_tags'];
+		$data = $_POST['data'];
+		var_dump($data);
 	}
 
 	public function getAllGenTagPoint(){
@@ -78,19 +79,50 @@ class General_tagging extends CI_Controller {
 	}
 
 	public function getAllGenTagPointViaTagname() {
-		$data = $_POST['data'];
+		$data = $_POST;
+		var_dump($data);
 	}
 
 	public function insertGenTagPoint() {
-		$data = $_POST['data'];
+		$data = $_POST;
+		$table_exists = $this->general_data_tagging_model->checkTableIfExisting($data['table']);
+		if (sizeOf($table_exists) == 0) {
+			$table_reference = $this->general_data_tagging_model->insertTableReference($data['table']);
+		} else {
+			$table_reference = $table_exists[0]->table_id;
+		}
+
+		$tag_exists = $this->general_data_tagging_model->checkTagIfExisting($data['data_tag']);
+		if (sizeOf($tag_exists) == 0) {
+			$tag_data = [
+				"tag_name" => $data['data_tag'],
+				"tag_description" => "",
+				"user" => $data['user_id']
+			];
+			$insert_tag_reference = $this->general_data_tagging_model->addGDT($tag_data);
+			if ($insert_tag_reference == true) {
+				$tag_reference = $this->general_data_tagging_model->getGDTViaTag($tag_data['tag_name']);
+				$tag_reference = $tag_reference[0]->tag_id;
+			} else {
+				echo "RETURN";
+			}
+		} else {
+			$tag_reference = $tag_exists[0]->tag_id;
+		}
+
+		$gdt_id  = $this->general_data_tagging_model->insertGDTPoint($data, $table_reference);
+		$insert_gintag = $this->general_data_tagging_model->insertGDTReference($gdt_id,$tag_reference);
+		print $insert_gintag;
 	}
 
 	public function modifyGenTagPoint() {
-		$data = $_POST['data'];
+		$data = $_POST;
+		var_dump($data);
 	}
 
 	public function removeGenTagPoint() {
-		$data = $_POST['data'];
+		$data = $_POST;
+		var_dump($data);
 	}
 }
 ?>
