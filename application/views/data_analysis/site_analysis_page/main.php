@@ -15,7 +15,7 @@
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/subsurface_column_plotter.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/subsurface_node_plotter.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/download_site_charts.js"></script>
-
+<script type="text/javascript" src="/js/dewslandslide/plugins/general_tagging.js"></script>
 <!-- CSS Files -->
 <link rel="stylesheet" type="text/css" href="/css/dewslandslide/data_analysis/site_analysis.css">
 

@@ -47,7 +47,7 @@
 		public function getShiftReleases()
 		{
 			$data = $this->accomplishment_model->getShiftReleases($_GET['start'], $_GET['end']);
-			echo "$data";
+			echo json_encode($data);
 		}
 
 		public function getShiftTriggers()
@@ -64,13 +64,13 @@
 			else array_push($event_ids, $event_id);
 
 			$data = $this->accomplishment_model->getNarratives($event_ids);
-			echo "$data";
+			echo json_encode($data);
 		}
 
 		public function getNarrativesForShift()
 		{
 			$data = $this->narratives_model->getNarrativesForShift($_GET['event_id'], $_GET['start'], $_GET['end']);
-			echo "$data";
+			echo json_encode($data);
 		}
 
 		public function getSubsurfaceColumns ($site_code, $shift_end)

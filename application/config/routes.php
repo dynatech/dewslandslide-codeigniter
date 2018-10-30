@@ -76,7 +76,7 @@ $route['communications/responsetracker'] = "responsetracker/index";
 $route['communications/chatterbox/updatecontacts'] = "chatterbox/updatecontacts";
 $route['communications/chatterbox/gintagcontacts'] = "chatterbox/get_comm_contacts_gintag";
 $route['communications/chatterbox/addcontact'] = "chatterbox/addcontacts";
-
+$route['communications/chatterbox_v2'] = "chatterbox_v2/index";
 /**
  * NEW Chatterbox **BETA**
  */
@@ -181,7 +181,7 @@ $route['gold/bulletin-main/(:num)/(:any)'] = "bulletin/main/$1/$2";
 
 $route['site_info/index'] = "site_info/index";
 
-$route['default_controller'] = "lin";
+$route['default_controller'] = "login";
 $route['404_override'] = '';
 
 /* End of file routes.php */
