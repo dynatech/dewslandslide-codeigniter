@@ -617,16 +617,16 @@ class API extends CI_Controller {
 		}
 	
 	public function getStaff () {
-		echo $this->users_model->getDEWSLUsers();
+		echo json_encode($this->users_model->getDEWSLUsers());
 	}
 
 	public function getAllReleasesWithEventDetails () {
-		echo $this->pubrelease_model->getAllReleasesWithEventDetails();
+		echo json_encode($this->pubrelease_model->getAllReleasesWithEventDetails());
 	}
 
 	public function getMOM ($site_code = "all", $start = null, $end = null) {
 		$this->load->model('manifestations_model');
-		echo $this->manifestations_model->getMOMApi($site_code, $start, $end);
+		echo json_encode($this->manifestations_model->getMOMApi($site_code, $start, $end));
 	}
 
 	private function getOSspecificpath () {

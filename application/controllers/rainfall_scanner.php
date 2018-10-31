@@ -52,7 +52,7 @@ class Rainfall_scanner extends CI_Controller {
 	}
 
 	public function getSitesWithRegions () {
-		$sites = $this->sites_model->getSitesWithRegions();
+		$sites = json_encode($this->sites_model->getSitesWithRegions());
 		echo json_encode($sites);
 	}
 

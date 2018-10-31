@@ -55,7 +55,7 @@
 				'reporter_ct' => $this->users_model->getFullNameOfUserbyID($temp->reporter_id_ct),  
 			);
 
-			$data['responses'] = $this->lut_model->getResponses($data['public_alert_level'], $internal_alert);
+			$data['responses'] = json_encode($this->lut_model->getResponses($data['public_alert_level'], $internal_alert));
 			$data['alert_description'] = $this->getAlertDescription($internal_alert);
 
 			// Get most recent validity for the said release

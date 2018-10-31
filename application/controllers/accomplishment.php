@@ -24,7 +24,7 @@
 			$data['last_name'] = $this->session->userdata('last_name');
 			
 			$data['title'] = "DEWS-Landslide Accomplishment Report Filing Form";
-			$data['withAlerts'] = $this->accomplishment_model->getSitesWithAlerts();
+			$data['withAlerts'] = json_encode($this->accomplishment_model->getSitesWithAlerts());
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/nav');
 			$this->load->view('reports/accomplishment_report', $data);

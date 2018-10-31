@@ -19,7 +19,7 @@
 			$this->db->where('issues_and_reminders.status', $status);
 			$this->db->order_by('ts_posted', 'desc');
 			$query = $this->db->get();
-			return json_encode($query->result_array());
+			return $query->result_array();
 		}
 
 		public function getEventCount($status, $search = null, $filter = null)

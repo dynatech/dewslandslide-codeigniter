@@ -34,7 +34,7 @@ class Accomplishment_Model extends CI_Model
 		$this->db->where('status', 'on-going');
 		$this->db->or_where('status', 'extended');
 		$query = $this->db->get();
-		return json_encode($query->result_object());
+		return $query->result_object();
 	}
 
 	public function getNarratives($event_id) {

@@ -21,7 +21,7 @@ class Site_analysis extends CI_Controller {
 		$data['user_id'] = $this->session->userdata("id");
 		
 		$data['title'] = $page;
-        $data['sites'] = $this->sites_model->getActiveSites();
+        $data['sites'] = json_encode($this->sites_model->getActiveSites());
         $data['options_bar'] = $this->load->view('data_analysis/site_analysis_page/options_bar', $data, true);
         $data['site_level_plots'] = $this->load->view('data_analysis/site_analysis_page/site_level_plots', $data, true);
         $data['subsurface_column_level_plots'] = $this->load->view('data_analysis/site_analysis_page/subsurface_column_plots', $data, true);

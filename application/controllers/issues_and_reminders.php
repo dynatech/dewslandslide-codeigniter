@@ -27,16 +27,16 @@
 		public function modal()
 		{
 			$this->load->model('monitoring_model');
-			$data['events'] = $this->monitoring_model->getOnGoingEvents();
-			$data['locked'] = isset($_POST['locked']) ? $_POST['locked'] : $this->issues_model->getAllRowsByStatus('locked');
-			$data['normal'] = isset($_POST['normal']) ? $_POST['normal'] : $this->issues_model->getAllRowsByStatus('normal');
+			$data['events'] = json_encode($this->monitoring_model->getOnGoingEvents());
+			$data['locked'] = isset($_POST['locked']) ? $_POST['locked'] : json_encode($this->issues_model->getAllRowsByStatus('locked'));
+			$data['normal'] = isset($_POST['normal']) ? $_POST['normal'] : json_encode($this->issues_model->getAllRowsByStatus('normal'));
 			return $this->load->view('public_alert/issues_and_reminders_modal', $data);
 		}
 
 		public function panel_div()
 		{
 			$this->load->model('monitoring_model');
-			$data['events'] = $this->monitoring_model->getOnGoingEvents();
+			$data['events'] = json_encode($this->monitoring_model->getOnGoingEvents());
 			$locked = isset($_GET['locked']) ? $_GET['locked'] : $this->issues_model->getAllRowsByStatus('locked');
 			$normal = isset($_GET['normal']) ? $_GET['normal'] : $this->issues_model->getAllRowsByStatus('normal');
 			$data['locked_and_normal'] = json_encode(array_merge($locked, $normal));

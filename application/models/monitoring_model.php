@@ -43,7 +43,7 @@ class Monitoring_Model extends CI_Model
 			$result[$index] = array_merge($event, $merged);
 		}
 
-		return json_encode($result);
+		return $result;
 	}
 
 	public function getAllRoutineEventsGivenDate ($date) {
@@ -65,7 +65,7 @@ class Monitoring_Model extends CI_Model
 		$this->db->join('sites', 'sites.site_id = public_alert_event.site_id');
 		$this->db->where('public_alert_event.status', 'on-going');
 		$query = $this->db->get();
-		return json_encode($query->result_array());
+		return $query->result_array();
 	}
 
 	public function getFirstEventRelease($event_id)
@@ -78,7 +78,7 @@ class Monitoring_Model extends CI_Model
 		$this->db->order_by('public_alert_release.release_id', 'desc');
 		$this->db->order_by('public_alert_trigger.timestamp', 'asc');
 		$data = $this->db->get();
-		return json_encode($data->result_array());
+		return $data->result_array();
 	}
 	
 }
