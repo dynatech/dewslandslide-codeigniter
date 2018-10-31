@@ -93,6 +93,7 @@ class General_tagging extends CI_Controller {
 		}
 
 		$tag_exists = $this->general_data_tagging_model->checkTagIfExisting($data['data_tag']);
+
 		if (sizeOf($tag_exists) == 0) {
 			$tag_data = [
 				"tag_name" => $data['data_tag'],
@@ -110,9 +111,47 @@ class General_tagging extends CI_Controller {
 			$tag_reference = $tag_exists[0]->tag_id;
 		}
 
+		switch ($data['type']) {
+			case 'rainfall':
+				$result = $this->insertRainfallGDT($data, $table_reference, $tag_reference);
+				break;
+			case 'surficial':
+				$result = $this->insertSurficialGDT($data, $table_reference, $tag_reference);
+				break;
+			default:
+				echo "No request";
+				break;
+		}
+		print $result;
+	}
+
+	public function insertSurficialGDT($data, $table_reference, $tag_reference) {
 		$gdt_id  = $this->general_data_tagging_model->insertGDTPoint($data, $table_reference);
 		$insert_gintag = $this->general_data_tagging_model->insertGDTReference($gdt_id,$tag_reference);
-		print $insert_gintag;
+		return $insert_gintag;
+	}
+
+	public function insertRainfallGDT($data, $table_reference, $tag_reference) {
+		$config_app = switch_db("senslopedb");
+		$this->db = $this->load->database($config_app, TRUE);
+		$rainfall_id = $this->general_data_tagging_model->getRainfallID($data,$table_reference);
+
+		if (sizeOf($rainfall_id) != 0) {
+			$start_id = $rainfall_id[0];
+			$end_id = $rainfall_id[sizeOf($rainfall_id)-1];
+		} else {
+			return false;
+		}
+		
+		$config_app = switch_db("commons_db","localhost");
+		$this->db = $this->load->database($config_app, TRUE);
+		$data = [
+			"data_start_id" => $start_id->data_id,
+			"data_end_id" => $end_id->data_id
+			];
+		$gdt_id  = $this->general_data_tagging_model->insertGDTPoint($data, $table_reference);
+		$insert_gintag = $this->general_data_tagging_model->insertGDTReference($gdt_id,$tag_reference);
+		return $insert_gintag;
 	}
 
 	public function modifyGenTagPoint() {

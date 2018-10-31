@@ -195,8 +195,8 @@
             <thead>
                 <tr>
                     <th>Table</th>
-                    <th>Data Start ID</th>
-                    <th>Data End ID</th>
+                    <th>Data Start</th>
+                    <th>Data End</th>
                 </tr>
             </thead>
             <tbody>

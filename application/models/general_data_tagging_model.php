@@ -90,5 +90,16 @@ class General_data_tagging_model extends CI_Model {
 		return $result->result();
 	}
 
+	public function getRainfallID($data, $table_reference) {
+		if ($data['data_start_id'] == $data['data_end_id']) {
+			$query_builder = "WHERE ts = '".$data['data_start_id']."'";
+		} else {
+			$query_builder = "WHERE ts >= '".$data['data_start_id']."' AND ts <= '".$data['data_end_id']."'";
+		}
+		$get_rainfall_id = "SELECT * FROM ".strtolower($data['table'])." ".$query_builder;
+		$rainfall_id = $this->db->query($get_rainfall_id);
+		return $rainfall_id->result();
+	}
+
 }
 ?>
