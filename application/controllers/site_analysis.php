@@ -214,13 +214,7 @@ class Site_analysis extends CI_Controller {
 
         echo json_encode($processed_data);
     }
-
-    public function getGroundMarkerAndMarkerId ($site_code) {
-        $surficial_markers = $this->surficial_model->getGroundMarkerName($site_code);
-
-        echo json_encode($surficial_markers);
-    }
-
+    
     public function getProcessedSurficialMarkerTrendingAnalysis ($site_code, $marker_id, $end_date) {
         $site_id = $this->getSiteId($site_code);
         $data = $this->getSurficialMarkerTrendingAnalysis($site_id, $marker_id, $end_date);
