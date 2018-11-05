@@ -26,6 +26,10 @@ class General_data_tagging_model extends CI_Model {
 	}
 
 	public function deleteGDT($data) {
+
+		$set_zero = "SET FOREIGN_KEY_CHECKS = 0;";
+		$result = $this->db->query($set_zero);
+
 		$query = "DELETE FROM gintag_reference WHERE tag_id = '".$data['tag_id']."'";
 		$result = $this->db->query($query);
 		return $result;
@@ -60,8 +64,15 @@ class General_data_tagging_model extends CI_Model {
 		return $result->result();
 	}
 
-	public function getGDTPointViaID() {
+	public function getGDTPointViaID($id) {
 
+	}
+
+	public function getGDTViaID($id) {
+		$query = "SELECT * FROM gintag_reference WHERE tag_id = '".$id."'";
+		$result = $this->db->query($result);
+		$result = ($result->num_rows != 0) ? $result->result() : [];
+		return $result;
 	}
 
 	public function getGDTPointViaTag() {

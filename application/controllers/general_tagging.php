@@ -27,12 +27,12 @@ class General_tagging extends CI_Controller {
 			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
 			die();
 		}
-		else {
-		}
 	}
 	
 	public function getGeneralDataTagViaID() {
 		$data = $_POST['data'];
+		$result = $this->general_data_tagging_model->getGDTViaID($data['id']);
+		echo json_encode($result);
 	}
 
 	public function getAllGeneralDataTag() {
