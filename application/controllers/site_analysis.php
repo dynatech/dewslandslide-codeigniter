@@ -156,7 +156,6 @@ class Site_analysis extends CI_Controller {
     }
 
     public function getRainDataSourcesPerSite ($site_code) {
-
         try {
             $paths = $this->getOSspecificpath();
         } catch (Exception $e) {
