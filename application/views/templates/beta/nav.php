@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row" id="header-row">
         <div class="col-sm-8">
-            <a class="navbar-brand" href="<?php echo base_url(); ?>home"><span id="project-name"><strong>DYNASLOPE</strong></span></a>
+            <a class="navbar-brand" href="<?php echo base_url(); ?>home"><span id="project-name"><strong>PROJECT DYNASLOPE</strong></span></a>
         </div>
 
         <div class="col-sm-4 text-right">
@@ -18,7 +18,7 @@
 
 <div class="nav-row" id="navigation">
     <ul>
-        <span id="logo" class="col-sm-4" hidden>DYNASLOPE</span>
+        <span id="logo" class="col-sm-4" hidden>PROJECT DYNASLOPE</span>
         <span id="links">
         <?php 
             $uri_array = $_SERVER["REQUEST_URI"];
@@ -40,6 +40,18 @@
         ?>
         </span>
     </ul>
+</div>
+
+<div class="modal fade js-loading-bar" id="loading" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="progress progress-popup">
+                    <div class="progress-bar progress-bar-striped active" style="width: 100%">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

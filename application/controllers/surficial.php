@@ -4,12 +4,89 @@ class Surficial extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('surficial_model');
+        $this->load->model('sites_model');
+        $this->load->model('api_model');
 		$this->load->helper('url');
 	}
 
 	public function index() {
-		echo "Surficial controller";
+        $data["title"] = "Surficial Markers Page";
+
+        $data["sites"] = $this->sites_model->getCompleteSiteInformation("all", false);
+
+		$this->load->view('templates/beta/header', $data);
+        $this->load->view('templates/beta/nav');
+        $this->load->view('data_analysis/surficial_markers_page', $data);
+        $this->load->view('templates/beta/footer');
 	}
+
+    public function getSurficialMarkers ($site_code, $filter_in_use = true, $complete_data = false) {
+        $filter_in_use = isset($filter_in_use) ? false : true;
+        $complete_data = isset($complete_data) ? true : false;
+        
+        $surficial_markers = $this->surficial_model->getSurficialMarkers($site_code, $filter_in_use, $complete_data);
+        echo json_encode($surficial_markers);
+    }
+
+    public function getSurficialMarkerHistory ($marker_id) {
+        $history = $this->surficial_model->getSurficialMarkerHistory($marker_id);
+        echo json_encode($history);
+    }
+
+    public function insertNewMarker () {
+        $desc = $_POST["description"];
+        $lat = $_POST["latitude"];
+        $long = $_POST["longitude"];
+
+        $temp = array(
+            "site_id" => $_POST["site_id"],
+            "description" => $desc === "" ? null : $desc,
+            "latitude" => $lat === "" ? null : $lat,
+            "longitude" => $long === "" ? null : $long,
+            "in_use" => $_POST["in_use"]
+        );
+
+        $marker_id = $this->api_model->insert("markers", $temp);
+        
+        $history_id = $this->api_model->insert("marker_history", array(
+            "marker_id" => $marker_id, "event" => $_POST["event"]
+        ));
+        
+        $this->api_model->insert("marker_names", array(
+            "history_id" => $history_id, "marker_name" => $_POST["marker_name"]
+        ));
+        
+        echo $marker_id;
+    }
+
+    public function updateSurficialMarker () {
+        $event = $_POST["event"];
+        $marker_id = $_POST["marker_id"];
+        $desc = $_POST["description"];
+        $lat = $_POST["latitude"];
+        $long = $_POST["longitude"];
+
+        if ($event === "rename") {
+            $history_id = $this->api_model->insert("marker_history", array(
+                "marker_id" => $marker_id, "event" => $event
+            ));
+
+            $this->api_model->insert("marker_names", array(
+                "history_id" => $history_id, "marker_name" => $_POST["marker_name"]
+            ));
+        }
+
+        $temp = array(
+            "description" => $desc === "" ? null : $desc,
+            "latitude" => $lat === "" ? null : $lat,
+            "longitude" => $long === "" ? null : $long,
+            "in_use" => $_POST["in_use"]
+        );
+
+        $this->api_model->update("marker_id", $marker_id, "markers", $temp);
+
+        echo "success";
+    }
 
     public function convertOldDataToRefDB () {
         $filename = "/home/swat/Desktop/tue_surficial.json";
