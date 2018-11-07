@@ -141,7 +141,8 @@ $route['staff/add_profile'] = "staff_profile/addNewProfile";
 $route['staff/update_profile'] = "staff_profile/updateStaffProfile";
 $route['staff/change_profile_pic'] = "staff_profile/changeProfilePic";
 
-<<<<<<< HEAD
+$route['site_info/index'] = "site_info/index";
+
 $route['qa_tally/'] = "qa_tally/index";
 
 /**
@@ -179,10 +180,6 @@ $route['gold/bulletin/(:any)'] = "bulletin/view/$1";
 $route['gold/bulletin-builder/(:num)'] = "bulletin/build/$1";
 $route['gold/bulletin-editor/(:num)'] = "bulletin/edit/$1";
 $route['gold/bulletin-main/(:num)/(:any)'] = "bulletin/main/$1/$2";
-=======
->>>>>>> 987dbcdcf105e2e6c27ba993624dc95286d30f51
-
-$route['site_info/index'] = "site_info/index";
 
 $route['default_controller'] = "login";
 $route['404_override'] = '';
