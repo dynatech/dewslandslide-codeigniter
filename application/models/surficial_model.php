@@ -6,6 +6,7 @@ class surficial_model extends CI_Model {
 			"marker_observations.mo_id as mo_id, 
 			marker_observations.ts, 
 			UPPER(site_markers.marker_name) as crack_id,
+			marker_data.data_id,
 			marker_data.measurement as measurement,
 			marker_data.marker_id as marker_id,
 			site_markers.site_code"
@@ -47,6 +48,7 @@ class surficial_model extends CI_Model {
 			"marker_observations.mo_id as mo_id, 
 			marker_observations.ts,
 			UPPER(site_markers.marker_name) as crack_id,
+			marker_data.data_id,
 			marker_data.measurement,
 			site_markers.site_id"
 		);
