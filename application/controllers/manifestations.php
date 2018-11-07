@@ -6,7 +6,12 @@ class Manifestations extends CI_Controller
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
+		$this->load->model('api_model');
 		$this->load->model('manifestations_model');
+		$this->load->model('sites_model');
+		$this->load->model('users_model');
+		$this->load->model('public_alert_event_model');
+
 	}
 
 	public function index()
@@ -19,8 +24,8 @@ class Manifestations extends CI_Controller
 		$data['user_id'] = $this->session->userdata("id");
 
 		// $data['events'] = json_encode('null');
-		// $data['sites'] = $this->monitoring_model->getSites();
-		// $data['staff'] = $this->monitoring_model->getStaff();
+		// $data['sites'] = json_encode($this->sites_model->getSites());
+		// $data['staff'] = json_encode($this->users_model->getDEWSLUsers());
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav');
@@ -38,9 +43,9 @@ class Manifestations extends CI_Controller
 		$data['user_id'] = $this->session->userdata("id");
 
 		$data['site_code'] = $site_code;
-		$data['site_id'] = $this->manifestations_model->getSiteID($site_code);
-		$data['event_status'] = $this->manifestations_model->getLastEventStatus($data['site_id']);
-		$data['staff'] = $this->manifestations_model->getStaff();
+		$data['site_id'] = $this->sites_model->getSiteID($site_code);
+		$data['event_status'] = json_encode($this->public_alert_event_model->getLastEventStatus($data['site_id']));
+		$data['staff'] = json_encode($this->users_model->getDEWSLUsers());
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav');
@@ -50,12 +55,12 @@ class Manifestations extends CI_Controller
 
 	public function getMOM($site_code = "all", $start = null, $end = null)
 	{
-		echo $this->manifestations_model->getMOMApi($site_code, $start, $end);
+		echo json_encode($this->manifestations_model->getMOMApi($site_code, $start, $end));
 	}
 
 	public function getLatestMOMperSite()
 	{
-		echo $this->manifestations_model->getLatestMOMperSite();
+		echo json_encode($this->manifestations_model->getLatestMOMperSite());
 	}
 
 	public function getAllMOMforASite($site_code)
@@ -70,7 +75,7 @@ class Manifestations extends CI_Controller
 		$extraFilter = $_POST['extra_filter'];
 
 		$extraFilter['hasFilter'] = true;
-		$site_id = $this->manifestations_model->getSiteID($site_code);
+		$site_id = $this->sites_model->getSiteID($site_code);
 		$extraFilter['filterList']['site_id'] = $site_id;
 
 		function addTableName($x)
@@ -145,7 +150,7 @@ class Manifestations extends CI_Controller
 			'feature_type' => $_POST['feature_type']
 		);
 
-		$feature_id = $this->manifestations_model->insertIfNotExists('manifestation_features', $feature);
+		$feature_id = $this->api_model->insertIfNotExists('manifestation_features', $feature);
 
 		$manifestation = array(
 			"release_id" => null,
@@ -158,12 +163,12 @@ class Manifestations extends CI_Controller
 			"remarks" => isset($_POST['feature_remarks']) ? $_POST['feature_remarks'] : null
 		);
 
-		$this->manifestations_model->insert('public_alert_manifestation', $manifestation);
+		$this->api_model->insert('public_alert_manifestation', $manifestation);
 	}
 
 	public function getDistinctFeatureTypes()
 	{
-		echo $this->manifestations_model->getDistinctFeatureTypes();
+		echo json_encode($this->manifestations_model->getDistinctFeatureTypes());
 	}
 
 	public function is_logged_in() 

@@ -181,7 +181,7 @@ $route['gold/bulletin-main/(:num)/(:any)'] = "bulletin/main/$1/$2";
 
 $route['site_info/index'] = "site_info/index";
 
-$route['default_controller'] = "lin";
+$route['default_controller'] = "login";
 $route['404_override'] = '';
 
 /* End of file routes.php */

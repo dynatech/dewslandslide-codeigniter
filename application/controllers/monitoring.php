@@ -7,6 +7,8 @@ class Monitoring extends CI_Controller
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('monitoring_model');
+		$this->load->model('sites_model');
+		$this->load->model('users_model');
 	}
 
 	public function index()
@@ -19,8 +21,8 @@ class Monitoring extends CI_Controller
 		$data['user_id'] = $this->session->userdata("id");
 
 		$data['events'] = json_encode('null');
-		$data['sites'] = $this->monitoring_model->getSites();
-		$data['staff'] = $this->monitoring_model->getStaff();
+		$data['sites'] = json_encode($this->sites_model->getSites());
+		$data['staff'] = json_encode($this->users_model->getDEWSLUsers());
 		$data['monitoring'] = $this->load->view('public_alert/monitoring_dashboard_tables', null, true);
 		$data['generated_alerts'] = $this->load->view('public_alert/generated_alerts', $data, true);
 		$data['bulletin_modals'] = $this->load->view('public_alert/bulletin_modals', $data, true);
@@ -33,7 +35,7 @@ class Monitoring extends CI_Controller
 
 	public function getOnGoingAndExtended () {
 		date_default_timezone_set('Asia/Manila');
-		$events = $this->monitoring_model->getOnGoingAndExtended();
+		$events = json_encode($this->monitoring_model->getOnGoingAndExtended());
 
 		$latest = []; $extended = [];
 		$overdue = [];
@@ -103,21 +105,21 @@ class Monitoring extends CI_Controller
 
 	public function getSites()
 	{
-		$data = $this->monitoring_model->getSites();
-		echo "$data";
+		$data = json_encode($this->sites_model->getSites());
+		echo $data;
 	}
 
 	public function getFirstEventRelease($event_id)
 	{
-		$data = $this->monitoring_model->getFirstEventRelease($event_id);
-		echo "$data";
+		$data = json_encode($this->monitoring_model->getFirstEventRelease($event_id));
+		echo $data;
 	}
 
-	public function showSavedAlerts()
-	{
-		$data = $this->monitoring_model->getAlertsForVerification();
-		echo "$data";
-	}
+	// public function showSavedAlerts() // CAUTION - unused codes
+	// {
+	// 	$data = $this->monitoring_model->getAlertsForVerification();
+	// 	echo "$data";
+	// }
 
 	public function saveToVerificationTable()
 	{
@@ -137,7 +139,7 @@ class Monitoring extends CI_Controller
 	public function changeFile($id)
 	{
 		copy( $_SERVER['DOCUMENT_ROOT'] . "/temp/data/p" . $id . "/PublicAlert.json", $_SERVER['DOCUMENT_ROOT'] . "/temp/data/PublicAlert.json" );
-		echo "$id";
+		echo $id;
 	}
 
 	public function processAlerts()
@@ -150,7 +152,7 @@ class Monitoring extends CI_Controller
 	public function getStaffNames($include_inactive = false)
 	{
 		if ($include_inactive === "1") $include_inactive = true;
-		echo $this->monitoring_model->getStaff($include_inactive);
+		echo json_encode($this->users_model->getDEWSLUsers($include_inactive));
 	}
 
 	public function is_logged_in() 

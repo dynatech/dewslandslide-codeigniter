@@ -16,7 +16,7 @@
     <!-- Custom Bootstrap Admin Theme -->
     <link href="/css/third-party/sb-admin.css" rel="stylesheet">
     <!-- Public website general css -->
-    <link rel="stylesheet" type="text/css" href="/css/dewslandslide/misc/pms.css">
+    <link rel="stylesheet" type="text/css" href="/css/dewslandslide/dynaslope-main.css">
     <!-- Font Awesome -->
     <link href="/css/third-party/font-awesome.min.css" rel="stylesheet" type="text/css">
 

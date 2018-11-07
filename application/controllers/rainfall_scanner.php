@@ -5,6 +5,7 @@ class Rainfall_scanner extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('pubrelease_model');
+		$this->load->model('sites_model');
 	}
 
 	public function index () {
@@ -16,7 +17,7 @@ class Rainfall_scanner extends CI_Controller {
 		
 		$data['title'] = $page;
 		
-		$sites = $this->pubrelease_model->getSitesWithRegions();
+		$sites = $this->sites_model->getSitesWithRegions();
 
 		$regions = [];
 		$provinces = [];
@@ -51,7 +52,7 @@ class Rainfall_scanner extends CI_Controller {
 	}
 
 	public function getSitesWithRegions () {
-		$sites = $this->pubrelease_model->getSitesWithRegions();
+		$sites = json_encode($this->sites_model->getSitesWithRegions());
 		echo json_encode($sites);
 	}
 
