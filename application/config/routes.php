@@ -140,12 +140,24 @@ $route['analysis/Eos_onModal/(:any)/(:any)/(:any)/(:any)'] = "Eos_modal";
  * Data Analysis Pages Routes
  */
 
+
+
+/**
+ * Misc
+ */
+
 $route['staff/all'] = "staff_profile/index";
 $route['staff/get_all_staff'] = "staff_profile/getAllStaffProfile";
 $route['staff/profile'] = "staff_profile/getStaffProfile";
 $route['staff/add_profile'] = "staff_profile/addNewProfile";
 $route['staff/update_profile'] = "staff_profile/updateStaffProfile";
 $route['staff/change_profile_pic'] = "staff_profile/changeProfilePic";
+
+$route['qa_tally/'] = "qa_tally/index";
+
+/**
+ * Misc
+ */
 
 //Gold
 //$route['gold'] = "monitoring/index";
