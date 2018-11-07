@@ -88,6 +88,10 @@ class Surficial extends CI_Controller {
         echo "success";
     }
 
+    public function updateMarkerDataPointMeasurement () {
+        $this->api_model->update("data_id", $_POST["data_id"], "marker_data", array("measurement" => $_POST["measurement"]));
+    }
+
     public function convertOldDataToRefDB () {
         $filename = "/home/swat/Desktop/tue_surficial.json";
         $file = fopen($filename, "r") OR die("Unable to open file $filename");

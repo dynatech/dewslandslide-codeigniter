@@ -1,5 +1,5 @@
 
-<script type="text/javascript" src="/js/third-party/Highcharts.js"></script>
+<script type="text/javascript" src="/js/third-party/highcharts.js"></script>
 <script type="text/javascript" src="/js/third-party/exporting.js"></script>
 <script type="text/javascript" src="/js/third-party/no-data-to-display.js"></script>
 <script type="text/javascript" src="/js/third-party/highcharts-more.js"></script>
@@ -82,7 +82,7 @@
                             </div>
                             <div class="col-sm-3 text-right">
                                 <div class="btn-group" id="surficial-duration">
-                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="surficial-duration-btn">
+                                    <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="surficial-duration-btn">
                                         3 months&emsp;<span class="caret"></span>
                                     </button>
 
@@ -186,6 +186,36 @@
                 <div class="modal-footer">
                     <button type="submit" id="add-marker" class="btn btn-danger submit-btn">Add Marker</button>
                     <button type="submit" id="update-marker" class="btn btn-danger submit-btn">Update Marker</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>    
+        </div>
+    </div>
+</div>
+
+<div id="markers-data-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Surficial Marker Data Modal</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <strong>Timestamp:</strong>&ensp;<span id="timestamp"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label class="control-label" for="measurement">Measurement</label>
+                            <input type="number" step="0.1" min="0" class="form-control" id="measurement" name="measurement" placeholder="Enter measurement">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="update-point" class="btn btn-danger submit-btn">Update Data Point</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
             </form>    
