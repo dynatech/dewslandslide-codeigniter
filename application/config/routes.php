@@ -64,9 +64,6 @@ $route['monitoring/bulletin/main/(:num)/(:any)'] = "bulletin/main/$1/$2";
  */
 $route['reports/accomplishment/form'] = "accomplishment/index";
 $route['reports/accomplishment/checker'] = "accomplishment/checker";
-$route['reports/site_maintenance/form'] = "sitemaintenance/index";
-$route['reports/site_maintenance/all'] = "sitemaintenance/all";
-$route['reports/site_maintenance/(:num)'] = "sitemaintenance/individual/$1";
 
 /**
  * Communications Pages Routes
@@ -124,17 +121,8 @@ $route['analysis/site_analysis/(:any)'] = "site_analysis";
 $route['analysis/eos_charts/(:any)/(:any)/(:any)/(:any)'] = "end_of_shift_charts";
 $route['analysis/manifestations'] = "manifestations";
 $route['analysis/manifestations/(:any)'] = "manifestations/individual_site/$1";
-
-$route['analysis/node'] = "node_level_page";
-$route['analysis/node/(:any)/(:any)/(:any)/(:any)'] = "node_level_page";
-$route['analysis/column'] = "site_level_page";
-$route['analysis/column/(:any)'] = "site_level_page";
-$route['analysis/surficial'] = "surficial_page";
-$route['analysis/subsurface'] = "subsurface_page";
-$route['analysis/sensor_overview'] = "sensor_overview_page";
-$route['analysis/nodereport'] = "node_report_page";
+$route['analysis/surficial'] = "surficial";
 $route['analysis/rainfall_scanner'] = "rainfall_scanner";
-$route['analysis/Eos_onModal/(:any)/(:any)/(:any)/(:any)'] = "Eos_modal";
 
 /**
  * Data Analysis Pages Routes
@@ -147,37 +135,6 @@ $route['staff/add_profile'] = "staff_profile/addNewProfile";
 $route['staff/update_profile'] = "staff_profile/updateStaffProfile";
 $route['staff/change_profile_pic'] = "staff_profile/changeProfilePic";
 
-//Gold
-//$route['gold'] = "monitoring/index";
-$route['logout'] = "gold/logout";
-$route['gold/logout'] = "gold/logout";
-$route['gold/node/(:any)/(:num)/(:num)/(:num)'] = "gold/view/node/$1/$2/$3/$4";
-$route['gold/node/(:any)/(:num)/(:num)'] = "gold/view/node/$1/$2/$3";
-$route['gold/node/(:any)/(:num)'] = "gold/view/node/$1/$2";
-$route['gold/site/(:any)/(:num)'] = "gold/view/node/$1/$2";
-$route['gold/site/(:any)'] = "gold/view/site/$1";
-$route['gold/monitoring'] = "gold/view/monitoring";
-
-
-$route['gold/publicrelease'] = "pubrelease/index/publicrelease";
-$route['gold/publicrelease/individual/(:num)'] = "pubrelease/index/publicrelease_individual/$1";
-$route['gold/publicrelease/event/individual/(:num)'] = "pubrelease/index/publicrelease_event_individual/$1";
-$route['gold/publicrelease/event/all'] = "pubrelease/index/publicrelease_event_all";
-$route['gold/publicrelease/faq'] = "pubrelease/index/publicrelease_faq";
-
-$route['gold/accomplishmentreport'] = "accomplishment/index/accomplishmentreport";
-$route['gold/accomplishmentreport/individual/(:num)'] = "gold/view/accomplishmentreport_individual/$1";
-$route['gold/accomplishmentreport/all'] = "gold/view/accomplishmentreport_all";
-
-$route['gold/sitemaintenancereport/individual/(:num)'] = "gold/view/sitemaintenancereport_individual/$1";
-$route['gold/sitemaintenancereport/all'] = "gold/view/sitemaintenancereport_all";
-$route['gold/monitoring_dashboard'] = "monitoring/index";
-
-$route['gold/sample_view'] = "sample/index";
-$route['gold/bulletin/(:any)'] = "bulletin/view/$1";
-$route['gold/bulletin-builder/(:num)'] = "bulletin/build/$1";
-$route['gold/bulletin-editor/(:num)'] = "bulletin/edit/$1";
-$route['gold/bulletin-main/(:num)/(:any)'] = "bulletin/main/$1/$2";
 
 $route['site_info/index'] = "site_info/index";
 
@@ -186,9 +143,3 @@ $route['404_override'] = '';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
-
-/**
- * Public website Pages Routes
- */
-
-$route['public_website/analysis_graph'] = "public_website_graphs";
