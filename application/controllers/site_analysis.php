@@ -584,7 +584,7 @@ class Site_analysis extends CI_Controller {
                 $alert = $alerts->$trigger;
                 if (!empty($alert)) {
                     foreach ($alert as $arr) {
-                        $array = array(strtotime($arr->ts) * 1000, $arr->id);
+                        $array = array(strtotime($arr->ts) * 1000, $arr->node_id);
                         array_push($velocity_alerts[$index][$trigger], $array);
                     }
                 }
