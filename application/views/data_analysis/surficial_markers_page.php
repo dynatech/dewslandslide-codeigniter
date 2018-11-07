@@ -82,7 +82,7 @@
                             </div>
                             <div class="col-sm-3 text-right">
                                 <div class="btn-group" id="surficial-duration">
-                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="surficial-duration-btn">
+                                    <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="surficial-duration-btn">
                                         3 months&emsp;<span class="caret"></span>
                                     </button>
 
