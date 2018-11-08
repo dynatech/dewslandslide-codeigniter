@@ -139,6 +139,7 @@ $route['staff/change_profile_pic'] = "staff_profile/changeProfilePic";
 $route['site_info/index'] = "site_info/index";
 
 $route['default_controller'] = "login";
+$route['login'] = "account_controller";
 $route['404_override'] = '';
 
 /* End of file routes.php */
