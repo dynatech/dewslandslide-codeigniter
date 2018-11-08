@@ -197,7 +197,7 @@ class Site_analysis extends CI_Controller {
             $temp = array(
                 'x' => strtotime($data->ts) * 1000,
                 'y' => floatval($data->measurement),
-                'id' => (int) $data->mo_id
+                'id' => (int) $data->data_id
             );
             array_push($data_per_marker[$data->crack_id], $temp);
         }
@@ -575,7 +575,7 @@ class Site_analysis extends CI_Controller {
                 $alert = $alerts->$trigger;
                 if (!empty($alert)) {
                     foreach ($alert as $arr) {
-                        $array = array(strtotime($arr->ts) * 1000, $arr->id);
+                        $array = array(strtotime($arr->ts) * 1000, $arr->node_id);
                         array_push($velocity_alerts[$index][$trigger], $array);
                     }
                 }

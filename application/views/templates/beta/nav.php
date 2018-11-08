@@ -20,24 +20,46 @@
     <ul>
         <span id="logo" class="col-sm-4" hidden>PROJECT DYNASLOPE</span>
         <span id="links">
-        <?php 
-            $uri_array = $_SERVER["REQUEST_URI"];
-            $uri_array = explode("/", $uri_array);
-            $tab = $uri_array[1];
-
-            $links = array(
-                array('link_uri' => '', 'link_name' => 'Monitoring'),
-                array('link_uri' => '', 'link_name' => 'Analysis'),
-                array('link_uri' => '', 'link_name' => 'Reports')
-            );
-
-            foreach ($links as $link) 
-            {
-                if( $link['link_uri'] == $tab ) echo '<li class="active-tab-nav">';
-                else echo "<li>";
-                echo '<a href="' . base_url() . $link["link_uri"] . '">' . $link["link_name"] . '</a></li>';
-            }
-        ?>
+        	<li class="dropdown">
+        		<span class="dropdown-title">Monitoring</span>
+        		<div class="dropdown-content">
+                    <span class="dropdown-header">Site Alerts</span>
+                    <a href="<?php echo base_url(); ?>dashboard">Monitoring Dashboard</a>
+                    <a href="<?php echo base_url(); ?>monitoring/release_form">Early Warning Release Form</a>
+                    <a href="<?php echo base_url(); ?>monitoring/events">Monitoring Events Table</a>
+                	<hr class="divider" />
+                    <span class="dropdown-header">Communication</span>
+                    <a href="<?php echo base_url(); ?>communications/chatterbox_beta">Chatterbox</a>
+                    <a href="<?php echo base_url(); ?>communications/ewi_template">Early Warning Information Template Creator</a>
+                    <hr class="divider" />
+                    <span class="dropdown-header">Miscellaneous</span>
+                    <a href="<?php echo base_url(); ?>monitoring/faq">Manuals, Primer, and FAQs</a>
+                    <a href="<?php echo base_url(); ?>monitoring/issues_and_reminders">Monitoring Issues and Reminders</a>
+                    <a href="<?php echo base_url(); ?>gintags/manager">GINTAGs Manager</span></a>
+                    <a href="<?php echo base_url(); ?>site_info/index">Site information</span></a>
+                </div>
+        	</li>
+        	<li class="dropdown">
+        		<span class="dropdown-title">Analysis</span>
+        		<div class="dropdown-content">
+                    <span class="dropdown-header">Sensors and Rain Gauges</span>
+                    <a href="<?php echo base_url(); ?>analysis/site_analysis">Site Analysis</a>
+                    <a href="<?php echo base_url(); ?>analysis/rainfall_scanner">Rainfall Scanner</a>
+                    <a href="<?php echo base_url(); ?>analysis/manifestations">Manifestations of Movement Page</a>
+                    <hr class="divider" />
+                    <span class="dropdown-header">Communication</span>
+                    <a href="<?php echo base_url(); ?>communications/responsetracker">Response Tracker</a>
+                    <a href="<?php echo base_url(); ?>generalinformation/index">Generic Information Tags</a>
+                </div>
+        	</li>
+        	<li class="dropdown">
+        		<span class="dropdown-title">Reports</span>
+        		<div class="dropdown-content">
+            		<span class="dropdown-header">End-Of-Shift Report and Narratives</span>
+                    <a href="<?php echo base_url(); ?>reports/accomplishment/form">Filing Form and Report Generator</a>
+                    <a href="<?php echo base_url(); ?>reports/accomplishment/checker">Shift Events and Releases Checker</a>
+                </div>
+        	</li>
         </span>
     </ul>
 </div>
