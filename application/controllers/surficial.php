@@ -20,9 +20,16 @@ class Surficial extends CI_Controller {
         $this->load->view('templates/beta/footer');
 	}
 
+    /**
+     * Gets the surficial markers.
+     *
+     * @param      <type>          $site_code      The site code
+     * @param      boolean|string  $filter_in_use  remove not used markers
+     * @param      boolean|string  $complete_data  include description, latitude, longitude on return
+     */
     public function getSurficialMarkers ($site_code, $filter_in_use = true, $complete_data = false) {
-        $filter_in_use = isset($filter_in_use) ? false : true;
-        $complete_data = isset($complete_data) ? true : false;
+        $filter_in_use = $filter_in_use === "false" ? false : true;
+        $complete_data = $complete_data === "true" ? true : false;
         
         $surficial_markers = $this->surficial_model->getSurficialMarkers($site_code, $filter_in_use, $complete_data);
         echo json_encode($surficial_markers);
@@ -90,6 +97,10 @@ class Surficial extends CI_Controller {
 
     public function updateMarkerDataPointMeasurement () {
         $this->api_model->update("data_id", $_POST["data_id"], "marker_data", array("measurement" => $_POST["measurement"]));
+    }
+
+    public function deleteMarkerDataPointMeasurement () {
+        $this->api_model->delete("marker_data", array("data_id" => $_POST["data_id"]));
     }
 
     public function convertOldDataToRefDB () {
