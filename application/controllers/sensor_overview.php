@@ -39,7 +39,7 @@ class sensor_overview extends CI_Controller {
 		$deactivated_sensors = 
 		$this->sensor_overview_model->getDeactivatedSensors();
 
-		array_push($data, $deactivated_sensors, "#deact-sensor");
+		array_push($data, $deactivated_sensors, "#deact-sensor", "Deactivated Sensor Columns", "#deact-sensor-div");
 		echo json_encode([$data]);
 	}
 
@@ -48,7 +48,7 @@ class sensor_overview extends CI_Controller {
 		$deactivated_loggers = 
 		$this->sensor_overview_model->getDeactivatedLoggers();
 
-		array_push($data, $deactivated_loggers, "#deact-logger");
+		array_push($data, $deactivated_loggers, "#deact-sensor", "Deactivated Dataloggers", "#deact-logger-div");
 		echo json_encode([$data]);
 	}
 	
