@@ -144,6 +144,11 @@ $route['staff/change_profile_pic'] = "staff_profile/changeProfilePic";
 $route['site_info/index'] = "site_info/index";
 
 $route['qa_tally/'] = "qa_tally/index";
+$route['qa_tally/event'] = "qa_tally/getDailyRecordForEvent";
+$route['qa_tally/extended'] = "qa_tally/getDailyRecordForExtended";
+$route['qa_tally/event_default'] = "qa_tally/getEventDefaultData";
+$route['qa_tally/extended_default'] = "qa_tally/getExtendedDefaultData";
+$route['qa_tally/get_default_recipients'] = "qa_tally/getDefaultRecipients";
 
 /**
  * Misc

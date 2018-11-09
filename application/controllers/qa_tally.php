@@ -51,21 +51,54 @@ class Qa_tally extends CI_Controller {
 	}
 
 	public function addActualSentEWIforEvent() {
-
+		$result = $this->qa_tally_model->getActualEvent();
 	}
 
 	public function addActualSentEWIforExtended() {
-
+		$result = $this->qa_tally_model->getActualExtended();
 	}
 
 	public function getDailyRecordForEvent() {
+		$this->switchToCommons();
+		$result = $this->qa_tally_model->getRecordForToday('on-going');
+		$this->switchToSenslope();
+		print json_encode($result);
+	}
+
+	public function getDailyRecordForExtended() {
+		$this->switchToCommons();
+		$result = $this->qa_tally_model->getRecordForToday('extended');
+		$this->switchToSenslope();
+		print json_encode($result);
+	}
+
+	public function getEventDefaultData() {
+		$result = $this->qa_tally_model->getDefaultRecordForToday("on-going");
+		print json_encode($result);
+	}
+
+	public function getExtendedDefaultData() {
+		$result = $this->qa_tally_model->getDefaultRecordForToday("extended");
+		print json_encode($result);
+	}
+
+	public function switchToSenslope() {
+		$config_app = switch_db("senslopedb", "localhost");
+		$this->db = $this->load->database($config_app, TRUE);
+	}
+
+	public function switchToCommons() {
 		$config_app = switch_db("commons_db", "localhost");
 		$this->db = $this->load->database($config_app, TRUE);
 	}
 
-	public function getDailyRecordForExtended() {
-		$config_app = switch_db("commons_db", "localhost");
+	public function getDefaultRecipients() {
+		$site_ids = $_POST['site_ids'];
+		$config_app = switch_db("comms_db", "localhost");
 		$this->db = $this->load->database($config_app, TRUE);
+		foreach ($site_ids as $id) {
+			# code...
+		}
 	}
 }
 ?>

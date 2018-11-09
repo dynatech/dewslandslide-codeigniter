@@ -22,37 +22,41 @@
             </div>
         </div>
         <div class="row">
-            <div class="container-line timeline-head">
-                <span class="circle left"></span>
-                <div class="container-line-text timeline-head-text">Event Monitoring</div>
-                <span class="circle right"></span>
-            </div>
-            <div class="row" id="event-qa-display">
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="container-line timeline-head">
-                <span class="circle left"></span>
-                <div class="container-line-text timeline-head-text">Extended Monitoring</div>
-                <span class="circle right"></span>
-            </div>
-            <div class="row" id="extended-qa-display">
-
+            <div class="col-sm-12">
+                 <div class="container-line timeline-head">
+                    <span class="circle left"></span>
+                    <div class="container-line-text timeline-head-text">Event Monitoring</div>
+                    <span class="circle right"></span>
+                </div>            
             </div>
         </div>
-        <div class="row">
-            <div class="container-line timeline-head">
-                <span class="circle left"></span>
-                <div class="container-line-text timeline-head-text">Routine Monitoring</div>
-                <span class="circle right"></span>
-            </div>
-            <div class="row" id="routine-qa-display">
+        <div id="event-qa-display">
 
+        </div>   
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="container-line timeline-head">
+                    <span class="circle left"></span>
+                    <div class="container-line-text timeline-head-text">Extended Monitoring</div>
+                    <span class="circle right"></span>
+                </div>        
             </div>
+        </div>
+        <div id="extended-qa-display">
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="container-line timeline-head">
+                    <span class="circle left"></span>
+                    <div class="container-line-text timeline-head-text">Routine Monitoring</div>
+                    <span class="circle right"></span>
+                </div>
+            </div>
+        </div>
+        <div id="routine-qa-display">
+
         </div>
     </div>
 </div>
-
-
-  <script src="/js/dewslandslide/reports/qa_tally.js"></script>
+<script src="/js/dewslandslide/reports/qa_tally.js"></script>
