@@ -72,7 +72,7 @@
 	                        <a href="#"><small><span class="fa fa-cog"></span></small>&ensp;Settings</a>
 	                        <hr class="divider" />
 	                        <a href="../../staff/all"><small><span class="fa fa-users"></span></small>&ensp;Staff Profile</a>
-	                        <a href="../../logout"><small><span class="fa fa-power-off"></span></small>&ensp;Log Out</a>
+	                        <a href="../../account_controller/logout"><small><span class="fa fa-power-off"></span></small>&ensp;Log Out</a>
 		                </div>
 		        	</li>
         		</div>

@@ -140,7 +140,7 @@ $route['site_info/index'] = "site_info/index";
 
 $route['default_controller'] = "account_controller";
 $route['login'] = "account_controller";
-$route['404_override'] = '';
+$route['404_override'] = "error_custom_404";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
