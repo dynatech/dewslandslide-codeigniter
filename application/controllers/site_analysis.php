@@ -79,7 +79,7 @@ class Site_analysis extends CI_Controller {
                     if ($push_null_flag) {
                         $range = array("from" => strtotime($start) * 1000, "to" => strtotime($end) * 1000);
                         array_push($data_series["null_ranges"], $range);
-                        $start = null;
+			$start = null;
                         $end = null;
                         $push_null_flag = false;
                     }
@@ -195,7 +195,7 @@ class Site_analysis extends CI_Controller {
                 $data_per_marker[$data->crack_id] = [];
             }
             $temp = array(
-                'x' => strtotime($data->ts) * 1000, 
+                'x' => strtotime($data->ts) * 1000,
                 'y' => floatval($data->measurement),
                 'id' => (int) $data->data_id
             );
@@ -1000,7 +1000,7 @@ class Site_analysis extends CI_Controller {
         $is_logged_in = $this->session->userdata('is_logged_in');
         
         if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-            echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+            echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
             die();
         }
         else {

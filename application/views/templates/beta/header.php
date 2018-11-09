@@ -13,9 +13,7 @@
 
     <!-- Bootstrap Core CSS v3.3.7 -->
     <link href="/css/third-party/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom Bootstrap Admin Theme -->
-    <link href="/css/third-party/sb-admin.css" rel="stylesheet">
-    <!-- Public website general css -->
+    <!-- DYNASLOPE Main Stylesheet -->
     <link rel="stylesheet" type="text/css" href="/css/dewslandslide/dynaslope-main.css">
     <!-- Font Awesome -->
     <link href="/css/third-party/font-awesome.min.css" rel="stylesheet" type="text/css">

@@ -176,7 +176,7 @@
                                     <select class="form-control" id="in_use" name="in_use">
                                         <option value="">---</option>
                                         <option value="1">Yes</option>
-                                        <option value="2">No</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -215,8 +215,34 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="update-point" class="btn btn-danger submit-btn">Update Data Point</button>
+                    <button type="button" id="delete-point" class="btn btn-danger submit-btn">Delete</button>
+                    <button type="button" id="update-point" class="btn btn-danger submit-btn">Update</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>    
+        </div>
+    </div>
+</div>
+
+<div id="markers-verification-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Surficial Marker Verification Modal</h4>
+                </div>
+                <div class="modal-body">
+                    <br />
+                    <p>
+                        Do you really want to <strong><span class="event">ADD</span></strong> <span class="marker-object">Marker A</span>?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="add-marker" class="btn btn-danger submit-btn">Add Marker</button>
+                    <button type="button" id="update-marker" class="btn btn-danger submit-btn">Update Marker</button>
+                    <button type="button" id="delete-point" class="btn btn-danger submit-btn">Delete Data</button>
+                    <button type="button" id="update-point" class="btn btn-danger submit-btn">Update Data</button>
+                    <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">Cancel</button>
                 </div>
             </form>    
         </div>
