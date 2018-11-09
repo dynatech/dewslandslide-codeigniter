@@ -152,36 +152,7 @@ $route['qa_tally/'] = "qa_tally/index";
 //Gold
 //$route['gold'] = "monitoring/index";
 $route['logout'] = "gold/logout";
-$route['gold/logout'] = "gold/logout";
-$route['gold/node/(:any)/(:num)/(:num)/(:num)'] = "gold/view/node/$1/$2/$3/$4";
-$route['gold/node/(:any)/(:num)/(:num)'] = "gold/view/node/$1/$2/$3";
-$route['gold/node/(:any)/(:num)'] = "gold/view/node/$1/$2";
-$route['gold/site/(:any)/(:num)'] = "gold/view/node/$1/$2";
-$route['gold/site/(:any)'] = "gold/view/site/$1";
-$route['gold/monitoring'] = "gold/view/monitoring";
-
-
-$route['gold/publicrelease'] = "pubrelease/index/publicrelease";
-$route['gold/publicrelease/individual/(:num)'] = "pubrelease/index/publicrelease_individual/$1";
-$route['gold/publicrelease/event/individual/(:num)'] = "pubrelease/index/publicrelease_event_individual/$1";
-$route['gold/publicrelease/event/all'] = "pubrelease/index/publicrelease_event_all";
-$route['gold/publicrelease/faq'] = "pubrelease/index/publicrelease_faq";
-
-$route['gold/accomplishmentreport'] = "accomplishment/index/accomplishmentreport";
-$route['gold/accomplishmentreport/individual/(:num)'] = "gold/view/accomplishmentreport_individual/$1";
-$route['gold/accomplishmentreport/all'] = "gold/view/accomplishmentreport_all";
-
-$route['gold/sitemaintenancereport/individual/(:num)'] = "gold/view/sitemaintenancereport_individual/$1";
-$route['gold/sitemaintenancereport/all'] = "gold/view/sitemaintenancereport_all";
-$route['gold/monitoring_dashboard'] = "monitoring/index";
-
-$route['gold/sample_view'] = "sample/index";
-$route['gold/bulletin/(:any)'] = "bulletin/view/$1";
-$route['gold/bulletin-builder/(:num)'] = "bulletin/build/$1";
-$route['gold/bulletin-editor/(:num)'] = "bulletin/edit/$1";
-$route['gold/bulletin-main/(:num)/(:any)'] = "bulletin/main/$1/$2";
-
-$route['default_controller'] = "login";
+$route['default_controller'] = "account_controller";
 $route['login'] = "account_controller";
 $route['404_override'] = '';
 
