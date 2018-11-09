@@ -21,14 +21,14 @@
 <div class="container">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><span><img src="/images/DEWSL.png" /></span> <strong>DEWS-Landslide</strong></a>
+            <a class="navbar-brand" href="#"><span><img src="/images/DEWSL.png" /></span> <strong>PROJECT DYNASLOPE</strong></a>
         </div>
     </nav>    
     <div class="row main-content-div">
         <div class="col-sm-7">
             <div class="row">
                 <div class="col-sm-12">
-                    <span class="big-title">DYNASLOPE </span><span class="big-title inverse">PROJECT</span>
+                    <span class="big-title">PROJECT </span><span class="big-title inverse">DYNASLOPE</span>
                 </div>
             </div>
             <div class="row description">
