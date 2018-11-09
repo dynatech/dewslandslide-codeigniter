@@ -1,5 +1,9 @@
 <!-- Aether-Custom Required Scripts -->
 <script type="text/javascript" src="<?php echo base_url(); ?>js/third-party/login-form-Aether.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>js/dewslandslide/login_form.js"></script>
+
+<!-- jQuery Validate -->
+<script type="text/javascript" src="/js/third-party/jquery.validate.min.js"></script>
 
 <!-- Aether-Custom Required Scripts -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/third-party/login-form-Aether.css">
@@ -42,11 +46,14 @@
             <div class="card card-container">
                 <img id="profile-img" class="profile-img-card" src="../../../images/dynaslope-logo.jpg" />
                 <p id="profile-name" class="profile-name-card greeting-text">Hi! Log-in when ready.</p><br>
-                <form class="form-signin" action="../lin/validate_credentials" method="POST" accept-charset="utf-8">
-                    <input type="username" id="username" class="form-control" name="username" placeholder="Username" required autofocus>
-                    <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
-                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="Login">Sign in</button>
-                </form><!-- /form -->
+                <!-- <form class="form-signin" action="../account_controller/validateCredentials" method="POST" accept-charset="utf-8"> -->
+                <div id="login-form" class="form-signin">
+                    <fieldset>
+                        <input type="username" id="username" class="form-control" name="username" placeholder="Username" required autofocus>
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
+                        <button class="btn btn-lg btn-primary btn-block btn-signin" id="login-btn" name="Login">Sign in</button>
+                    </fieldset>
+                </div>
                 <span>Don't have an account? </span><a id="no-account" href="#" class="forgot-password">No Account?</a>
                 <a id="forgot-link" href="#" class="forgot-password">Forgot the password?</a>
             </div><!-- /card-container -->

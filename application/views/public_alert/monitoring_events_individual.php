@@ -1,5 +1,5 @@
+<!--
 
-    
      Created by: Kevin Dhale dela Cruz
      
      A viewing table for individual monitoring events
@@ -12,6 +12,7 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>js/dewslandslide/public_alert/monitoring_events_individual.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/dewslandslide/public_alert/bulletin.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/public_alert/monitoring_events_individual.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/public_alert/bulletin.css">
 <script src="<?php echo base_url(); ?>/js/third-party/bootstrap-tagsinput.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/third-party/bootstrap-tagsinput.css">
 
@@ -19,8 +20,8 @@
     <div class="container">
         <!-- Page Heading -->
         <div class="row">
-            <div class="col-sm-12">
-                <div class="page-header">EVENT MONITORING PAGE</div>          
+            <div class="col-sm-12 text-center">
+                <div id="page-header">EVENT MONITORING PAGE</div>          
             </div>          
         </div>
 
@@ -114,7 +115,7 @@
             
             <div class="row">
                 <div class="col-sm-3">
-                    <button type="button" class="btn btn-primary btn-xs print" data-name="hello">Show Bulletin</button>
+                    <button type="button" class="btn btn-primary btn-xs print">Show Bulletin</button>
                 </div>
                 <div class="col-sm-9 reporters text-right">
                     <span class="mt">Reporter MT</span> | <span class="ct">Reporter CT</span>
@@ -397,7 +398,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="update" class="btn btn-info" role="button" type="submit">Update</button>
+                <button id="update" class="btn btn-danger" role="button" type="submit">Update</button>
             </div>
             </form>
         </div>
@@ -418,7 +419,7 @@
                 <p>Entry successfully updated!</p>
             </div>
             <div class="modal-footer">
-                <button id="refresh" class="btn btn-info" role="button" type="submit">Okay</button>
+                <button id="refresh" class="btn btn-primary" role="button" type="submit">Okay</button>
             </div>
         </div>
     </div>

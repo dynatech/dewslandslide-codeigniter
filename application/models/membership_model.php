@@ -18,17 +18,16 @@ class Membership_model extends CI_Model {
         'last_name' => NULL
     );
 
-	public function validate() {
+	public function validate($data) {
 		$config_app = switch_db("comms_db");
 		$db = $this->load->database($config_app, TRUE);
 		$db->select('*');
 		$db->from('membership');
 		$db->join('users', 'membership.user_fk_id = users.user_id');
-		$db->where('username', $this->input->post('username'));
-		$db->where('password', hash('sha512', $this->input->post('password')));
+		$db->where('username', $data['username']);
+		$db->where('password', hash('sha512', $data['password']));
 
 		$query = $db->get();
-		var_dump($db->last_query());
 		if ($query->num_rows == 1) {
 			$this->names['user_id'] = $query->row()->user_fk_id;
 			$this->names['first_name'] = $query->row()->firstname;

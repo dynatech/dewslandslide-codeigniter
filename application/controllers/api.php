@@ -3,10 +3,9 @@ class API extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('site_level_model');
 		$this->load->model('node_level_model');
-		$this->load->model('comm_health_model');
 		$this->load->model('pubrelease_model');
+		$this->load->model('users_model');
 	}
 		public function latestSensorData($site){ // example http://localhost/api/latestSensorData/agbsb
 			$result = $this->node_level_model->getlatestSensorData($site);
@@ -30,55 +29,6 @@ class API extends CI_Controller {
 		public function AccelBatteryThreshold($site,$node){ // example  http://localhost/api/AccelBatteryThreshold/agbsb/2
 			$result = $this->node_level_model->getAccelBatteryThreshold($site,$node);
 			print json_encode($result);
-		}
-
-		public function PiezometerAllData($site){ // example  http://localhost/api/PiezometerAllData/ltesapzpz
-			$result = $this->site_level_model->getPiezometer($site);
-			print json_encode($result);
-		}
-
-		public function CommunicationHealthColumn($site){ // example  http://localhost/api/CommunicationHealthColumn/agbsb
-			$result = $this->comm_health_model->getHealth($site);
-			print json_encode($result);
-		}
-
-		public function TotalHealth($site){ // example  http://localhost/api/TotalHealth/agbsb
-			$result = $this->comm_health_model->getHealthTotal($site, 'json');
-			print json_encode($result);
-		}
-
-		public function DataPresence($site){ // example  http://localhost/api/DataPresence/agbsb
-			$result = $this->comm_health_model->getDataPresenceTotal($site, 'json');
-			print json_encode($result);
-		}
-
-		public function AllSiteNames(){ // example  http://localhost/api/AllSiteNames
-			$result = $this->site_level_model->getSiteNames();
-			print json_encode($result);
-		}
-
-		public function SiteDetails($site){ // example http://localhost/api/SiteDetails/agb
-			$result = $this->site_level_model->getSiteColumn($site);
-			print json_encode($result);
-
-		}
-
-		public function NodeNumberPerSite($site){ // example http://localhost/api/NodeNumberPerSite/agbta
-			$result = $this->site_level_model->getSiteNodeNumber($site);
-			print json_encode($result);
-
-		}
-
-		public function AllSiteDetails(){ // example http://localhost/api/AllSiteDetails
-			$result = $this->site_level_model->getAllSiteColumn();
-			print json_encode($result);
-
-		}
-
-		public function SpecificSiteNum($site){ // example http://localhost/api/SpecificSiteNum/mag
-			$result = $this->site_level_model->getSiteidNum($site);
-			print json_encode($result);
-
 		}
 
 		public function RainSenslope($rsite,$fdate,$tdate){ // example http://localhost/api/RainSenslope/blcw/2016-05-25/2016-06-25
@@ -667,16 +617,16 @@ class API extends CI_Controller {
 		}
 	
 	public function getStaff () {
-		echo $this->pubrelease_model->getStaff();
+		echo json_encode($this->users_model->getDEWSLUsers());
 	}
 
 	public function getAllReleasesWithEventDetails () {
-		echo $this->pubrelease_model->getAllReleasesWithEventDetails();
+		echo json_encode($this->pubrelease_model->getAllReleasesWithEventDetails());
 	}
 
 	public function getMOM ($site_code = "all", $start = null, $end = null) {
 		$this->load->model('manifestations_model');
-		echo $this->manifestations_model->getMOMApi($site_code, $start, $end);
+		echo json_encode($this->manifestations_model->getMOMApi($site_code, $start, $end));
 	}
 
 	private function getOSspecificpath () {
