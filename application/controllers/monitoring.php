@@ -11,8 +11,7 @@ class Monitoring extends CI_Controller
 		$this->load->model('users_model');
 	}
 
-	public function index()
-	{
+	public function index () {
 		$this->is_logged_in();
 
 		$data['title'] = 'DEWS-L Monitoring Dashboard';
@@ -27,10 +26,10 @@ class Monitoring extends CI_Controller
 		$data['generated_alerts'] = $this->load->view('public_alert/generated_alerts', $data, true);
 		$data['bulletin_modals'] = $this->load->view('public_alert/bulletin_modals', $data, true);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+        $this->load->view('templates/beta/nav');
 		$this->load->view('public_alert/monitoring_dashboard', $data);
-		$this->load->view('templates/footer');
+        $this->load->view('templates/beta/footer');
 	}
 
 	public function getOnGoingAndExtended () {

@@ -66,7 +66,7 @@
         		</div>
         		<div class="col-sm-3 text-right">
         			<li class="dropdown">
-		        		<span class="dropdown-title"><span class="fa fa-user"></span>&ensp;<span id="user_name"><?php echo "Kevin Dhale"; // echo $first_name; ?></span></span>
+		        		<span class="dropdown-title"><span class="fa fa-user"></span>&ensp;<span id="user_name"><?php echo $first_name; ?></span></span>
 		        		<div class="dropdown-content">
 		                    <a href="#"><small><span class="fa fa-user"></span></small>&ensp;Profile</a>
 	                        <a href="#"><small><span class="fa fa-cog"></span></small>&ensp;Settings</a>
@@ -81,7 +81,7 @@
     </ul>
 </div>
 
-<div class="modal fade js-loading-bar" id="loading" role="dialog" data-keyboard="false" data-backdrop="static">
+<div class="modal js-loading-bar" id="loading" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -92,30 +92,3 @@
         </div>
     </div>
 </div>
-
-<script>
-$(document).ready( function() {
-    (function($) {
-        "use strict";
-
-        let $navbar = $("#navigation"),
-            y_pos = $navbar.offset().top;
-
-        $(document).scroll(function() {
-            let scrollTop = $(this).scrollTop();
-
-            if (scrollTop > y_pos) {
-                $navbar.addClass("sticky");
-                $navbar.find("#links").addClass("col-sm-8");
-                $navbar.find("#logo").show();
-                $("#page-wrapper").addClass("sticky-wrapper");
-            } else if (scrollTop <= y_pos) {
-                $navbar.removeClass("sticky");
-                $navbar.find("#links").removeClass("col-sm-8").clearQueue();
-                $navbar.find("#logo").hide();
-                $("#page-wrapper").removeClass("sticky-wrapper");
-            }
-        });
-    })(jQuery, undefined);
-});
-</script>

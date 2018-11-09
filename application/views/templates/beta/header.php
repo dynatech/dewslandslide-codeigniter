@@ -40,6 +40,8 @@
     <!-- Bootstrap DateTimePicker CSS-->
     <link href="/css/third-party/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
 
+    <!-- General DYNASLOPE JS file-->
+    <script type="text/javascript" src="/js/dewslandslide/dynaslope-general.js"></script>
     <!-- Modal Reposition JS-->
     <script type="text/javascript" src="/js/third-party/modal-reposition.js"></script>
 

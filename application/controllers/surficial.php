@@ -9,9 +9,12 @@ class Surficial extends CI_Controller {
 		$this->load->helper('url');
 	}
 
-	public function index() {
+	public function index () {
         $data["title"] = "Surficial Markers Page";
 
+        $data['user_id'] = $this->session->userdata("id");
+        $data['first_name'] = $this->session->userdata('first_name');
+        $data['last_name'] = $this->session->userdata('last_name');
         $data["sites"] = $this->sites_model->getCompleteSiteInformation("all", false);
 
 		$this->load->view('templates/beta/header', $data);

@@ -148,19 +148,19 @@
 		public function getAllLocked()
 		{
 			$data = $this->issues_model->getAllRowsByStatus('locked');
-			echo $data;
+			echo json_encode($data);
 		}
 
 		public function getAllNormal()
 		{
 			$data = $this->issues_model->getAllRowsByStatus('normal');
-			echo $data;
+			echo json_encode($data);
 		}
 
 		public function getAllArchived()
 		{
 			$data = $this->issues_model->getAllRowsByStatus('archived');
-			echo $data;
+			echo json_encode($data);
 		}
 
 		public function insert()
