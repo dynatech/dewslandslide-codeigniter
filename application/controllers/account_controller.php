@@ -3,10 +3,10 @@
 class Account_controller extends CI_Controller {
 
 	public function index() {
-		// echo "Login page testing";
-		$data['main_content'] = 'login_form';
 		$data['title'] = 'Login';
-		$this->load->view('includes/template', $data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('login_form');
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function validateCredentials() {
