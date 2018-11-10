@@ -67,8 +67,8 @@ class Monitoring extends CI_Controller
 					$event->day = $day;
 					array_push($extended, $event);
 	 			} else {
-	 				$this->load->model('pubrelease_model');
-	 				$this->pubrelease_model->update("event_id", $event->event_id, "public_alert_event", array("status" => "finished"));
+	 				$this->load->model('api_model');
+	 				$this->api_model->update("event_id", $event->event_id, "public_alert_event", array("status" => "finished"));
 	 			}
 			}
 		}
