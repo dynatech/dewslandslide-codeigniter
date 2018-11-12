@@ -50,7 +50,7 @@ class Public_Alert_Event_Model extends CI_Model
 
 		$result = $this->db->query($sql);
 
-		return json_encode($result->row());
+		return $result->row();
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Public_Alert_Event_Model extends CI_Model
  		$this->db->or_where('status','extended');
 		$query = $this->db->get('public_alert_event');
 		//$query = $this->db->get_where('public_alert_event', array('status' => 'on-going'));
-		return json_encode($query->result_array());
+		return $query->result_array();
 	}
 
 	/**
@@ -76,6 +76,6 @@ class Public_Alert_Event_Model extends CI_Model
 		$this->db->limit(1);
 		$result = $this->db->get();
 
-		return json_encode($result->row()->status);
+		return $result->row()->status;
 	}	
 }

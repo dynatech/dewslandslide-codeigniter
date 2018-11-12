@@ -25,7 +25,7 @@ class Users_Model extends CI_Model {
 		if (!$include_inactive) $this->db->where('is_active','1');
 		$this->db->order_by("u.lastname", "asc");
 		$query = $this->db->get();
-		return json_encode($query->result_array());
+		return $query->result_array();
 	}
 
 	public function getFullNameOfUserbyID($user_id) {

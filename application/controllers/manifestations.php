@@ -24,8 +24,8 @@ class Manifestations extends CI_Controller
 		$data['user_id'] = $this->session->userdata("id");
 
 		// $data['events'] = json_encode('null');
-		// $data['sites'] = $this->sites_model->getSites();
-		// $data['staff'] = $this->users_model->getDEWSLUsers();
+		// $data['sites'] = json_encode($this->sites_model->getSites());
+		// $data['staff'] = json_encode($this->users_model->getDEWSLUsers());
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav');
@@ -44,8 +44,8 @@ class Manifestations extends CI_Controller
 
 		$data['site_code'] = $site_code;
 		$data['site_id'] = $this->sites_model->getSiteID($site_code);
-		$data['event_status'] = $this->public_alert_event_model->getLastEventStatus($data['site_id']);
-		$data['staff'] = $this->users_model->getDEWSLUsers();
+		$data['event_status'] = json_encode($this->public_alert_event_model->getLastEventStatus($data['site_id']));
+		$data['staff'] = json_encode($this->users_model->getDEWSLUsers());
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav');
@@ -55,12 +55,12 @@ class Manifestations extends CI_Controller
 
 	public function getMOM($site_code = "all", $start = null, $end = null)
 	{
-		echo $this->manifestations_model->getMOMApi($site_code, $start, $end);
+		echo json_encode($this->manifestations_model->getMOMApi($site_code, $start, $end));
 	}
 
 	public function getLatestMOMperSite()
 	{
-		echo $this->manifestations_model->getLatestMOMperSite();
+		echo json_encode($this->manifestations_model->getLatestMOMperSite());
 	}
 
 	public function getAllMOMforASite($site_code)
@@ -168,7 +168,7 @@ class Manifestations extends CI_Controller
 
 	public function getDistinctFeatureTypes()
 	{
-		echo $this->manifestations_model->getDistinctFeatureTypes();
+		echo json_encode($this->manifestations_model->getDistinctFeatureTypes());
 	}
 
 	public function is_logged_in() 
@@ -176,7 +176,7 @@ class Manifestations extends CI_Controller
 		$is_logged_in = $this->session->userdata('is_logged_in');
 		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+			echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 			die();
 		}
 		else {

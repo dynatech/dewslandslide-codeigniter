@@ -17,7 +17,7 @@ class Pubrelease_Model extends CI_Model
 
 		$result = $this->db->query($sql);
 
-		return json_encode($result->row());
+		return $result->row();
 	}
 
 	public function getAllEventTriggers($event_id, $release_id = null) {
@@ -83,7 +83,7 @@ class Pubrelease_Model extends CI_Model
 		$this->db->where_in('public_alert_event.status', $array2);
 		$this->db->where('public_alert_release.data_timestamp', $timestamp);
 		$query = $this->db->get();
-		return json_encode($query->result_object());
+		return $query->result_object();
 	}
 
 	public function getBulletinNumber($site) {
@@ -121,7 +121,7 @@ class Pubrelease_Model extends CI_Model
 			$releases[$i]->extra_manifestations = $query->result_object();
 			$i++;
 		}
-		return json_encode($releases);
+		return $releases;
 	}
 
 	/**
@@ -188,7 +188,7 @@ class Pubrelease_Model extends CI_Model
 		$this->db->join('public_alert_event', 'public_alert_event.event_id = public_alert_release.event_id');
 		$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
 		$query = $this->db->get();
-		return json_encode($query->result_object());
+		return $query->result_object();
 	}
 
 	public function getAllReleasesWithEventDetails() {
@@ -197,7 +197,7 @@ class Pubrelease_Model extends CI_Model
 		$this->db->join('public_alert_event', 'public_alert_event.event_id = public_alert_release.event_id');
 		$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
 		$query = $this->db->get();
-		return json_encode($query->result_object());
+		return $query->result_object();
 	}
 
 	public function getPublicAlerts($site) {

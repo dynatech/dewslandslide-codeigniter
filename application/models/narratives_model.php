@@ -17,7 +17,7 @@ class Narratives_model extends CI_Model {
         $this->db->order_by("timestamp", "asc");
         $query = $this->db->get('narratives');
         $result = $query->result_array();
-        return json_encode($result);
+        return $result;
     }
 
 }

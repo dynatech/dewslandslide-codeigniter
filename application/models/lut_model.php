@@ -26,7 +26,7 @@ class Lut_Model extends CI_Model {
 			$data['trigger_desc'][$line->trigger_type] = $line->detailed_desc;
 		}
 
-		return json_encode($data);
+		return $data;
 	}
 
 	public function getAlerts() {

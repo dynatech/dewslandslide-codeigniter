@@ -1,5 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Chatterbox_beta extends CI_Controller {
+class Chatterbox_v2 extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('contacts_model');
@@ -19,7 +19,7 @@ class Chatterbox_beta extends CI_Controller {
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav');
 		$this->load->view('communications/handlebars-chatterbox_beta');
-		$this->load->view('communications/chatterbox_beta');
+		$this->load->view('communications/chatterbox_v2');
 		$this->load->view('templates/footer');
 	}
 	public function is_logged_in() {

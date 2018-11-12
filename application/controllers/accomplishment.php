@@ -24,7 +24,7 @@
 			$data['last_name'] = $this->session->userdata('last_name');
 			
 			$data['title'] = "DEWS-Landslide Accomplishment Report Filing Form";
-			$data['withAlerts'] = $this->accomplishment_model->getSitesWithAlerts();
+			$data['withAlerts'] = json_encode($this->accomplishment_model->getSitesWithAlerts());
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/nav');
 			$this->load->view('reports/accomplishment_report', $data);
@@ -47,7 +47,7 @@
 		public function getShiftReleases()
 		{
 			$data = $this->accomplishment_model->getShiftReleases($_GET['start'], $_GET['end']);
-			echo "$data";
+			echo json_encode($data);
 		}
 
 		public function getShiftTriggers()
@@ -64,13 +64,13 @@
 			else array_push($event_ids, $event_id);
 
 			$data = $this->accomplishment_model->getNarratives($event_ids);
-			echo "$data";
+			echo json_encode($data);
 		}
 
 		public function getNarrativesForShift()
 		{
 			$data = $this->narratives_model->getNarrativesForShift($_GET['event_id'], $_GET['start'], $_GET['end']);
-			echo "$data";
+			echo json_encode($data);
 		}
 
 		public function getSubsurfaceColumns ($site_code, $shift_end)
@@ -354,7 +354,7 @@
 			$is_logged_in = $this->session->userdata('is_logged_in');
 			
 			if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-				echo 'You don\'t have permission to access this page. <a href="/lin">Login</a>';
+				echo 'You don\'t have permission to access this page. <a href="/login">Login</a>';
 				die();
 			}
 			else {

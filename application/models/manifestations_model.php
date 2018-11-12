@@ -69,7 +69,7 @@ class Manifestations_Model extends CI_Model
     		ON sites.site_id = sub_query.site_id";
 
 		$result = $this->db->query($query);
-		return json_encode($result->result_object());
+		return $result->result_object();
 	}
 
 	public function getMOMApi($site_code = "all", $start = null, $end = null)
@@ -98,7 +98,7 @@ class Manifestations_Model extends CI_Model
 		}
 
 		$result = $this->db->get();
-		return json_encode($result->result_object());
+		return $result->result_object();
 	}
 
 	public function getAllMOMforASite($search = null, $filter = null, $orderBy, $orderType, $start, $length)
@@ -153,7 +153,7 @@ class Manifestations_Model extends CI_Model
 		$this->db->select('feature_type');
 		$this->db->from('manifestation_features');
 		$query = $this->db->get();
-		return json_encode($query->result_array());
+		return $query->result_array();
 	}
 
 	/**
@@ -161,7 +161,7 @@ class Manifestations_Model extends CI_Model
 	 **/
 	public function getFeatureNames($site_id, $type) {
 		$query = $this->db->get_where("manifestation_features", array("site_id" => $site_id, "feature_type" => $type));
-		return json_encode($query->result_object());
+		return $query->result_object();
 	}    
 
 }

@@ -13,10 +13,8 @@
 
     <!-- Bootstrap Core CSS v3.3.7 -->
     <link href="/css/third-party/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom Bootstrap Admin Theme -->
-    <link href="/css/third-party/sb-admin.css" rel="stylesheet">
-    <!-- Public website general css -->
-    <link rel="stylesheet" type="text/css" href="/css/dewslandslide/misc/pms.css">
+    <!-- DYNASLOPE Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="/css/dewslandslide/dynaslope-main.css">
     <!-- Font Awesome -->
     <link href="/css/third-party/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -42,6 +40,8 @@
     <!-- Bootstrap DateTimePicker CSS-->
     <link href="/css/third-party/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
 
+    <!-- General DYNASLOPE JS file-->
+    <script type="text/javascript" src="/js/dewslandslide/dynaslope-general.js"></script>
     <!-- Modal Reposition JS-->
     <script type="text/javascript" src="/js/third-party/modal-reposition.js"></script>
 

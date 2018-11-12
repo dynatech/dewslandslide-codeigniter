@@ -55,7 +55,7 @@
 				'reporter_ct' => $this->users_model->getFullNameOfUserbyID($temp->reporter_id_ct),  
 			);
 
-			$data['responses'] = $this->lut_model->getResponses($data['public_alert_level'], $internal_alert);
+			$data['responses'] = json_encode($this->lut_model->getResponses($data['public_alert_level'], $internal_alert));
 			$data['alert_description'] = $this->getAlertDescription($internal_alert);
 
 			// Get most recent validity for the said release
@@ -316,7 +316,7 @@
 			$is_logged_in = $this->session->userdata('is_logged_in');
 			
 			if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-				echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+				echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 				die();
 			}
 			else {

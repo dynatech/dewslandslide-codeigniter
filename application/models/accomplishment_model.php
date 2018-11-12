@@ -24,7 +24,7 @@ class Accomplishment_Model extends CI_Model
 		$this->db->order_by("data_timestamp", "desc");
 		$query = $this->db->get();
 		$result = $query->result_array();
-		return json_encode($result);
+		return $result;
 	}
 
 	public function getSitesWithAlerts() {
@@ -34,7 +34,7 @@ class Accomplishment_Model extends CI_Model
 		$this->db->where('status', 'on-going');
 		$this->db->or_where('status', 'extended');
 		$query = $this->db->get();
-		return json_encode($query->result_object());
+		return $query->result_object();
 	}
 
 	public function getNarratives($event_id) {
@@ -45,7 +45,7 @@ class Accomplishment_Model extends CI_Model
 		$this->db->where_in('narratives.event_id', $event_id);
 		$query = $this->db->get();
 		$result = $query->result_array();
-		return json_encode($result);
+		return $result;
 	}
 	
 }

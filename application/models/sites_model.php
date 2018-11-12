@@ -106,7 +106,7 @@ class Sites_Model extends CI_Model {
 	        $site[$i++]["address"] = $address;
 	    }
 
-	    return json_encode($site);
+	    return $site;
 	}
 
 	/**
@@ -141,7 +141,7 @@ class Sites_Model extends CI_Model {
 	        $site[$i++]["address"] = $address;
 	    }
 
-	    return json_encode($site);
+	    return $site;
 	}
 
 	public function getSitesWithRegions() {

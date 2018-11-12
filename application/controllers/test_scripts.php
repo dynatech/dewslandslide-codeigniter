@@ -178,7 +178,7 @@ class Test_scripts extends CI_Controller {
 
 	public function getOnGoingAndExtended()
 	{
-		$events = $this->monitoring_model->getOnGoingAndExtended();
+		$events = json_encode($this->monitoring_model->getOnGoingAndExtended());
 
 		$latest = []; $extended = [];
 		$overdue = []; $markers = [];
@@ -343,7 +343,7 @@ class Test_scripts extends CI_Controller {
 
 	public function getLastRelease($event_id)
 	{
-		$result = $this->pubrelease_model->getLastRelease($event_id);
+		$result = json_encode($this->pubrelease_model->getLastRelease($event_id));
 		echo "$result";
 	}
 
@@ -361,8 +361,8 @@ class Test_scripts extends CI_Controller {
 
 	public function getSentRoutine()
 	{
-		$result = $this->pubrelease_model->getSentRoutine($_GET['timestamp']);
-		echo "$result";
+		$result = json_encode($this->pubrelease_model->getSentRoutine($_GET['timestamp']));
+		echo $result;
 	}
 
 	public function isNewYear($site_id, $timestamp)
@@ -512,7 +512,7 @@ class Test_scripts extends CI_Controller {
 		$is_logged_in = $this->session->userdata('is_logged_in');
 		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+			echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 			die();
 		}
 		else {

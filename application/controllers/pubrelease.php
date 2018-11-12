@@ -27,9 +27,9 @@ class Pubrelease extends CI_Controller {
 		{
 			case 'alert_release_form':
 				$data['title'] = "DEWS-Landslide Early Warning Release Form";
-				$data['sites'] = $this->sites_model->getActiveSites();
-				$data['staff'] = $this->users_model->getDEWSLUsers();
-				$data['active'] = $this->public_alert_event_model->getOnGoingAndExtendedSitesAndStatus();
+				$data['sites'] = json_encode($this->sites_model->getActiveSites());
+				$data['staff'] = json_encode($this->users_model->getDEWSLUsers());
+				$data['active'] = json_encode($this->public_alert_event_model->getOnGoingAndExtendedSitesAndStatus());
 				break;
 
 			case 'monitoring_events_individual':
@@ -38,7 +38,7 @@ class Pubrelease extends CI_Controller {
 				if($release_id != NULL) $data['to_highlight'] = $release_id;
 				else $data['to_highlight'] = null;
 
-				$temp = $this->public_alert_event_model->getEventWithSiteDetails($id);
+				$temp = json_encode($this->public_alert_event_model->getEventWithSiteDetails($id));
 				$data['event'] = json_encode($temp);
 				if( $data['event'] == "[]") {
 				 	show_404();
@@ -46,43 +46,35 @@ class Pubrelease extends CI_Controller {
 				}
 
 				$data['title'] = "DEWS-Landslide Individual Monitoring Event Page";
-				$data['releases'] = $this->pubrelease_model->getAllRelease($id);
+				$data['releases'] = json_encode($this->pubrelease_model->getAllRelease($id));
 				$data['triggers'] = $this->pubrelease_model->getAllEventTriggers($id);
-				$data['staff'] = $this->users_model->getDEWSLUsers();
+				$data['staff'] = json_encode($this->users_model->getDEWSLUsers());
 				$data['bulletin_modals'] = $this->load->view('public_alert/bulletin_modals', $data, true);
 				break;
 
-			case 'monitoring_events_all':
-	
-				//$data['releases'] = $this->pubrelease_model->getAllPublicReleases();
-				//$this->load->library('../controllers/pubrelease');
-				//$data['events'] = $this->testAllReleasesCached();
-				// $temp = $this->testAllReleasesCached();
-				// $data['events'] = $temp['events'];
-				// $data['releases'] = $temp['releases'];				
-				
+			case 'monitoring_events_all':			
 				$data['title'] = "DEWS-Landslide Monitoring Events Table";
 				break;
 
 			case 'monitoring_faq': $data['title'] = "DEWS-Landslide Monitoring FAQ";
 		}
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
 		$this->load->view('public_alert/' . $page, $data);
-		$this->load->view('templates/footer');
+		$this->load->view('templates/beta/footer');
 	}
 
 	public function getAllRelease ($id) 
 	{
-		$result = $this->pubrelease_model->getAllRelease($id);
+		$result = json_encode($this->pubrelease_model->getAllRelease($id));
 		echo $result;
 	}
 
 	public function getEvent ($event_id)
 	{
 		$result = json_encode($this->public_alert_event_model->getEventWithSiteDetails($event_id));
-		echo "$result";
+		echo $result;
 	}
 
 	public function getAllEventsAsync()
@@ -162,20 +154,20 @@ class Pubrelease extends CI_Controller {
 
 	public function getSites()
 	{
-		$result = $this->sites_model->getActiveSites();
-		echo "$result";
+		$result = json_encode($this->sites_model->getActiveSites());
+		echo $result;
 	}
 
 	public function getLastSiteEvent($site_id)
 	{
-		$result = $this->public_alert_event_model->getLastSiteEvent($site_id);
-		echo "$result";
+		$result = json_encode($this->public_alert_event_model->getLastSiteEvent($site_id));
+		echo $result;
 	}
 
 	public function getLastRelease($event_id)
 	{
-		$result = $this->pubrelease_model->getLastRelease($event_id);
-		echo "$result";
+		$result = json_encode($this->pubrelease_model->getLastRelease($event_id));
+		echo $result;
 	}
 
 	public function getAllEventTriggers($event_id, $release_id = null)
@@ -192,14 +184,14 @@ class Pubrelease extends CI_Controller {
 
 	public function getSentRoutine()
 	{
-		$result = $this->pubrelease_model->getSentRoutine($_GET['timestamp']);
-		echo "$result";
+		$result = json_encode($this->pubrelease_model->getSentRoutine($_GET['timestamp']));
+		echo $result;
 	}
 
 	public function getFeatureNames($site_id, $type)
 	{
-		$result = $this->manifestations_model->getFeatureNames($site_id, $type);
-		echo "$result";
+		$result = json_encode($this->manifestations_model->getFeatureNames($site_id, $type));
+		echo $result;
 	}
 
 	public function insert () {
@@ -495,7 +487,7 @@ class Pubrelease extends CI_Controller {
 			echo "Variable is empty<Br><Br>";
 		}
 		else {
-			echo "$alerts";
+			echo $alerts;
 		}
 	}
 
@@ -506,8 +498,8 @@ class Pubrelease extends CI_Controller {
 	 **/
 	public function showStaff()
 	{
-		$data = $this->users_model->getDEWSLUsers();
-		echo "$data";
+		$data = json_encode($this->users_model->getDEWSLUsers());
+		echo $data;
 	}
 
 	// Insert Data to Public Alerts Table
@@ -597,7 +589,7 @@ class Pubrelease extends CI_Controller {
 		//Set the public release all cache to dirty
 		$this->setPublicReleaseAllDirty();
 
-		echo "$id";
+		echo $id;
 
 	}	
 
@@ -622,7 +614,7 @@ class Pubrelease extends CI_Controller {
 			echo "0";
 		}
 		else {
-			echo "$publicAlerts";
+			echo $publicAlerts;
 		}
 	}
 
@@ -653,7 +645,7 @@ class Pubrelease extends CI_Controller {
 		//Set the public release all cache to dirty
 		$this->setPublicReleaseAllDirty();
 
-		echo "$deletePublicAlerts";
+		echo $deletePublicAlerts;
 	}
 
 
@@ -665,64 +657,7 @@ class Pubrelease extends CI_Controller {
 	public function showRecentRelease($site)
 	{
 		$data = $this->pubrelease_model->getRecentRelease($site);
-		echo "$data";
-	}
-
-	public function testAllReleases()
-	{
-		$allRelease = $this->pubrelease_model->getAllEvents();
-		echo "$allRelease";
-	}
-
-	//Cache Test: Prado Arturo Bognot
-	public function testAllReleasesCached()
-	{
-		$os = PHP_OS;
-
-		$data = [];
-
-		if (strpos($os,'WIN') !== false) {
-		    //echo "Running on a windows server. Not using memcached </Br>";
-		    $data['events'] = $this->pubrelease_model->getAllEvents();
-		    $data['releases'] = $this->pubrelease_model->getAllReleasesWithSite();
-		}
-		elseif ((strpos($os,'Ubuntu') !== false) || (strpos($os,'Linux') !== false)) {
-			//echo "Running on a Linux server. Will use memcached </Br>";
-
-			$mem = new Memcached();
-			$mem->addServer("127.0.0.1", 11211);
-
-			//cachedprall - Cached Public Release All
-			$result = $mem->get("cachedprall");
-			//cachedpralldirty - Cached Public Release All Dirty (data has been modified)
-			$dirty = $mem->get("cachedpralldirty");
-
-			if ($result && (($dirty == false) && !($dirty)) ) {
-			    $allRelease = $result;
-			} 
-			else {
-			    //echo "No matching key found or dirty cache flag has been raised. I'll add that now!";
-			    $data['events'] = $this->pubrelease_model->getAllEvents();
-		   		$data['releases'] = $this->pubrelease_model->getAllReleasesWithSite();
-			    $mem->set("cachedprall", $data) or die("couldn't save pubreleaseall");
-			    $mem->set("cachedpralldirty", false) or die ("couldn't save dirty flag");
-			}
-		}
-		else {
-			//echo "Unknown OS for execution... Script discontinued";
-			$data['events'] = $this->pubrelease_model->getAllEvents();
-		    $data['releases'] = $this->pubrelease_model->getAllReleasesWithSite();
-		}
-		
-		return $data;
-	}
-
-	public function testSingleRelease()
-	{
-		$id = $this->uri->segment(3);
-		$allRelease = $this->pubrelease_model->getSinglePublicRelease($id);
-
-		echo "$allRelease";
+		echo $data;
 	}
 
 	public function setPublicReleaseAllDirty()
@@ -748,7 +683,7 @@ class Pubrelease extends CI_Controller {
 		$is_logged_in = $this->session->userdata('is_logged_in');
 		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+			echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 			die();
 		}
 		else {
