@@ -46,6 +46,7 @@
 		        		<div class="dropdown-content">
 		                    <span class="dropdown-header">Sensors and Rain Gauges</span>
 		                    <a href="<?php echo base_url(); ?>analysis/site_analysis">Site Analysis</a>
+		                    <a href="<?php echo base_url(); ?>analysis/sensor_overview">Sensor Overview</a>
 		                    <a href="<?php echo base_url(); ?>analysis/rainfall_scanner">Rainfall Scanner</a>
 		                    <a href="<?php echo base_url(); ?>analysis/surficial">Surficial Markers Page</a>
 		                    <a href="<?php echo base_url(); ?>analysis/manifestations">Manifestations of Movement Page</a>
