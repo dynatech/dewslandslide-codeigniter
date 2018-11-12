@@ -16,10 +16,13 @@ class Responsetracker extends CI_Controller {
 		$data['user_id'] = $this->session->userdata("id");
 		$data['jquery'] = "old";
 		$data['title'] = $page;
+		$data['options_bar'] = $this->load->view('communications/response_tracker/options_bar', $data, true);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
-		$this->load->view('communications/responsetracker');
+		
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
+
+		$this->load->view('communications/response_tracker/main');
 		$this->load->view('templates/footer');
 	}
 
@@ -89,64 +92,66 @@ class Responsetracker extends CI_Controller {
 		print json_encode($timestamp_collections);
 	}
 
-	public function analyticsAllSites(){
-		$data = json_decode($_POST['allsites']);
+	public function analytics(){
+		$post_data = json_decode($_POST['input']);
+		$data['category'] = $post_data->category;
 
-		$allSiteName = $this->responsetracker_model->getSite();
-		$siteNames = [];
-		$temp_collections = [];
-		$timestamp_collections = [];
-		foreach ($allSiteName->result() as $sitenames) {
-			$timestampHolder = [];
-			array_push($siteNames,$sitenames->sitename);
-			$targetContacts = $this->responsetracker_model->getTargetContacts($sitenames->sitename);
-			$chatTimeStamps =  $this->getAnalyticsAllSite($sitenames,$data->period,$data->current_date,$targetContacts);
-			array_push($timestampHolder, $chatTimeStamps);
-			$temp_collections[$sitenames->sitename] = $timestampHolder;
+		if ($data['category'] == 'site'){
+			$data['site_name'] = $post_data->site_name;
+		}else if ($data['category'] == 'person'){
+			$data['firstname'] = $post_data->firstname;
+			$data['lastname'] = $post_data->lastname;
 		}
-		array_push($timestamp_collections,$temp_collections);
-		print json_encode($timestamp_collections);
+		
+		$data['period'] = $post_data->period;
+		$data['current_date'] = $post_data->current_date;
+
+		$chatTimeStamps = $this->responsetracker_model->getChatTimeStamps($data);
+		print json_encode($chatTimeStamps);
 	}
 
-	public function analyticsSite(){
-		$data = json_decode($_POST['site']);
-		$timestamp_collections = [];
-		$result = $this->responsetracker_model->getSitePersons($data->filterKey);
-		foreach ($result->result() as $person) {
-			$chatTimeStamps = $this->getAnalyticsSite($person->number,$data->period,$data->current_date,$data->filterKey);
-			$timestamp_collections[$person->office." - ".$person->firstname." ".$person->lastname] = $chatTimeStamps;
-		}
-		print json_encode($timestamp_collections);
-	}
+	// public function analyticsSite(){
+	// 	$data = json_decode($_POST['site']);
+	// 	$timestamp_collections = [];
+	// 	$result = $this->responsetracker_model->getSitePersons($data->filterKey);
+	// 	foreach ($result->result() as $person) {
+	// 		$chatTimeStamps = $this->getAnalyticsSite($person->number,$data->period,$data->current_date,$data->filterKey);
+	// 		$timestamp_collections[$person->office." - ".$person->firstname." ".$person->lastname] = $chatTimeStamps;
+	// 	}
+	// 	print json_encode($timestamp_collections);
+	// }
 
-	public function getAnalyticsSite($number,$period,$current_date,$site){
-		$data['number'] = [(object) array('number'=> $number)];
-		$data['period'] = $period;
-		$data['site'] = $site;
-		$data['current_date'] = $current_date;
-		$timeStamps = $this->responsetracker_model->getChatTimeStamps($data);
-		return $timeStamps;
-	}
+	// public function getAnalyticsSite($number,$period,$current_date,$site){
+	// 	$data['number'] = [(object) array('number'=> $number)];
+	// 	$data['period'] = $period;
+	// 	$data['site'] = $site;
+	// 	$data['current_date'] = $current_date;
+	// 	$data['category'] = "site";
+	// 	$timeStamps = $this->responsetracker_model->getChatTimeStamps($data);
+	// 	return $timeStamps;
+	// }
 
-	public function getAnalyticsAllSite($sitenames,$period,$current_date,$numbers){
-		$data['number'] = $numbers;
-		$data['period'] = $period;
-		$data['site'] = $sitenames;
-		$data['current_date'] = $current_date;
-		$timeStamps = $this->responsetracker_model->getChatTimeStamps($data);
-		return $timeStamps;
-	}
+	// public function getAnalyticsAllSite($period,$current_date){
+	// 	// $data['number'] = $numbers;
+	// 	$data['period'] = $period;
+	// 	// $data['site'] = $sitenames;
+	// 	$data['current_date'] = $current_date;
+	// 	$data['category'] = "allsites";
+	// 	$timeStamps = $this->responsetracker_model->getChatTimeStamps($data);
+	// 	return $timeStamps;
+	// }
 
-	public function getAnalyticsPerson($firstname,$lastname,$site,$period,$current_date,$number){
-		$data['firstname'] = $firstname;
-		$data['lastname'] = $lastname;
-		$data['sitename'] = $site;
-		$data['period'] = $period;
-		$data['current_date'] = $current_date;
-		$data['number'] = [(object) array('number'=> $number)];
-		$timeStamps = $this->responsetracker_model->getChatTimeStamps($data);
-		return $timeStamps;	
-	}
+	// public function getAnalyticsPerson($firstname,$lastname,$site,$period,$current_date,$number){
+	// 	$data['firstname'] = $firstname;
+	// 	$data['lastname'] = $lastname;
+	// 	$data['sitename'] = $site;
+	// 	$data['period'] = $period;
+	// 	$data['current_date'] = $current_date;
+	// 	$data['category'] = "persons";
+	// 	$data['number'] = [(object) array('number'=> $number)];
+	// 	$timeStamps = $this->responsetracker_model->getChatTimeStamps($data);
+	// 	return $timeStamps;	
+	// }
 
 	public function getRegions(){
 		$regions = $this->responsetracker_model->getAllRegions();

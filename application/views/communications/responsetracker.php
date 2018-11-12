@@ -1,6 +1,10 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/pms.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/crud_page.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/site_info/site_info.css">
 <link rel="stylesheet" type="text/css" href="/css/third-party/bootstrap-slider.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/dewslandslide/dewsresponsetracker.css" />
 <link rel="stylesheet" type="text/css" href="/css/third-party/bootstrap-toggle.min.css">
+
 
 <script src="/js/dewslandslide/communications/dewsresponsetracker.js"></script>
 <script src="/js/third-party/highcharts.js"></script>
@@ -8,16 +12,38 @@
 <script src="/js/third-party/bootstrap-slider.min.js"></script>
 <script src="/js/third-party/bootstrap-toggle.min.js"></script>
 
+<main class="page site_info">
+	<section class="clean-block clean-cart">
+		<div class="container">
 
-<img id="bg-img-chatterbox" src="../../../images/dews-l-logo.png" >
+			<div class="block-heading">
+				<div class="container-line timeline-head">
+					<span class="circle left"></span>
+					<div id="title-page-container" class="container-line-text timeline-head-text">Response Tracker</div>
+					<span class="circle right"></span>
+				</div>
+			</div>
+
+			
+			<div class="content">
+				<div class="row no-gutters">
+					
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table id="sites-table" class="display table table-striped" cellspacing="0" width="100%">
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class=""></div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
 <div class="page-wrapper">
 	<div class="container">
-		<div class="row">
-	        <div class="page-header">
-	            <h1>DEWS-Landslide Response Tracker</h1>
-	        </div>
-		</div>
-
 		<div class="row" id="reliability-row">
 			<div class="col-md-12">
 				<div class="panel panel-primary" id="tracker-filter-panel">
@@ -38,32 +64,32 @@
 						</div>
 						<div class="col-md-2" id="date-selector-rtracker">
 							<div class="input-group date datetime" id="entry">
-                                <input type="text" class="form-control" id="from-date" name="from-date" placeholder="Start date" aria-required="true" aria-invalid="false">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
+								<input type="text" class="form-control" id="from-date" name="from-date" placeholder="Start date" aria-required="true" aria-invalid="false">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
 						</div>
 
 						<div class="col-md-2" id="date-selector-rtracker">
 							<div class="input-group date datetime" id="entry">
-                                <input type="text" class="form-control" id="to-date" name="to-date" placeholder="End date" aria-required="true" aria-invalid="false">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
+								<input type="text" class="form-control" id="to-date" name="to-date" placeholder="End date" aria-required="true" aria-invalid="false">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
 						</div>
 						<div id="div-data-resolution" class="col-md-3">
-					        <label for="data-resolution">Data Resolution</label>
-					        <input id="data-resolution" type="text"
-					              data-provide="slider"
-					              data-slider-ticks="[1, 2, 3, 4]"
-					              data-slider-ticks-labels='["Hourly", "Daily", "Weekly","Monthly"]'
-					              data-slider-min="1"
-					              data-slider-max="4"
-					              data-slider-step="1"
-					              data-slider-value="2"
-					              data-slider-tooltip="hide"/>
+							<label for="data-resolution">Data Resolution</label>
+							<input id="data-resolution" type="text"
+							data-provide="slider"
+							data-slider-ticks="[1, 2, 3, 4]"
+							data-slider-ticks-labels='["Hourly", "Daily", "Weekly","Monthly"]'
+							data-slider-min="1"
+							data-slider-max="4"
+							data-slider-step="1"
+							data-slider-value="2"
+							data-slider-tooltip="hide"/>
 						</div>
 						<div class="col-md-2" id="filter-category-submit">
 							<button type="button" class="btn btn-success" id="confirm-filter-btn">Confirm</button>	
@@ -111,6 +137,6 @@
 					</div>
 				</div>		
 			</div>
- -->
+		-->
 	</div>
 </div>
