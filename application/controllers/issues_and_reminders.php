@@ -148,19 +148,19 @@
 		public function getAllLocked()
 		{
 			$data = $this->issues_model->getAllRowsByStatus('locked');
-			echo $data;
+			echo json_encode($data);
 		}
 
 		public function getAllNormal()
 		{
 			$data = $this->issues_model->getAllRowsByStatus('normal');
-			echo $data;
+			echo json_encode($data);
 		}
 
 		public function getAllArchived()
 		{
 			$data = $this->issues_model->getAllRowsByStatus('archived');
-			echo $data;
+			echo json_encode($data);
 		}
 
 		public function insert()
@@ -209,7 +209,7 @@
 			$is_logged_in = $this->session->userdata('is_logged_in');
 			
 			if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-				echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+				echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 				die();
 			}
 			else {

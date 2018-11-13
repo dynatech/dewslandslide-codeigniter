@@ -1,5 +1,4 @@
-
-	
+<!--
     Created by: Kevin Dhale dela Cruz
     A view page for monitoring sites with alerts; 
     acts as a homepage
@@ -20,7 +19,6 @@
 </script>
 <link rel="stylesheet" type="text/css" href="/css/third-party/bootstrap-tagsinput.css">
 
-
 <script type="text/javascript" src="js/dewslandslide/communications_beta/cbx_dashboard.js"></script>
 <script type="text/javascript" src="js/dewslandslide/communications_beta/websocket_server.js"></script>
 
@@ -28,33 +26,26 @@
 	$sites = json_decode($sites);
 	$staff = json_decode($staff);
 	$events = json_decode($events);
-	// $publicAlerts = json_decode($publicJSON)
 ?>
 
-<div id="page-wrapper" style="height: 100%;">
+<div id="page-wrapper">
 	<div class="container">
-		<!-- Page Heading -->
         <div class="row">
-            <div class="col-md-12">
-                <h1 class="page-header">
-                	DEWS-Landslide Monitoring Dashboard
-                </h1>
+            <div class="col-md-12 text-center">
+                <div id="page-header">SITE ALERT MONITORING <small>DASHBOARD</small></div>
             </div>
         </div>
-        <!-- /.row -->
+
+        <div class="alert alert-danger" id="primer">
+            <strong>Monitoring Modules Directory</strong>: 
+            <ul>
+            	<li>Read and file announcements on <a role="button" id="iar_modal_link"><strong>Monitoring Issues And Reminders Modal</strong></a>.</li>
+            	<li>Allot some time to read the <strong><a href="<?php echo base_url(); ?>monitoring/faq">Monitoring Primer and Frequently Asked Questions (FAQ)</a></strong> page.</li>
+            </ul>
+        </div>
+
         <div class="row">
 		    <div class="col-sm-12" id="column_2">
-		    	<div class="row">
-		    		<div class="alert alert-danger" id="primer">
-			            <strong>Monitoring Modules Directory</strong>: 
-			            <ul>
-			            	<li>Read and file announcements on <a role="button" id="iar_modal_link"><strong>Monitoring Issues And Reminders Modal</strong></a>.</li>
-			            	<li>Allot some time to read the <strong><a href="<?php echo base_url(); ?>monitoring/faq">Monitoring Primer and Frequently Asked Questions (FAQ)</a></strong> page.</li>
-			            </ul>
-			            
-			        </div>
-		    	</div>
-
 		    	<div id="automation-row" hidden="hidden">
 		    		<div class="row">
 			    		<div class="col-sm-12 text-center" style="background-color:red;color:white;">
@@ -74,12 +65,10 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<ul class="nav nav-tabs nav-justified">
-	    		<li class="active"><a data-toggle="tab" href="#monitoring-tab"><strong>DASHBOARD TABLES</strong></a></li>
-	    		<li><a data-toggle="tab" href="#generated-alerts-tab"><strong>GENERATED ALERTS</strong></a></li>
-	    	</ul>
-    	</div>
+		<ul class="nav nav-tabs nav-justified">
+    		<li class="active"><a data-toggle="tab" href="#monitoring-tab"><strong>DASHBOARD TABLES</strong></a></li>
+    		<li><a data-toggle="tab" href="#generated-alerts-tab"><strong>GENERATED ALERTS</strong></a></li>
+    	</ul>
 
 		<div class="tab-content">
 			<div id="monitoring-tab" class="tab-pane fade in active">
@@ -143,10 +132,12 @@
    				<div class="modal-content">
 	   				<div class="modal-header">
 	   					<button type="button" class="close" data-dismiss="modal" hidden>&times;</button>
-	   					<h4><strong>Error!</strong></h4>
+	   					<h4><strong>Monitoring Dashboard Error</strong></h4>
 					</div>
     				<div class="modal-body">
-    					<p style="color:red;">There is an error loading the file PublicAlert.JSON. Please refresh the page and see if that solves the problem. If the loading problem persists, use the Alert Release Form for releasing EWI instead.</p>
+    					<div style="color:red;">
+    						There is an error loading the file PublicAlert.JSON. Please refresh the page and see if that solves the problem. If the loading problem persists, use the Alert Release Form for releasing EWI instead.
+    					</div>
      				</div>
      				<div class="modal-footer">
 		        		<button class="btn btn-info" data-dismiss="modal" role="button">Okay</button>
@@ -516,7 +507,7 @@
 	   					<h4><strong>Early Warning Information Release</strong></h4>
 					</div>
     				<div class="modal-body">
-    					<p style="color:red;">The data from the trigger source of this site alert has been invalidated, and thus manual source checking must be performed. Release the Early Warning Information using the Alert Release Form.</p>
+    					<div style="color:red;">The data from the trigger source of this site alert has been invalidated, and thus manual source checking must be performed. Release the Early Warning Information using the Alert Release Form.</div>
      				</div>
      				<div class="modal-footer">
 		        		<button class="btn btn-info" data-dismiss="modal" role="button">Okay</button>
@@ -532,7 +523,7 @@
 		        <div class="modal-content">
 		            <div class="modal-header">
 		                <button type="button" class="close" data-dismiss="modal">&times;</button>
-		                <h4 class="modal-title">Integrated Site Analysis Page</h4>
+		                <h4 class="modal-title">Monitoring Dashboard Error</h4>
 		            </div>
 		            <div class="modal-body">
 		                <p>Problem loading some parts of this page:</p>
@@ -548,6 +539,5 @@
 
 		<!-- IMPORT BULLETIN MODALS -->
 		<?php echo $bulletin_modals; ?>
-
 	</div> <!-- End of Container -->
-</div> <!-- End of Page Wrapper
+</div> <!-- End of Page Wrapper -->

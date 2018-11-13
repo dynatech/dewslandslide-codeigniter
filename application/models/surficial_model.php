@@ -6,6 +6,7 @@ class surficial_model extends CI_Model {
 			"marker_observations.mo_id as mo_id, 
 			marker_observations.ts, 
 			UPPER(site_markers.marker_name) as crack_id,
+			marker_data.data_id,
 			marker_data.measurement as measurement,
 			marker_data.marker_id as marker_id,
 			site_markers.site_code"
@@ -47,6 +48,7 @@ class surficial_model extends CI_Model {
 			"marker_observations.mo_id as mo_id, 
 			marker_observations.ts,
 			UPPER(site_markers.marker_name) as crack_id,
+			marker_data.data_id,
 			marker_data.measurement,
 			site_markers.site_id"
 		);
@@ -61,7 +63,7 @@ class surficial_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function getSurficialMarkers ($site_code, $filter_in_use = true, $complete_data = false) {
+	public function getSurficialMarkers ($site_code, $filter_in_use, $complete_data) {
 		// $site_code = $this->convertSiteCodesFromNewToOld($site_code);
 		$this->db->select("*, marker_name AS crack_id");
 		$this->db->from("site_markers AS sm");
@@ -70,8 +72,8 @@ class surficial_model extends CI_Model {
 		if ($filter_in_use) $this->db->where("in_use", 1);
 		if ($complete_data) $this->db->join("markers AS m", "sm.marker_id = m.marker_id");
 
-		$this->db->order_by("sm.in_use", "desc");
 		$this->db->order_by("crack_id", "desc");
+		$this->db->order_by("sm.in_use", "desc");
 
 		$query = $this->db->get();
 		return $query->result();

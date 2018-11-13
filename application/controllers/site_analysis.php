@@ -28,10 +28,10 @@ class Site_analysis extends CI_Controller {
         $data['subsurface_node_level_plots'] = $this->load->view('data_analysis/site_analysis_page/subsurface_node_plots', $data, true);
         $data['site_analysis_svg'] = $this->load->view('data_analysis/site_analysis_page/site_analysis_svg', $data, true);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
         $this->load->view('data_analysis/site_analysis_page/main', $data);
-        $this->load->view('templates/footer');
+        $this->load->view('templates/beta/footer');
 	}
 
     /**
@@ -79,7 +79,7 @@ class Site_analysis extends CI_Controller {
                     if ($push_null_flag) {
                         $range = array("from" => strtotime($start) * 1000, "to" => strtotime($end) * 1000);
                         array_push($data_series["null_ranges"], $range);
-                        $start = null;
+			$start = null;
                         $end = null;
                         $push_null_flag = false;
                     }
@@ -195,9 +195,9 @@ class Site_analysis extends CI_Controller {
                 $data_per_marker[$data->crack_id] = [];
             }
             $temp = array(
-                'x' => strtotime($data->ts) * 1000, 
+                'x' => strtotime($data->ts) * 1000,
                 'y' => floatval($data->measurement),
-                'id' => (int) $data->mo_id
+                'id' => (int) $data->data_id
             );
             array_push($data_per_marker[$data->crack_id], $temp);
         }
@@ -1000,7 +1000,7 @@ class Site_analysis extends CI_Controller {
         $is_logged_in = $this->session->userdata('is_logged_in');
         
         if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-            echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+            echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
             die();
         }
         else {
@@ -1025,7 +1025,7 @@ class Site_analysis extends CI_Controller {
 
         if (strpos($os, "WIN") !== false) {
             $python_path = "C:/Users/Dynaslope/Anaconda2/python.exe";
-            $file_path = "C:/xampp/updews-pycodes/Liaison/";
+            $file_path = "C:/xampp/updews-pycodes/web_plots/";
         } elseif (strpos($os, "UBUNTU") !== false || strpos($os, "Linux") !== false) {
             $python_path = "/home/ubuntu/miniconda2/bin/python";
             // $python_path = "/home/swat/anaconda2/bin/python";

@@ -13,9 +13,7 @@
 
     <!-- Bootstrap Core CSS v3.3.7 -->
     <link href="/css/third-party/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom Bootstrap Admin Theme -->
-    <link href="/css/third-party/sb-admin.css" rel="stylesheet">
-    <!-- Public website general css -->
+    <!-- DYNASLOPE Main Stylesheet -->
     <link rel="stylesheet" type="text/css" href="/css/dewslandslide/dynaslope-main.css">
     <!-- Font Awesome -->
     <link href="/css/third-party/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -25,7 +23,7 @@
     <!-- jQuery UI Version 1.12.1 -->
     <script type="text/javascript" src="/js/third-party/jquery-ui-1.12.1.min.js"></script>
     <!-- Bootstrap JS v3.3.7 -->
-    <!-- <script src="/js/third-party/bootstrap.min.js"></script> -->
+    <script src="/js/third-party/bootstrap.min.js"></script>
     <!-- Moment.js -->
     <script type="text/javascript" src="/js/third-party/moment.js"></script>
     <!-- jQuery Validate -->
@@ -42,7 +40,11 @@
     <!-- Bootstrap DateTimePicker CSS-->
     <link href="/css/third-party/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
 
+    <!-- General DYNASLOPE JS file-->
+    <script type="text/javascript" src="/js/dewslandslide/dynaslope-general.js"></script>
     <!-- Modal Reposition JS-->
     <script type="text/javascript" src="/js/third-party/modal-reposition.js"></script>
-
+    <!-- PMS SAMPLE -->
+    <script type="text/javascript" src="http://192.168.150.76/js/pms.js"></script>
+    
 </head>

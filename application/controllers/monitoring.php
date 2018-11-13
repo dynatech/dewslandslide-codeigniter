@@ -11,8 +11,7 @@ class Monitoring extends CI_Controller
 		$this->load->model('users_model');
 	}
 
-	public function index()
-	{
+	public function index () {
 		$this->is_logged_in();
 
 		$data['title'] = 'DEWS-L Monitoring Dashboard';
@@ -27,10 +26,10 @@ class Monitoring extends CI_Controller
 		$data['generated_alerts'] = $this->load->view('public_alert/generated_alerts', $data, true);
 		$data['bulletin_modals'] = $this->load->view('public_alert/bulletin_modals', $data, true);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+        $this->load->view('templates/beta/nav');
 		$this->load->view('public_alert/monitoring_dashboard', $data);
-		$this->load->view('templates/footer');
+        $this->load->view('templates/beta/footer');
 	}
 
 	public function getOnGoingAndExtended () {
@@ -68,8 +67,8 @@ class Monitoring extends CI_Controller
 					$event->day = $day;
 					array_push($extended, $event);
 	 			} else {
-	 				$this->load->model('pubrelease_model');
-	 				$this->pubrelease_model->update("event_id", $event->event_id, "public_alert_event", array("status" => "finished"));
+	 				$this->load->model('api_model');
+	 				$this->api_model->update("event_id", $event->event_id, "public_alert_event", array("status" => "finished"));
 	 			}
 			}
 		}
@@ -160,7 +159,7 @@ class Monitoring extends CI_Controller
 		$is_logged_in = $this->session->userdata('is_logged_in');
 		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+			echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 			die();
 		}
 		else {

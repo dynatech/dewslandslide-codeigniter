@@ -9,9 +9,12 @@ class Surficial extends CI_Controller {
 		$this->load->helper('url');
 	}
 
-	public function index() {
+	public function index () {
         $data["title"] = "Surficial Markers Page";
 
+        $data['user_id'] = $this->session->userdata("id");
+        $data['first_name'] = $this->session->userdata('first_name');
+        $data['last_name'] = $this->session->userdata('last_name');
         $data["sites"] = $this->sites_model->getCompleteSiteInformation("all", false);
 
 		$this->load->view('templates/beta/header', $data);
@@ -20,9 +23,16 @@ class Surficial extends CI_Controller {
         $this->load->view('templates/beta/footer');
 	}
 
+    /**
+     * Gets the surficial markers.
+     *
+     * @param      <type>          $site_code      The site code
+     * @param      boolean|string  $filter_in_use  remove not used markers
+     * @param      boolean|string  $complete_data  include description, latitude, longitude on return
+     */
     public function getSurficialMarkers ($site_code, $filter_in_use = true, $complete_data = false) {
-        $filter_in_use = isset($filter_in_use) ? false : true;
-        $complete_data = isset($complete_data) ? true : false;
+        $filter_in_use = $filter_in_use === "false" ? false : true;
+        $complete_data = $complete_data === "true" ? true : false;
         
         $surficial_markers = $this->surficial_model->getSurficialMarkers($site_code, $filter_in_use, $complete_data);
         echo json_encode($surficial_markers);
@@ -86,6 +96,14 @@ class Surficial extends CI_Controller {
         $this->api_model->update("marker_id", $marker_id, "markers", $temp);
 
         echo "success";
+    }
+
+    public function updateMarkerDataPointMeasurement () {
+        $this->api_model->update("data_id", $_POST["data_id"], "marker_data", array("measurement" => $_POST["measurement"]));
+    }
+
+    public function deleteMarkerDataPointMeasurement () {
+        $this->api_model->delete("marker_data", array("data_id" => $_POST["data_id"]));
     }
 
     public function convertOldDataToRefDB () {
@@ -178,7 +196,7 @@ class Surficial extends CI_Controller {
 		$is_logged_in = $this->session->userdata('is_logged_in');
 		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+			echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 			die();
 		}
 		else {

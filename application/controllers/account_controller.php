@@ -1,20 +1,23 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Account_controller extends CI_Controller {
 
 	public function index() {
-		// echo "Login page testing";
-		$data['main_content'] = 'login_form';
 		$data['title'] = 'Login';
-		$this->load->view('includes/template', $data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('login_form');
+		$this->load->view('templates/footer', $data);
 	}
 
-	public function validate_credentials() {
-		$this->load->model('membership_model');
-		$query = $this->membership_model->validate();
-		
-		if ($query['status']) {	//if the user's credentials validated
+	public function validateCredentials() {
+		$data = array(
+			"username" => $this->input->post("username"),
+			"password" => $this->input->post("password") 
+		);
 
+		$this->load->model('membership_model');
+		$query = $this->membership_model->validate($data);
+		if ($query['status']) {	//if the user's credentials validated
 			$config_app = switch_db("senslopedb");
 			$this->db = $this->load->database($config_app, TRUE);
 
@@ -28,11 +31,9 @@ class Login extends CI_Controller {
 			);
 			
 			$this->session->set_userdata($dataset);
-			redirect('/home');
+			// redirect('/home');
 		}
-		else {
-			$this->index();
-		}
+		echo $query['status'];
 	}
 
 	public function signup() {
@@ -75,35 +76,12 @@ class Login extends CI_Controller {
 		print json_encode($data);
 	}
 
+	public function logout() {
+	    $this->session->unset_userdata('id');
+	    $this->session->unset_userdata('username');   
+	    $this->session->unset_userdata('first_name');
+	    $this->session->unset_userdata('last_name');   
+	    $this->session->set_userdata('is_logged_in','false');
+	    redirect('login');
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

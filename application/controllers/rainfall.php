@@ -35,7 +35,7 @@ class Rainfall extends CI_Controller {
         $file_path = "";
         if (strpos($os, "WIN") !== false) {
             $python_path = "C:/Users/Dynaslope/Anaconda2/python.exe";
-            $file_path = "C:/xampp/updews-pycodes/Liaison/";
+            $file_path = "C:/xampp/updews-pycodes/web_plots/";
         } elseif (strpos($os, "UBUNTU") !== false || strpos($os, "Linux") !== false) {
             $python_path = "/home/ubuntu/miniconda2/bin/python";
             // $python_path = "/home/swat/anaconda2/bin/python";
@@ -52,7 +52,7 @@ class Rainfall extends CI_Controller {
 		$is_logged_in = $this->session->userdata('is_logged_in');
 		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+			echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 			die();
 		}
 		else {

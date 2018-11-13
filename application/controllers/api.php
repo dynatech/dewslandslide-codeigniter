@@ -636,7 +636,7 @@ class API extends CI_Controller {
 
         if (strpos($os, "WIN") !== false) {
             $python_path = "C:/Users/Dynaslope/Anaconda2/python.exe";
-            $file_path = "C:/xampp/updews-pycodes/Liaison/";
+            $file_path = "C:/xampp/updews-pycodes/web_plots/";
         } elseif (strpos($os, "UBUNTU") !== false || strpos($os, "Linux") !== false) {
             $python_path = "/home/ubuntu/anaconda2/bin/python";
             $file_path = "/var/www/updews-pycodes/Liaison/";
