@@ -29,7 +29,6 @@
             <div class="col-lg-12">
                 <h1 class="page-header">
                     Integrated Site Analysis Page
-                    <button id="target"> TARGET</button>
                 </h1>
             </div>
         </div>

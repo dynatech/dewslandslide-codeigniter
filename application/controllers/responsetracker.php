@@ -16,13 +16,13 @@ class Responsetracker extends CI_Controller {
 		$data['user_id'] = $this->session->userdata("id");
 		$data['jquery'] = "old";
 		$data['title'] = $page;
-		$data['options_bar'] = $this->load->view('communications/response_tracker/options_bar', $data, true);
+		// $data['options_bar'] = $this->load->view('communications/response_tracker/options_bar', $data, true);
 
 		
 		$this->load->view('templates/beta/header', $data);
 		$this->load->view('templates/beta/nav');
 
-		$this->load->view('communications/response_tracker/main');
+		$this->load->view('communications/responsetracker');
 		$this->load->view('templates/footer');
 	}
 
