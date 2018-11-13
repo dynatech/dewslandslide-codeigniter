@@ -32,7 +32,7 @@
 	<div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <div id="page-header">MONITORING DASHBOARD</div>
+                <div id="page-header">SITE ALERT MONITORING <small>DASHBOARD</small></div>
             </div>
         </div>
 

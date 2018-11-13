@@ -1,5 +1,5 @@
 
-    <div class="panel panel-default" id="options-bar-affix">
+    <div class="panel panel-primary" id="options-bar-affix">
         <div class="panel-heading text-right">
             <span class="hideable-hide pull-left"><strong>PLOT OPTIONS: </strong></span><a id="toggle-options-bar" style="cursor: pointer"><strong><span class="fa fa-angle-double-left"></span></strong></a>
         </div>

@@ -10,7 +10,6 @@
  -->
 
 <script type="text/javascript" src="../js/dewslandslide/public_alert/monitoring_events_all.js"></script>
-<!-- <link rel="stylesheet" type="text/css" href="../css/dewslandslide/public_alert/monitoring_events_all.css"> -->
 
 <div id="page-wrapper">
     <div class="container">
