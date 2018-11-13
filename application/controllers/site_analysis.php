@@ -28,10 +28,10 @@ class Site_analysis extends CI_Controller {
         $data['subsurface_node_level_plots'] = $this->load->view('data_analysis/site_analysis_page/subsurface_node_plots', $data, true);
         $data['site_analysis_svg'] = $this->load->view('data_analysis/site_analysis_page/site_analysis_svg', $data, true);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
         $this->load->view('data_analysis/site_analysis_page/main', $data);
-        $this->load->view('templates/footer');
+        $this->load->view('templates/beta/footer');
 	}
 
     /**
