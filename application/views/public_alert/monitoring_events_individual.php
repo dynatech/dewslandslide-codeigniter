@@ -21,7 +21,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-sm-12 text-center">
-                <div id="page-header">EVENT MONITORING PAGE</div>          
+                <div id="page-header">SITE ALERT MONITORING <small>Event Timeline</small></div>          
             </div>          
         </div>
 

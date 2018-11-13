@@ -122,7 +122,8 @@ $route['analysis/sensor_overview'] = "sensor_overview";
 $route['analysis/eos_charts/(:any)/(:any)/(:any)/(:any)'] = "end_of_shift_charts";
 $route['analysis/manifestations'] = "manifestations";
 $route['analysis/manifestations/(:any)'] = "manifestations/individual_site/$1";
-$route['analysis/surficial'] = "surficial";$route['analysis/rainfall_scanner'] = "rainfall_scanner";
+$route['analysis/surficial'] = "surficial";
+$route['analysis/rainfall_scanner'] = "rainfall_scanner";
 
 /**
  * Data Analysis Pages Routes

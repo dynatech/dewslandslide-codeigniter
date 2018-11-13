@@ -23,7 +23,7 @@
     <!-- jQuery UI Version 1.12.1 -->
     <script type="text/javascript" src="/js/third-party/jquery-ui-1.12.1.min.js"></script>
     <!-- Bootstrap JS v3.3.7 -->
-    <!-- <script src="/js/third-party/bootstrap.min.js"></script> -->
+    <script src="/js/third-party/bootstrap.min.js"></script>
     <!-- Moment.js -->
     <script type="text/javascript" src="/js/third-party/moment.js"></script>
     <!-- jQuery Validate -->
@@ -44,5 +44,7 @@
     <script type="text/javascript" src="/js/dewslandslide/dynaslope-general.js"></script>
     <!-- Modal Reposition JS-->
     <script type="text/javascript" src="/js/third-party/modal-reposition.js"></script>
-
+    <!-- PMS SAMPLE -->
+    <script type="text/javascript" src="http://192.168.150.76/js/pms.js"></script>
+    
 </head>
