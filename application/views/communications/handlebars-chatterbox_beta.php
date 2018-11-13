@@ -8,7 +8,7 @@
             {{/if}}
 
             <input type="text" class="msg_details" value="{{convo_id}}<split>{{mobile_id}}<split>{{user}}<split>{{timestamp}}<split>{{sms_msg}}" hidden>
-            <span class="chat-img pull-right" id="badge-id-you">
+            <span class="chat-img pull-right pointer" id="badge-id-you">
             <img src="/images/Chatterbox/dewsl_03.png" class="user-avatar" alt="User Avatar">
             <span class="glyphicon glyphicon-tag" aria-hidden="true" title="Click avatar to tag"></span>
         {{else}} 
@@ -18,7 +18,7 @@
             <li class="left clearfix" title="{{title}}">
             {{/if}}
             <input type="text" class="msg_details" value="{{convo_id}}<split>{{mobile_id}}<split>{{user}}<split>{{timestamp}}<split>{{sms_msg}}" hidden>
-            <span class="chat-img pull-left" id="badge-id-user">
+            <span class="chat-img pull-left pointer" id="badge-id-user">
             <img src="/images/Chatterbox/boy_avatar.png" class="user-avatar" alt="User Avatar">
             <span class="glyphicon glyphicon-tag" aria-hidden="true" title="Click avatar to tag"></span>
         {{/if}}
