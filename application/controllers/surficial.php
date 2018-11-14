@@ -4,6 +4,7 @@ class Surficial extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('surficial_model');
+<<<<<<< HEAD
 		$this->load->helper('url');
 	}
 
@@ -11,6 +12,110 @@ class Surficial extends CI_Controller {
 		echo "Surficial controller";
 	}
 
+=======
+        $this->load->model('sites_model');
+        $this->load->model('api_model');
+		$this->load->helper('url');
+	}
+
+	public function index () {
+        $data["title"] = "Surficial Markers Page";
+
+        $data['user_id'] = $this->session->userdata("id");
+        $data['first_name'] = $this->session->userdata('first_name');
+        $data['last_name'] = $this->session->userdata('last_name');
+        $data["sites"] = $this->sites_model->getCompleteSiteInformation("all", false);
+
+		$this->load->view('templates/beta/header', $data);
+        $this->load->view('templates/beta/nav');
+        $this->load->view('data_analysis/surficial_markers_page', $data);
+        $this->load->view('templates/beta/footer');
+	}
+
+    /**
+     * Gets the surficial markers.
+     *
+     * @param      <type>          $site_code      The site code
+     * @param      boolean|string  $filter_in_use  remove not used markers
+     * @param      boolean|string  $complete_data  include description, latitude, longitude on return
+     */
+    public function getSurficialMarkers ($site_code, $filter_in_use = true, $complete_data = false) {
+        $filter_in_use = $filter_in_use === "false" ? false : true;
+        $complete_data = $complete_data === "true" ? true : false;
+        
+        $surficial_markers = $this->surficial_model->getSurficialMarkers($site_code, $filter_in_use, $complete_data);
+        echo json_encode($surficial_markers);
+    }
+
+    public function getSurficialMarkerHistory ($marker_id) {
+        $history = $this->surficial_model->getSurficialMarkerHistory($marker_id);
+        echo json_encode($history);
+    }
+
+    public function insertNewMarker () {
+        $desc = $_POST["description"];
+        $lat = $_POST["latitude"];
+        $long = $_POST["longitude"];
+
+        $temp = array(
+            "site_id" => $_POST["site_id"],
+            "description" => $desc === "" ? null : $desc,
+            "latitude" => $lat === "" ? null : $lat,
+            "longitude" => $long === "" ? null : $long,
+            "in_use" => $_POST["in_use"]
+        );
+
+        $marker_id = $this->api_model->insert("markers", $temp);
+        
+        $history_id = $this->api_model->insert("marker_history", array(
+            "marker_id" => $marker_id, "event" => $_POST["event"]
+        ));
+        
+        $this->api_model->insert("marker_names", array(
+            "history_id" => $history_id, "marker_name" => $_POST["marker_name"]
+        ));
+        
+        echo $marker_id;
+    }
+
+    public function updateSurficialMarker () {
+        $event = $_POST["event"];
+        $marker_id = $_POST["marker_id"];
+        $desc = $_POST["description"];
+        $lat = $_POST["latitude"];
+        $long = $_POST["longitude"];
+
+        if ($event === "rename") {
+            $history_id = $this->api_model->insert("marker_history", array(
+                "marker_id" => $marker_id, "event" => $event
+            ));
+
+            $this->api_model->insert("marker_names", array(
+                "history_id" => $history_id, "marker_name" => $_POST["marker_name"]
+            ));
+        }
+
+        $temp = array(
+            "description" => $desc === "" ? null : $desc,
+            "latitude" => $lat === "" ? null : $lat,
+            "longitude" => $long === "" ? null : $long,
+            "in_use" => $_POST["in_use"]
+        );
+
+        $this->api_model->update("marker_id", $marker_id, "markers", $temp);
+
+        echo "success";
+    }
+
+    public function updateMarkerDataPointMeasurement () {
+        $this->api_model->update("data_id", $_POST["data_id"], "marker_data", array("measurement" => $_POST["measurement"]));
+    }
+
+    public function deleteMarkerDataPointMeasurement () {
+        $this->api_model->delete("marker_data", array("data_id" => $_POST["data_id"]));
+    }
+
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
     public function convertOldDataToRefDB () {
         $filename = "/home/swat/Desktop/tue_surficial.json";
         $file = fopen($filename, "r") OR die("Unable to open file $filename");
@@ -101,7 +206,11 @@ class Surficial extends CI_Controller {
 		$is_logged_in = $this->session->userdata('is_logged_in');
 		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
+<<<<<<< HEAD
 			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+=======
+			echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 			die();
 		}
 		else {

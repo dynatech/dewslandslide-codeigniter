@@ -12,6 +12,7 @@
 <script type="text/javascript" src="/js/third-party/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/third-party/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/public_alert/bulletin.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/public_alert/bulletin-render.css" />
 
 <div id="page-wrapper" style="height: 100%;">
 	<div class="container-fluid">

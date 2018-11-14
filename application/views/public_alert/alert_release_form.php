@@ -30,9 +30,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">
-                    DEWS-Landslide Early Warning Information <small>Release Form</small>
-                </h1>
+                <div id="page-header">Site Alert Monitoring <small>Early Warning Info Release Form</small></div>
             </div>
         </div>
         <!-- /.row -->
@@ -76,7 +74,7 @@
 
         <div class="row" id="release_alert_area">
             <div class="col-sm-7 no-padding-right" id="release_info_area">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading"><b>Release Information Area</b></div>
                     <div class="panel-body">
                         <div class="col-sm-5 form-group">
@@ -117,7 +115,7 @@
             </div> <!-- End of Col Time of Acknowledgement -->
 
             <div class="col-sm-5">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading"><b>Alert Level Area</b></div>
                     <div class="panel-body">
                         <!-- FIRST INSIDE COLUMN -->
@@ -151,7 +149,7 @@
 
         <div class="row" id="operational_area">
             <div class="col-sm-12">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading"><b>Operational Triggers Area</b></div>
                     <div class="panel-body">
 
@@ -650,7 +648,7 @@
 
         <div class="row" id="sites_area" hidden="hidden">
             <div class="col-sm-12">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         <b>Sites Area</b>
                         <div class="btn-group">
@@ -686,7 +684,7 @@
         <!------ OTHER INFO AREA ------>
         <div class="row">
             <div class="col-sm-12">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading"><b>Miscellaneous Information Area</b></div>
                     <div class="panel-body">
                         <div class="form-group col-sm-6">
@@ -722,7 +720,9 @@
         </div>
 
         <div class="row">
-            <button type="submit" class="btn btn-info btn-md pull-right">Submit</button>
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-danger btn-md pull-right">Submit</button>
+            </div>
         </div>
         
         <!-- Modal for Successful Entry -->
@@ -738,7 +738,7 @@
                         <p>Successfully inserted the entry!</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="<?php echo base_url();?>monitoring/release_form" class="btn btn-info" role="button">Add More Entries</a>
+                        <a href="<?php echo base_url();?>monitoring/release_form" class="btn btn-primary" role="button">Add More Entries</a>
                         <a href="#" id="view" class="btn btn-success" role="button">View Recent Entry</a>
                     </div>
                 </div>

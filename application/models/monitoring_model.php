@@ -13,8 +13,7 @@ class Monitoring_Model extends CI_Model
 	 * 
 	 * @author Kevin Dhale dela Cruz
 	 **/
-	public function getOnGoingAndExtended()
-	{
+	public function getOnGoingAndExtended() {
 		$this->db->select('ev.event_id, ev.site_id, ev.event_start, ev.validity, ev.status, sites.*');
 		$this->db->from('public_alert_event AS ev');
 		$this->db->join('sites', 'ev.site_id = sites.site_id');
@@ -44,7 +43,7 @@ class Monitoring_Model extends CI_Model
 			$result[$index] = array_merge($event, $merged);
 		}
 
-		return json_encode($result);
+		return $result;
 	}
 
 	public function getAllRoutineEventsGivenDate ($date) {
@@ -59,6 +58,7 @@ class Monitoring_Model extends CI_Model
 		return $result;
 	}
 
+<<<<<<< HEAD
 	public function getSites()
 	{
 		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
@@ -107,6 +107,8 @@ class Monitoring_Model extends CI_Model
 		return json_encode($query->result_array());
 	}
 
+=======
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 	public function getOnGoingEvents()
 	{
 		$this->db->select("sites.*, public_alert_event.*");
@@ -114,7 +116,7 @@ class Monitoring_Model extends CI_Model
 		$this->db->join('sites', 'sites.site_id = public_alert_event.site_id');
 		$this->db->where('public_alert_event.status', 'on-going');
 		$query = $this->db->get();
-		return json_encode($query->result_array());
+		return $query->result_array();
 	}
 
 	public function getFirstEventRelease($event_id)
@@ -127,8 +129,9 @@ class Monitoring_Model extends CI_Model
 		$this->db->order_by('public_alert_release.release_id', 'desc');
 		$this->db->order_by('public_alert_trigger.timestamp', 'asc');
 		$data = $this->db->get();
-		return json_encode($data->result_array());
+		return $data->result_array();
 	}
+<<<<<<< HEAD
 
 	/**
 	 * Gets data from alert_verification table
@@ -160,4 +163,7 @@ class Monitoring_Model extends CI_Model
         $id = $this->db->insert_id();
         return $id;
     }
+=======
+	
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 }

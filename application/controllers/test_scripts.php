@@ -6,6 +6,8 @@ class Test_scripts extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('pubrelease_model');
+		$this->load->model('sites_model');
+		$this->load->model('public_alert_event_model');
 		$this->load->model('monitoring_model');
 	}
 
@@ -23,7 +25,7 @@ class Test_scripts extends CI_Controller {
 		// $this->load->view('templates/footer');
 		
 		$alerts = $this->getOnGoingAndExtended();
-		$sites = json_decode($this->monitoring_model->getSites());
+		$sites = json_decode($this->sites_model->getSites());
 
 		$withAlerts = array_merge($alerts['latest'], $alerts['overdue']);
 		$extended = $alerts['extended'];
@@ -176,7 +178,7 @@ class Test_scripts extends CI_Controller {
 
 	public function getOnGoingAndExtended()
 	{
-		$events = $this->monitoring_model->getOnGoingAndExtended();
+		$events = json_encode($this->monitoring_model->getOnGoingAndExtended());
 
 		$latest = []; $extended = [];
 		$overdue = []; $markers = [];
@@ -241,7 +243,7 @@ class Test_scripts extends CI_Controller {
 			$event['site_id'] = $site_id;
 			$event['event_start'] = $post['timestamp_entry'];
 			$event['status'] = 'on-going';
-			$event_id = $this->pubrelease_model->insert('public_alert_event', $event);
+			$event_id = $this->api_model->insert('public_alert_event', $event);
 			
 			//Prepare and save on public_alert_release
 			$release['event_id'] = $event_id;
@@ -253,7 +255,7 @@ class Test_scripts extends CI_Controller {
 			$release['reporter_id_ct'] = $post['reporter_2'];
 			$release['bulletin_number'] = $this->pubrelease_model->getBulletinNumber($site_id) + 1;
 			$this->pubrelease_model->update('site_id', $site_id, 'bulletin_tracker', array('bulletin_number' => $release['bulletin_number']) );
-			$release_id = $this->pubrelease_model->insert('public_alert_release', $release);
+			$release_id = $this->api_model->insert('public_alert_release', $release);
 			$this->pubrelease_model->update('event_id', $event_id, 'public_alert_event', array('latest_release_id' => $release_id) );
 
 			$this->saveTriggers($post, $event_id, $release_id, $event_validity);
@@ -275,10 +277,10 @@ class Test_scripts extends CI_Controller {
 			$release['reporter_id_ct'] = $post['reporter_2'];
 			$release['bulletin_number'] = $this->pubrelease_model->getBulletinNumber($site_id) + 1;
 			$this->pubrelease_model->update('site_id', $site_id, 'bulletin_tracker', array('bulletin_number' => $release['bulletin_number']) );
-			$release_id = $this->pubrelease_model->insert('public_alert_release', $release);
+			$release_id = $this->api_model->insert('public_alert_release', $release);
 			$this->pubrelease_model->update('event_id', $event_id, 'public_alert_event', array('latest_release_id' => $release_id) );
 			
-			$a = $this->pubrelease_model->getEventValidity($event_id);
+			$a = $this->public_alert_event_model->getEventValidity($event_id);
 			$event_validity = $a[0]->validity;
 
 			if( isset($post['extend_ND']) )
@@ -304,7 +306,7 @@ class Test_scripts extends CI_Controller {
 				$event['site_id'] = $site_id;
 				$event['event_start'] = $post['timestamp_entry'];
 				$event['status'] = $status;
-				$event_id = $this->pubrelease_model->insert('public_alert_event', $event);
+				$event_id = $this->api_model->insert('public_alert_event', $event);
 
 				//Prepare and save on public_alert_release
 				$release['event_id'] = $event_id;
@@ -316,7 +318,7 @@ class Test_scripts extends CI_Controller {
 				$release['reporter_id_ct'] = $post['reporter_2'];
 				$release['bulletin_number'] = $this->pubrelease_model->getBulletinNumber($site_id) + 1;
 				$this->pubrelease_model->update('site_id', $site_id, 'bulletin_tracker', array('bulletin_number' => $release['bulletin_number']) );
-				$release_id = $this->pubrelease_model->insert('public_alert_release', $release);
+				$release_id = $this->api_model->insert('public_alert_release', $release);
 				$this->pubrelease_model->update('event_id', $event_id, 'public_alert_event', array('latest_release_id' => $release_id) );
 			}
 
@@ -335,13 +337,13 @@ class Test_scripts extends CI_Controller {
 
 	public function getLastSiteEvent($site_id)
 	{
-		$result = $this->pubrelease_model->getLastSiteEvent($site_id);
+		$result = $this->public_alert_event_model->getLastSiteEvent($site_id);
 		echo "$result";
 	}
 
 	public function getLastRelease($event_id)
 	{
-		$result = $this->pubrelease_model->getLastRelease($event_id);
+		$result = json_encode($this->pubrelease_model->getLastRelease($event_id));
 		echo "$result";
 	}
 
@@ -359,13 +361,13 @@ class Test_scripts extends CI_Controller {
 
 	public function getSentRoutine()
 	{
-		$result = $this->pubrelease_model->getSentRoutine($_GET['timestamp']);
-		echo "$result";
+		$result = json_encode($this->pubrelease_model->getSentRoutine($_GET['timestamp']));
+		echo $result;
 	}
 
 	public function isNewYear($site_id, $timestamp)
 	{
-		$event = json_decode($this->pubrelease_model->getLastSiteEvent($site_id));
+		$event = json_decode($this->public_alert_event_model->getLastSiteEvent($site_id));
 		$release = json_decode($this->pubrelease_model->getLastRelease($event->event_id));
 		$previous_timestamp = date_parse($release->data_timestamp);
 		$current_timestamp = date_parse($timestamp);
@@ -440,7 +442,7 @@ class Test_scripts extends CI_Controller {
 				$trigger['trigger_type'] = $entry['type'];
 				$trigger['info'] = $entry['info'];
 				$last_timestamp = $trigger['timestamp'] = $entry['timestamp'];
-				$latest_trigger_id = $this->pubrelease_model->insert('public_alert_trigger', $trigger);
+				$latest_trigger_id = $this->api_model->insert('public_alert_trigger', $trigger);
 				
 				// Save additional data for Earthquake trigger
 				if( $entry['type'] == "E" )
@@ -449,14 +451,14 @@ class Test_scripts extends CI_Controller {
 					$eq['magnitude'] = $post['magnitude'];
 					$eq['latitude'] = $post['latitude'];
 					$eq['longitude'] = $post['longitude'];
-					$this->pubrelease_model->insert('public_alert_eq', $eq);
+					$this->api_model->insert('public_alert_eq', $eq);
 				} else if( $entry['type'] == "D" )
 				{
 					$od['trigger_id'] = $latest_trigger_id;
 					$od['is_llmc'] = isset($post['llmc']) ? true : false;
 					$od['is_lgu'] = isset($post['lgu']) ? true : false;
 					$od['reason'] = $post['reason'];
-					$this->pubrelease_model->insert('public_alert_on_demand', $od);
+					$this->api_model->insert('public_alert_on_demand', $od);
 				}
 			}
 
@@ -510,7 +512,7 @@ class Test_scripts extends CI_Controller {
 		$is_logged_in = $this->session->userdata('is_logged_in');
 		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+			echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 			die();
 		}
 		else {

@@ -1,11 +1,19 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class surficial_model extends CI_Model {
 
+<<<<<<< HEAD
 	public function getSurficialDataByRange ($site_code, $start_date, $end_date) {
+=======
+	public function getSurficialDataByRange ($identifier, $start_date, $end_date) {
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 		$this->db->select(
 			"marker_observations.mo_id as mo_id, 
 			marker_observations.ts, 
 			UPPER(site_markers.marker_name) as crack_id,
+<<<<<<< HEAD
+=======
+			marker_data.data_id,
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 			marker_data.measurement as measurement,
 			marker_data.marker_id as marker_id,
 			site_markers.site_code"
@@ -17,12 +25,19 @@ class surficial_model extends CI_Model {
 
 		if ($end_date !== null) $this->db->where("marker_observations.ts <=", $end_date);
 
+<<<<<<< HEAD
 		$this->db->where("site_markers.site_code", $site_code);
+=======
+		if (intval($identifier) === 0) {
+			$this->db->where("site_markers.site_code", $identifier);
+		} else $this->db->where("site_markers.marker_id", $identifier);
+
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 		$this->db->order_by("site_markers.marker_name");
 		$this->db->order_by("marker_observations.ts");		
 
 		$query = $this->db->get();
-		return $query->result(); 
+		return $query->result();
 	}
 
 	public function getSurficialDataLastTenTimestamps ($site_code, $end_date) {
@@ -44,6 +59,10 @@ class surficial_model extends CI_Model {
 			"marker_observations.mo_id as mo_id, 
 			marker_observations.ts,
 			UPPER(site_markers.marker_name) as crack_id,
+<<<<<<< HEAD
+=======
+			marker_data.data_id,
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 			marker_data.measurement,
 			site_markers.site_id"
 		);
@@ -58,29 +77,36 @@ class surficial_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function getGroundMarkerName ($site_code) {
+	public function getSurficialMarkers ($site_code, $filter_in_use, $complete_data) {
 		// $site_code = $this->convertSiteCodesFromNewToOld($site_code);
+<<<<<<< HEAD
 		$this->db->select("DISTINCT(marker_name) as crack_id, marker_id");
 		$this->db->from("site_markers");
 		$this->db->where("site_code", $site_code);
 		$this->db->where("in_use", 1);
 		$this->db->order_by("crack_id", "asc");
+=======
+		$this->db->select("*, marker_name AS crack_id");
+		$this->db->from("site_markers AS sm");
+		$this->db->where("site_code", $site_code);
+		
+		if ($filter_in_use) $this->db->where("in_use", 1);
+		if ($complete_data) $this->db->join("markers AS m", "sm.marker_id = m.marker_id");
+
+		$this->db->order_by("crack_id", "desc");
+		$this->db->order_by("sm.in_use", "desc");
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	public function getGroundLatestTime ($site_code) {
-		// $site_code = $this->convertSiteCodesFromNewToOld($site_code);
-		$this->db->select(
-			"marker_observations.ts as timestamp,
-			marker_observations.weather as weather,
-			marker_observations.meas_type as meas_type");
-		$this->db->from("marker_observations");
-		$this->db->join("sites", "sites.site_id = marker_observations.site_id");
-		$this->db->where("sites.site_code", $site_code);
-		$this->db->order_by("timestamp", "desc");
-		$this->db->limit(11);
+	public function getSurficialMarkerHistory ($marker_id) {
+		$this->db->select("*")
+			->from("marker_history AS mh")
+			->join("marker_names AS mn", "mh.history_id = mn.history_id", "left")
+			->where("mh.marker_id", $marker_id)
+			->order_by("ts");
 
 		$query = $this->db->get();
 		return $query->result();

@@ -122,4 +122,8 @@
 		</div>
 	</div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 <label class="text-danger" id="no-sub-sensor" hidden="hidden">No Subsurface Sensors...</label>

@@ -6,6 +6,7 @@ class Manifestations_Model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->model('sites_model');
 	}
 
 	/**
@@ -68,26 +69,14 @@ class Manifestations_Model extends CI_Model
     		ON sites.site_id = sub_query.site_id";
 
 		$result = $this->db->query($query);
-		return json_encode($result->result_object());
-	}
-
-	public function getLastEventStatus($site_id)
-	{
-		$this->db->select("status");
-		$this->db->from("public_alert_event");
-		$this->db->where("site_id", $site_id);
-		$this->db->order_by("event_start", "desc");
-		$this->db->limit(1);
-		$result = $this->db->get();
-
-		return json_encode($result->row()->status);
+		return $result->result_object();
 	}
 
 	public function getMOMApi($site_code = "all", $start = null, $end = null)
 	{
 		$site_id = null;
 		if( $site_code !== "all" ) {
-			$site_id = $this->getSiteID($site_code);
+			$site_id = $this->sites_model->getSiteID($site_code);
 		}
 
 		$this->db->select("pm.*, mf.*, u.first_name AS validator_first, u.last_name AS validator_last, s.name AS site_code");
@@ -109,6 +98,7 @@ class Manifestations_Model extends CI_Model
 		}
 
 		$result = $this->db->get();
+<<<<<<< HEAD
 		return json_encode($result->result_object());
 	}
 
@@ -153,8 +143,40 @@ class Manifestations_Model extends CI_Model
 		$this->db->order_by("u.lastname", "asc");
 		$query = $this->db->get();
 		return json_encode($query->result_array());
+=======
+		return $result->result_object();
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 	}
 
+	public function getAllMOMforASite($search = null, $filter = null, $orderBy, $orderType, $start, $length)
+	{
+        $this->db->select('public_alert_manifestation.*, manifestation_features.*, public_alert_release.event_id, u.firstname AS first_name, u.lastname AS last_name');
+		$this->db->from('public_alert_manifestation');
+		$this->db->join('manifestation_features', 'public_alert_manifestation.feature_id = manifestation_features.feature_id');
+		$this->db->join('public_alert_release', 'public_alert_manifestation.release_id = public_alert_release.release_id', 'left');
+		$this->db->join('comms_db.users AS u', 'public_alert_manifestation.validator = u.user_id');
+		if( !is_null($filter) ) $this->db->where($filter);
+		if( !is_null($search) ) {
+			// $this->db->or_like($search);
+			$open = "("; $where = [];
+			foreach ($search as $key => $value) {
+				array_push($where, "$key LIKE '%$value%'");
+			}
+			$final = $open . implode(" OR ", $where) . ")";
+			$this->db->where($final);
+		}
+		$this->db->order_by($orderBy, $orderType);
+		$this->db->limit($length, $start);
+		$query = $this->db->get();
+		// if( !is_null($search) ) {
+		// 	$x = $this->db->last_query();
+		// 	var_dump( $x );
+		// }
+		return $query->result_array();
+	}
+
+<<<<<<< HEAD
+=======
 	public function getCount($search = null, $filter = null)
 	{
 		$this->db->select('COUNT(*)');
@@ -174,12 +196,14 @@ class Manifestations_Model extends CI_Model
 		return $query->result_array()[0]["COUNT(*)"];
 	}
 
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 	public function getDistinctFeatureTypes()
 	{
 		$this->db->distinct();
 		$this->db->select('feature_type');
 		$this->db->from('manifestation_features');
 		$query = $this->db->get();
+<<<<<<< HEAD
 		return json_encode($query->result_array());
 	}
 
@@ -188,26 +212,17 @@ class Manifestations_Model extends CI_Model
 		$this->db->select("site_id");
 		$query = $this->db->get_where('sites', array('site_code' => $code));
 		return $query->row()->site_id;
+=======
+		return $query->result_array();
+>>>>>>> ddd139bece6429fb4d6d4620fdcf021bd8195c39
 	}
 
-	public function insertIfNotExists($table, $data)
-	{
-		$result = $this->db->get_where($table, $data);
-		if( $result->num_rows() > 0 ) {
-			$row = $result->row();
-			return $row->feature_id;
-		} else {
-			$this->db->insert($table, $data);
-        	$id = $this->db->insert_id();
-        	return $id;
-		}
-    }
-
-	public function insert($table, $data)
-	{
-        $this->db->insert($table, $data);
-        $id = $this->db->insert_id();
-        return $id;
-    }
+	/**
+	 * Note: originally from Pubrelease_model
+	 **/
+	public function getFeatureNames($site_id, $type) {
+		$query = $this->db->get_where("manifestation_features", array("site_id" => $site_id, "feature_type" => $type));
+		return $query->result_object();
+	}    
 
 }
