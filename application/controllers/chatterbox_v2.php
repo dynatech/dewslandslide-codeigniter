@@ -10,7 +10,7 @@ class Chatterbox_v2 extends CI_Controller {
 	}
 	public function index() {
 		$this->is_logged_in();
-		$page = 'Chatterbox V2';
+		$page = 'Chatterbox 2.0';
 		$data['first_name'] = $this->session->userdata('first_name');
 		$data['last_name'] = $this->session->userdata('last_name');
 		$data['user_id'] = $this->session->userdata("id");
