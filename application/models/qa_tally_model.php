@@ -22,5 +22,16 @@
 			}
 			return $sites;
 		}
+
+		public function getRecipientsForSite($site_id) {
+			$query = "";
+			$result = $this->db->query($query);
+			if ($result->num_rows != 0) {
+				$sites = $result->result();
+			} else {
+				$sites = [];
+			}
+			return $sites;
+		}
 	}
 ?>

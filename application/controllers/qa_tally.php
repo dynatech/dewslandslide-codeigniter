@@ -97,7 +97,7 @@ class Qa_tally extends CI_Controller {
 		$config_app = switch_db("comms_db", "localhost");
 		$this->db = $this->load->database($config_app, TRUE);
 		foreach ($site_ids as $id) {
-			# code...
+			$result = $this->qa_tally_model->getRecipientsForSite($id);
 		}
 	}
 }
