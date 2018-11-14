@@ -10,13 +10,11 @@
  -->
 
 <script type="text/javascript" src="../js/dewslandslide/public_alert/monitoring_events_all.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/dewslandslide/public_alert/monitoring_events_all.css">
 
 <div id="page-wrapper">
     <div class="container">
-        <div class="page-header">
-            <h1>DEWS-Landslide Site Monitoring <small>Events Table</small>
-            </h1>
+        <div id="page-header">
+            Site Alert Monitoring <small>Events Table</small>
         </div>
         
         <div class="row">

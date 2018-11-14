@@ -27,16 +27,16 @@
 		public function modal()
 		{
 			$this->load->model('monitoring_model');
-			$data['events'] = $this->monitoring_model->getOnGoingEvents();
-			$data['locked'] = isset($_POST['locked']) ? $_POST['locked'] : $this->issues_model->getAllRowsByStatus('locked');
-			$data['normal'] = isset($_POST['normal']) ? $_POST['normal'] : $this->issues_model->getAllRowsByStatus('normal');
+			$data['events'] = json_encode($this->monitoring_model->getOnGoingEvents());
+			$data['locked'] = isset($_POST['locked']) ? $_POST['locked'] : json_encode($this->issues_model->getAllRowsByStatus('locked'));
+			$data['normal'] = isset($_POST['normal']) ? $_POST['normal'] : json_encode($this->issues_model->getAllRowsByStatus('normal'));
 			return $this->load->view('public_alert/issues_and_reminders_modal', $data);
 		}
 
 		public function panel_div()
 		{
 			$this->load->model('monitoring_model');
-			$data['events'] = $this->monitoring_model->getOnGoingEvents();
+			$data['events'] = json_encode($this->monitoring_model->getOnGoingEvents());
 			$locked = isset($_GET['locked']) ? $_GET['locked'] : $this->issues_model->getAllRowsByStatus('locked');
 			$normal = isset($_GET['normal']) ? $_GET['normal'] : $this->issues_model->getAllRowsByStatus('normal');
 			$data['locked_and_normal'] = json_encode(array_merge($locked, $normal));
@@ -148,19 +148,19 @@
 		public function getAllLocked()
 		{
 			$data = $this->issues_model->getAllRowsByStatus('locked');
-			echo $data;
+			echo json_encode($data);
 		}
 
 		public function getAllNormal()
 		{
 			$data = $this->issues_model->getAllRowsByStatus('normal');
-			echo $data;
+			echo json_encode($data);
 		}
 
 		public function getAllArchived()
 		{
 			$data = $this->issues_model->getAllRowsByStatus('archived');
-			echo $data;
+			echo json_encode($data);
 		}
 
 		public function insert()
@@ -209,7 +209,7 @@
 			$is_logged_in = $this->session->userdata('is_logged_in');
 			
 			if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-				echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+				echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 				die();
 			}
 			else {

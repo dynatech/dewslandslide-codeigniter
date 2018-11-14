@@ -8,86 +8,7 @@ class Pubrelease_Model extends CI_Model
 		$this->load->database();
 	}
 
-	public function getSites()
-	{
-
-		$sql = "SELECT site_id, site_code, sitio, barangay, municipality, province, season
-				FROM sites
-				WHERE active = 1
-				ORDER BY site_code ASC";
-
-		$query = $this->db->query($sql);
-
-		$i = 0;
-	    foreach ($query->result_array() as $row)
-	    {
-	    	$sitio = $row["sitio"];
-	        $barangay = $row["barangay"];
-	        $municipality = $row["municipality"];
-	        $province = $row["province"];
-
-	        if ($sitio == null) {
-	          $address = "$barangay, $municipality, $province";
-	        } 
-	        else {
-	          $address = "$sitio, $barangay, $municipality, $province";
-	        }
-
-	        $site[$i]["site_id"] = $row["site_id"];
-	        $site[$i]["site_code"] = $row["site_code"];
-	        $site[$i]["season"] = $row["season"];
-	        $site[$i++]["address"] = $address;
-	    }
-	    
-	    return json_encode($site);
-	}
-
-	public function getSitesWithRegions() {
-		$query = $this->db->order_by("region")->get("sites");
-		return $query->result();
-	}
-
-	/**
-	 * Gets all staff
-	 *
-	 * @author Kevin Dhale dela Cruz
-	 **/
-	public function getStaff()
-	{
-		$this->db->select('u.user_id AS id, u.firstname AS first_name, u.lastname AS last_name');
-		$this->db->from('comms_db.users AS u');
-		$this->db->join('comms_db.membership AS mem', 'mem.user_fk_id = u.user_id');
-		$this->db->where('is_active','1');
-		$this->db->order_by("u.lastname", "asc");
-		$query = $this->db->get();
-		return json_encode($query->result_array());
-	}
-
-	public function getOnGoingAndExtended()
-	{
-		$this->db->select('site_id, status');
-		$this->db->where('status','on-going');
- 		$this->db->or_where('status','extended');
-		$query = $this->db->get('public_alert_event');
-		//$query = $this->db->get_where('public_alert_event', array('status' => 'on-going'));
-		return json_encode($query->result_array());
-	}
-
-	public function getLastSiteEvent($site_id)
-	{
-		$sql = "SELECT * 
-				FROM public_alert_event
-				WHERE site_id = '$site_id'
-				ORDER BY event_id 
-				DESC LIMIT 1";
-
-		$result = $this->db->query($sql);
-
-		return json_encode($result->row());
-	}
-
-	public function getLastRelease($event_id)
-	{
+	public function getLastRelease($event_id) {
 		$sql = "SELECT * 
 				FROM public_alert_release
 				WHERE event_id = '$event_id'
@@ -96,11 +17,10 @@ class Pubrelease_Model extends CI_Model
 
 		$result = $this->db->query($sql);
 
-		return json_encode($result->row());
+		return $result->row();
 	}
 
-	public function getAllEventTriggers($event_id, $release_id = null)
-	{
+	public function getAllEventTriggers($event_id, $release_id = null) {
 		if( $release_id == null ) $array = array('event_id' => $event_id);
 		else $array = array('event_id' => $event_id, 'release_id' => $release_id);
 		$this->db->where($array);
@@ -152,11 +72,10 @@ class Pubrelease_Model extends CI_Model
 			}
 		}
 
-		return json_encode($data);
+		return $data;
 	}
 
-	public function getSentRoutine($timestamp)
-	{
+	public function getSentRoutine($timestamp) {
 		$this->db->select('public_alert_event.site_id');
 		$this->db->from('public_alert_event');
 		$array2 = array('routine', 'extended', 'finished');
@@ -164,25 +83,10 @@ class Pubrelease_Model extends CI_Model
 		$this->db->where_in('public_alert_event.status', $array2);
 		$this->db->where('public_alert_release.data_timestamp', $timestamp);
 		$query = $this->db->get();
-		return json_encode($query->result_object());
-	}	
-
-	public function getEventValidity($event_id)
-	{
-		$this->db->select('validity');
-		$query = $this->db->get_where('public_alert_event', array('event_id' => $event_id));
 		return $query->result_object();
 	}
 
-	public function getSiteID($site_code)// refdb
-	{
-		$this->db->select("site_id");
-		$query = $this->db->get_where("sites", array("site_code" => $site_code));
-		return $query->row()->site_id;
-	}
-
-	public function getBulletinNumber($site)
-	{
+	public function getBulletinNumber($site) {
 		$sql = "SELECT bulletin_number
 				FROM bulletin_tracker
 				WHERE site_id = '$site'";
@@ -202,18 +106,7 @@ class Pubrelease_Model extends CI_Model
 	    return $data;
 	}
 
-	public function getEvent($event_id)
-	{
-		$this->db->select('public_alert_event.*, sites.*');
-		$this->db->from('public_alert_event');
-		$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
-		$this->db->where('public_alert_event.event_id', $event_id);
-		$query = $this->db->get();
-		return json_encode($query->result_object());
-	}
-
-	public function getAllRelease($event_id)
-	{
+	public function getAllRelease($event_id) {
 		$query = $this->db->get_where('public_alert_release', array('event_id' => $event_id));
 		$releases = $query->result();
 
@@ -228,53 +121,24 @@ class Pubrelease_Model extends CI_Model
 			$releases[$i]->extra_manifestations = $query->result_object();
 			$i++;
 		}
-		return json_encode($releases);
+		return $releases;
 	}
 
-	public function getRelease($release_id)
-	{
+	/**
+	 * Duplicate was found in bulletin_model
+	 **/
+	public function getRelease($release_id) {
 		$query = $this->db->get_where('public_alert_release', array('release_id' => $release_id));
-		return json_encode($query->result_array()[0]);
+		return count($query->result_array()) > 0 ? $query->row() : null;
 	}
 
-	public function insert($table, $data)
-	{
+	public function insert($table, $data) { // Retained for local use
         $this->db->insert($table, $data);
         $id = $this->db->insert_id();
         return $id;
     }
 
-    public function insertIfNotExists($table, $data)
-	{
-		$result = $this->db->get_where($table, $data);
-		if( $result->num_rows() > 0 ) {
-			$row = $result->row();
-			return $row->feature_id;
-		} else {
-			$this->db->insert($table, $data);
-        	$id = $this->db->insert_id();
-        	return $id;
-		}
-    }
-
-
-	public function update($column, $key, $table, $data)
-	{
-		$this->db->where($column, $key);
-		$this->db->update($table, $data);
-	}
-
-	public function doesExists($select, $table, $where_array)
-	{
-		$this->db->select($select);
-		$this->db->from($table);
-		$this->db->where($where_array);
-		$query = $this->db->get();
-		return $query->result();
-	}
-
-	public function getEventCount($search = null, $filter = null)
-	{
+	public function getEventCount($search = null, $filter = null) {
 		$this->db->select('COUNT(*)');
 		$this->db->from('public_alert_event');
 		$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
@@ -293,8 +157,7 @@ class Pubrelease_Model extends CI_Model
 		return $query->result_array()[0]["COUNT(*)"];
 	}
 
-	public function getAllEvents($search = null, $filter = null, $orderBy, $orderType, $start, $length)
-	{
+	public function getAllEvents($search = null, $filter = null, $orderBy, $orderType, $start, $length) {
         $this->db->select('public_alert_event.*, sites.*, public_alert_release.*');
 		$this->db->from('public_alert_event');
 		$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
@@ -319,76 +182,25 @@ class Pubrelease_Model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function getAllReleasesWithSite()
-	{
+	public function getAllReleasesWithSite() {
 		$this->db->select('public_alert_event.site_id, sites.site_code, sites.sitio, sites.barangay, sites.municipality, sites.province, public_alert_release.*');
 		$this->db->from('public_alert_release');
 		$this->db->join('public_alert_event', 'public_alert_event.event_id = public_alert_release.event_id');
 		$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
 		$query = $this->db->get();
-		return json_encode($query->result_object());
+		return $query->result_object();
 	}
 
-	public function getFeatureNames($site_id, $type)
-	{
-		$query = $this->db->get_where("manifestation_features", array("site_id" => $site_id, "feature_type" => $type));
-		return json_encode($query->result_object());
-	}
-
-	public function getAllReleasesWithEventDetails()
-	{
+	public function getAllReleasesWithEventDetails() {
 		$this->db->select('public_alert_release.*, public_alert_event.*, public_alert_event.site_id, sites.site_code, sites.sitio, sites.barangay, sites.municipality, sites.province, public_alert_release.*');
 		$this->db->from('public_alert_release');
 		$this->db->join('public_alert_event', 'public_alert_event.event_id = public_alert_release.event_id');
 		$this->db->join('sites', 'public_alert_event.site_id = sites.site_id');
 		$query = $this->db->get();
-		return json_encode($query->result_object());
+		return $query->result_object();
 	}
 
-	//================================================================
-	
-	public function getAlerts()
-	{
-		$sql = "SELECT
-					lut_alerts.internal_alert_level, 
-					lut_alerts.internal_alert_desc, 
-					lut_alerts.public_alert_level, 
-					lut_alerts.public_alert_desc, 
-					lut_alerts.supp_info_rain, 
-					lut_alerts.supp_info_ground, 
-					lut_alerts.supp_info_eq, 
-					lut_responses.response_llmc_lgu, 
-					lut_responses.response_community 
-				FROM lut_alerts 
-				INNER JOIN lut_responses 
-				ON lut_alerts.public_alert_level=lut_responses.public_alert_level
-				ORDER BY lut_alerts.internal_alert_level ASC";
-
-		$result = $this->db->query($sql);
-
-		$i = 0;
-		foreach ($result->result_array() as $row)
-		{
-	        $alert_level[$i]["internal_alert_level"] = $row["internal_alert_level"];
-	        $alert_level[$i]["internal_alert_desc"] = $row["internal_alert_desc"];
-	        $alert_level[$i]["public_alert_level"] = $row["public_alert_level"];
-	        $alert_level[$i]["public_alert_desc"] = $row["public_alert_desc"];
-	        
-	        $temp_str = "";
-	        if (!is_null($row["supp_info_ground"])) $temp_str = $row["supp_info_ground"] . " ";
-	        if (!is_null($row["supp_info_rain"])) $temp_str = $temp_str . $row["supp_info_rain"] . " ";
-	        if (!is_null($row["supp_info_eq"])) $temp_str = $temp_str . " " . $row["supp_info_eq"];
-			$alert_level[$i]["supplementary_info"] = $temp_str;
-			
-	        $alert_level[$i]["response_llmc_lgu"] = $row["response_llmc_lgu"];
-	        $alert_level[$i++]["response_community"] = $row["response_community"];
-		}
-		
-		return json_encode( $alert_level );
-	}
-
-	public function getPublicAlerts($site)
-	{
+	public function getPublicAlerts($site) {
 		$sql = "SELECT 
 					p.public_alert_id,
 					p.entry_timestamp,
@@ -420,8 +232,7 @@ class Pubrelease_Model extends CI_Model
 		return json_encode( $data );
 	}
 
-	public function updatePublicAlerts($table, $data, $search, $id)
-	{
+	public function updatePublicAlerts($table, $data, $search, $id) {
 		/*$alertid = $dataSet['alertid'];
 		$entryts = $dataSet['entryts'];
 		$time_post = $dataSet['time_post'];
@@ -453,8 +264,7 @@ class Pubrelease_Model extends CI_Model
 		    return "Update failed.";
 	}
 
-	public function deletePublicAlerts($table, $search, $id)
-	{
+	public function deletePublicAlerts($table, $search, $id) {
 		/*$sql = "DELETE FROM
 		            public_alert
 		        WHERE 
@@ -478,8 +288,7 @@ class Pubrelease_Model extends CI_Model
 	 * 
 	 * @author Kevin Dhale dela Cruz
 	 **/
-	public function getAllPublicReleases()
-	{
+	public function getAllPublicReleases() {
 		/*$sql = "SELECT DISTINCT
 	          public_alert.public_alert_id,
 	          public_alert.entry_timestamp,
@@ -574,8 +383,7 @@ class Pubrelease_Model extends CI_Model
 	 * 
 	 * @author Kevin Dhale dela Cruz
 	 **/
-	public function getRecentRelease($site)
-	{
+	public function getRecentRelease($site) {
 		$sql = "SELECT 
 					t.*, x.comments, l.public_alert_level
 				FROM (
@@ -608,8 +416,7 @@ class Pubrelease_Model extends CI_Model
 
 	}
 
-	public function getSinglePublicRelease($id)
-	{
+	public function getSinglePublicRelease($id) {
 		$sql = "SELECT 
 					public_alert.*,
 					lut_alerts.*,
@@ -630,27 +437,4 @@ class Pubrelease_Model extends CI_Model
 
 		return json_encode($data);
 	}
-
-	public function getAlertHistory($site)
-	{
-		$sql = "SELECT 
-            		public_alert.public_alert_id,
-            		public_alert.entry_timestamp,
-            		lut_alerts.public_alert_level
-            	FROM 
-                	public_alert 
-            	INNER JOIN 
-                	lut_alerts
-              	ON 
-                	public_alert.internal_alert_level = lut_alerts.internal_alert_level
-              	WHERE 
-                	site = '$site' ORDER BY entry_timestamp DESC";
-
-        $query = $this->db->query($sql);
-        $result = $query->result_object();
-		$data = $result;
-
-		return json_encode($data);
-	}
-
 }

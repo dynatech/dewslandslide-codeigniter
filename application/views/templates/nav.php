@@ -38,7 +38,9 @@
                     <ul class="dropdown-menu">
                        <li class="dropdown-header">Sensors and Rain Gauges</li>
                         <li><a href="<?php echo base_url(); ?>analysis/site_analysis">Site Analysis</a></li>
+                        <li><a href="<?php echo base_url(); ?>analysis/sensor_overview">Sensor Overview</a></li>
                         <li><a href="<?php echo base_url(); ?>analysis/rainfall_scanner">Rainfall Scanner</a></li>
+                        <li><a href="<?php echo base_url(); ?>analysis/surficial">Surficial Markers Page</a></li>
                         <li><a href="<?php echo base_url(); ?>analysis/manifestations">Manifestations of Movement Page</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Communication</li>
@@ -64,7 +66,7 @@
                         <li><a href="#"><small><span class="glyphicon glyphicon-cog"></span></small>&ensp;Settings</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="../../staff/all"><small><span class="glyphicon glyphicon-info-sign"></span></small>&ensp;Staff Profile</a></li>
-                        <li><a href="../../logout"><small><span class="glyphicon glyphicon-off"></span></small>&ensp;Log Out</a></li>
+                        <li><a href="../../account_controller/logout"><small><span class="glyphicon glyphicon-off"></span></small>&ensp;Log Out</a></li>
                     </ul>
                 </li>
             </ul>

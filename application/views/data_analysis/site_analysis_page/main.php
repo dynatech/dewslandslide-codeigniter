@@ -15,29 +15,23 @@
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/subsurface_column_plotter.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/subsurface_node_plotter.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/download_site_charts.js"></script>
-
-<!-- d3 -->
-<script src="https://d3js.org/d3.v5.min.js"></script>
+<script type="text/javascript" src="/js/dewslandslide/plugins/general_tagging.js"></script>
 
 <!-- CSS Files -->
 <link rel="stylesheet" type="text/css" href="/css/dewslandslide/data_analysis/site_analysis.css">
 
 <div id="page-wrapper">
     <div class="container">
-        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    Integrated Site Analysis Page
-                </h1>
+            <div class="col-sm-12">
+                <div id="page-header">Integrated Site Analysis Page</div>
             </div>
         </div>
-        <!-- /.row -->
 
         <div class="col-sm-3" id="options-bar" data-collapsed="false">
-           <?php echo $options_bar; ?>
+            <?php echo $options_bar; ?>
         </div>
-
+        
         <div class="col-sm-9" id="main-plots-container">
             <div class="row">
                 <ol class="breadcrumb">
@@ -56,10 +50,9 @@
             <div class="section" id="subsurface-node-plots-container" hidden>
                 <?php echo $subsurface_node_level_plots; ?>
             </div>
-
         </div>
-    </div><!-- /.container-fluid -->
-</div><!-- /#page-wrapper --> 
+    </div>
+</div>
 
 <div class="modal fade" id="chart-options" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -147,10 +140,8 @@
     <?php echo $site_analysis_svg; ?>
 </div>
 
-<!-- MODAL AREA -->
 <div class="modal fade" id="error-modal" role="dialog">
     <div class="modal-dialog">
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -166,11 +157,4 @@
             </div>
         </div>
     </div>
-</div> <!-- End of MODAL AREA -->
-<script type="text/javascript">
-    $('#target').click(function() {
-    var svg = d3.select("#highcharts-ft680iu-0 svg").selectAll("g");
-    console.log(svg)
-})
-   
-</script>
+</div>
