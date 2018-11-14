@@ -36,9 +36,8 @@
                                 Quick Access
                             </div>
                             <div class="col-sm-3 text-right">
-                                <!-- <button type="button" class="btn btn-primary btn-xs" id="go-to-conversation">Conversation</button> -->
-                                <span class="pointer fa fa-bug"></span>
-                                <span id="hide-quick-access" class="pointer fa fa-envelope"></span>
+                                <span class="pointer bug fa fa-bug" hidden></span>
+                                <span id="hide-quick-access" class="pointer fa fa-envelope" title="Inbox"></span>
                             </div>
                         </div>
                     </div>
@@ -65,18 +64,17 @@
                                 Messages
                             </div>
                             <div class="col-sm-3 text-right">
-                                <span class="pointer fa fa-bug"></span>
-                                <span id="go-to-quick-access" class="pointer fa fa-bars"></span>
-                                <span id="options" class="pointer fa fa-cogs"></span>
+                                <span class="pointer bug fa fa-bug" hidden></span>
+                                <span id="go-to-quick-access" class="pointer fa fa-bars" title="Quick Access"></span>
+                                <span id="options" class="pointer fa fa-cogs" title="Options"></span>
                             </div>
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="col-sm-12 form-group">
-                            <div class="text-center" id="options-panel" hidden>
-                                Options
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
+                            <div class="text-center" id="options-panel" hidden><br>
+                                <!-- <div class="panel panel-default"> -->
+                                    <!-- <div class="panel-body"> -->
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <button type="button" class="btn btn-primary btn-xs btn-block" id="btn-contact-settings">
@@ -99,8 +97,8 @@
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    <!-- </div> -->
+                                <!-- </div> -->
                             </div><br>
 
                             <div class="input-group" id="contact-suggestion-container">
@@ -154,7 +152,7 @@
                                 Recent Activity
                             </div>
                             <div class="col-sm-3 text-right">
-                                <span class="pointer fa fa-bug"></span>
+                                <span class="pointer bug fa fa-bug" hidden></span>
                             </div>
                         </div>
                     </div>
@@ -170,7 +168,7 @@
                                 <div class="rv_sites">
                                 </div>
                             </div>
-                            <div class="row form-group">
+                            <div class="row form-group" style="padding: 15px;">
                                 <h4>Routine Section</h4>
                                 <div class="routine_section">
                                     <br>
@@ -204,18 +202,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="division hidden" id="main-container">
-                <div id="convo-header" class="panel panel-success">
-                    <input type="text" id="contact-indicator" value="" hidden>
-                    <div class="panel-heading" id="conversation-details">Sitename: [SAMPLE] Office: [Sample]</div>
-                    <div class="panel-body"></div>
-                </div>
-                <hr>
-                <div class="panel panel-success">
-                    
-                </div>
-            </div> -->
-
                 <div class="panel panel-primary" id="conversation-panel">
                     <div class="panel-heading">
                         <div class="row">
@@ -223,9 +209,8 @@
                                 Conversation Panel
                             </div>
                             <div class="col-sm-3 text-right">
-                                <!-- <button type="button" class="btn btn-primary btn-xs" id="go-recent-activity">Recent Activity</button> -->
-                                <span class="pointer fa fa-bug"></span>
-                                <span id="go-to-recent-activity" class="pointer fa fa-hourglass"></span>
+                                <span class="pointer bug fa fa-bug" hidden></span>
+                                <span id="go-to-recent-activity" class="pointer fa fa-hourglass" title="Recent Activity"></span>
                             </div>
                         </div>
                     </div>
@@ -235,24 +220,16 @@
                             <div class="chat-message">
                                 <ul id="messages" class="chat"></ul>
                             </div>
-                            <textarea id="msg" name="msg" class="form-control" rows="5"></textarea>
+                            <div style="padding: 15px;">
+                                <textarea id="msg" name="msg" class="form-control" rows="5"></textarea>
+                            </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="padding: 15px;">
                             <div class="col-md-4">
                                 <button type="button" class="btn btn-primary" id="send-msg">Send Message</button><br>
                                 <a data-target="#" id="btn-ewi" data-toggle="modal" data-dismiss="modal">Load Message Templates</a>
                             </div>
                         </div>
-                        <!-- <div class="form-group" id="send-char-remain">
-                            <div class="col-sm-6">
-                                <p>Remaining characters: <b id="remaining_chars">800</b></p>
-                            </div>
-                        </div> -->
-                       <!--  <div class="form-group">
-                            <div class="col-sm-12 left-content" style="padding-left: 30px;margin-bottom: 5px;">
-                                <a data-target="#" id="btn-ewi" data-toggle="modal" data-dismiss="modal">Load Message Templates</a>
-                            </div>
-                        </div> -->
                     </div>
                     </div>
                 </div>
@@ -263,7 +240,6 @@
 </div>
 
 <div class="modal fade" id="chatterbox-loader-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 1000000000;">
-  <!-- <h1 class="ml2">Loading Chatterbox</h1> -->
     <div class="loader">
         <div class="dot"></div>
         <div class="dot"></div>
@@ -654,6 +630,7 @@
               <option disabled selected value="default">--</option>
               <option value="econtacts">Employee Contacts</option>
               <option value="ccontacts">Community Contacts</option>
+              <option value="unregistered">Unregistered Contacts</option>
             </select>  
           </div>
 
@@ -683,16 +660,23 @@
           </thead>
         </table>
 
+        <!-- <table id="unregistered-contact-container" class="display table table-striped" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+            </tr>
+          </thead>
+        </table>
+
+        <div id="unregistered-wrapper">
+            <form id="unregistered-form">
+                <b>UNREGISTERED FORM</b>
+            </form>
+        </div> -->
+
         <div id="employee-contact-wrapper" hidden>
-            <!-- <div class="row">
-                <div class="col-sm-12">
-                    <button type="button" class="btn btn-primary btn-xs" id="asd"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>  Back</button>
-                </div>
-            </div> -->
             <form id="employee-contact-form">
                 <input type="text" id="user_id_ec" value="0" hidden>
                 <div class="row">
-
                     <div class="col-md-4">
                         <div class="form-group hideable">
                             <label class="control-label" for="firstname_ec">Firstname</label>
@@ -885,7 +869,7 @@
                         </div>
                     </div>
                 </div>
-          <!-- <hr> -->
+
           <div class="row" id="org-and-site-alert" hidden>
             <div class="col-sm-offset-3 col-sm-6">
                 <div class="alert alert-info" role="alert">
