@@ -61,7 +61,9 @@
 
     <!-- Modal Reposition JS-->
     <script type="text/javascript" src="/js/third-party/modal-reposition.js"></script>
-
+    
+    <script src="/js/third-party/notify.min.js"></script>
+    
     <!-- PMS SAMPLE -->
     <script type="text/javascript" src="http://192.168.150.76/js/pms.js"></script>
 
