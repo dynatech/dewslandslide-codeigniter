@@ -91,17 +91,11 @@ class General_tagging extends CI_Controller {
 		} else {
 			$table_reference = $table_exists[0]->table_id;
 		}
-
-
+    
 		$data_tags = $data["data_tag"];
 		$result = null;
 		foreach ($data_tags as $tag) {
-			$config_app = switch_db("commons_db", "
-      
-      
-      
-      
-      ");
+			$config_app = switch_db("commons_db");
 			$this->db = $this->load->database($config_app, TRUE);
 			$tag_exists = $this->general_data_tagging_model->checkTagIfExisting($tag);
 			// var_dump(sizeOf($tag_exists));
@@ -156,7 +150,7 @@ class General_tagging extends CI_Controller {
 		} else {
 			return false;
 		}
-		
+    
 		$config_app = switch_db("commons_db");
 		$this->db = $this->load->database($config_app, TRUE);
 		$data = [

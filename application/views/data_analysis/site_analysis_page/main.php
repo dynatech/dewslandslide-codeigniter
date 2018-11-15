@@ -9,6 +9,11 @@
 <!-- Sticky Sidebar Library -->
 <script src="/js/third-party/sticky-sidebar.js"></script>
 
+<!-- Typeahead Tagsinput -->
+<script src="/js/third-party/typeahead.js"></script>
+<script src="/js/third-party/bootstrap-tagsinput.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/third-party/bootstrap-tagsinput.css">
+
 <!-- Chart Plotter Files -->
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/site_analysis_main.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/rainfall_plotter.js"></script>
@@ -17,7 +22,6 @@
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/subsurface_node_plotter.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/download_site_charts.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/data_tagging_plugin.js"></script>
-
 
 <!-- CSS Files -->
 <link rel="stylesheet" type="text/css" href="/css/dewslandslide/data_analysis/site_analysis.css">
@@ -180,10 +184,13 @@
                 <option value="surficial">Surficial</option>
             </select>
         </div>
-
-        <div class="form-group hideable" id="data-tag-container">
-            <label class="control-label" for="data-tag">Data Tag</label>
-            <input type="text" class="form-control" id="data-tag" name="tag"/>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group hideable" id="data-tag-container">
+                    <label class="control-label" for="tag_selected">Data Tag</label>
+                    <input type="text" class="form-control" data-provide="typeahead" id="tag_selected" name="tag_selected" placeholder="E.g #DataTag" required />
+                </div>
+            </div>
         </div>
         <table class="table" id="tag-details">
             <thead>

@@ -128,8 +128,6 @@ $route['analysis/rainfall_scanner'] = "rainfall_scanner";
 /**
  * Data Analysis Pages Routes
  */
-
-
 // Commons
 $route['site_info/index'] = "site_info/index";
 
@@ -145,7 +143,7 @@ $route['general_data_tagging/get_all_gen_tag'] = "general_tagging/getAllGeneralD
 $route['general_data_tagging/get_tag_point'] = "general_tagging/getGenTagPointViaID";
 $route['general_data_tagging/get_all_tag_point'] = "general_tagging/getAllGenTagPoint";
 $route['general_data_tagging/get_tag_point_via_id'] = "general_tagging/getAllGenTagPointViaTagname";
-
+$route['general_data_tagging/tags'] = "general_tagging/getAllTags";
 
 $route['staff/all'] = "staff_profile/index";
 $route['staff/get_all_staff'] = "staff_profile/getAllStaffProfile";
