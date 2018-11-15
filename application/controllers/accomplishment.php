@@ -4,10 +4,15 @@
 		public function __construct() {
 			parent::__construct();
 			$this->load->helper('url');
+			$this->load->model('api_model');
 			$this->load->model('accomplishment_model');
 			$this->load->model('subsurface_column_model');
-			$this->load->model("surficial_model");
-			$this->load->model("bulletin_model");
+			$this->load->model('users_model');
+			$this->load->model('surficial_model');
+			$this->load->model('public_alert_event_model');
+			$this->load->model('public_alert_trigger_model');
+			$this->load->model('narratives_model');
+			$this->load->model('eos_data_analysis_model');
 		}
 
 		public function index()
@@ -19,7 +24,7 @@
 			$data['last_name'] = $this->session->userdata('last_name');
 			
 			$data['title'] = "DEWS-Landslide Accomplishment Report Filing Form";
-			$data['withAlerts'] = $this->accomplishment_model->getSitesWithAlerts();
+			$data['withAlerts'] = json_encode($this->accomplishment_model->getSitesWithAlerts());
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/nav');
 			$this->load->view('reports/accomplishment_report', $data);
@@ -42,13 +47,13 @@
 		public function getShiftReleases()
 		{
 			$data = $this->accomplishment_model->getShiftReleases($_GET['start'], $_GET['end']);
-			echo "$data";
+			echo json_encode($data);
 		}
 
 		public function getShiftTriggers()
 		{
-			$data['shiftTriggers'] = $shift = $this->accomplishment_model->getShiftTriggers($_GET['releases']);
-			$data['allTriggers'] = $this->accomplishment_model->getAllTriggers($_GET['events']);
+			$data['shiftTriggers'] = $shift = $this->public_alert_trigger_model->getShiftTriggers($_GET['releases']);
+			$data['allTriggers'] = $this->public_alert_trigger_model->getAllTriggers($_GET['events']);
 			echo json_encode($data);
 		}
 
@@ -59,13 +64,13 @@
 			else array_push($event_ids, $event_id);
 
 			$data = $this->accomplishment_model->getNarratives($event_ids);
-			echo "$data";
+			echo json_encode($data);
 		}
 
 		public function getNarrativesForShift()
 		{
-			$data = $this->accomplishment_model->getNarrativesForShift($_GET['event_id'], $_GET['start'], $_GET['end']);
-			echo "$data";
+			$data = $this->narratives_model->getNarrativesForShift($_GET['event_id'], $_GET['start'], $_GET['end']);
+			echo json_encode($data);
 		}
 
 		public function getSubsurfaceColumns ($site_code, $shift_end)
@@ -181,7 +186,7 @@
 		{
 			if ($shift_start === null) $shift_start = $_GET["shift_start"];
 			if ($event_id === null) $event_id = $_GET["event_id"];
-			$data = $this->accomplishment_model->getEndOfShiftDataAnalysis($shift_start, $event_id);
+			$data = $this->eos_data_analysis_model->getEndOfShiftDataAnalysis($shift_start, $event_id);
 			echo json_encode($data);
 		}
 
@@ -204,13 +209,13 @@
 			if(count($forInsert) > 0)
 			{
 				foreach ($forInsert as $x) {
-					echo $this->accomplishment_model->insert('narratives', $x);
+					echo $this->api_model->insert('narratives', $x);
 				}
 			}
 			if(count($forUpdate) > 0)
 			{
 				foreach ($forUpdate as $x) {
-					$this->accomplishment_model->update('id', $x->id, 'narratives', $x);
+					$this->api_model->update('id', $x->id, 'narratives', $x);
 				}
 			}
 		}
@@ -218,7 +223,7 @@
 		public function deleteNarrative()
 		{
 			$data = array( 'id' => $_POST['narrative_id'] );
-			$this->accomplishment_model->delete('narratives', $data);
+			$this->api_model->delete('narratives', $data);
 		}
 
 		public function insertData()
@@ -229,7 +234,7 @@
 		 		'shift_end' => $_POST['shift_end'],
 		 		'summary' => $_POST['summary']
 		 	);
-		 	$id = $this->accomplishment_model->insert('accomplishment_report', $data);
+		 	$id = $this->api_model->insert('accomplishment_report', $data);
     		echo "$id";
 		}
 
@@ -237,7 +242,7 @@
 		{
 			$recipients = json_decode($_POST['recipients']);
 			$body = $_POST['body'];
-			$event_start = $this->accomplishment_model->getEvent($_POST['event_id'])->event_start;
+			$event_start = $this->public_alert_event_model->getEventDetails($_POST['event_id'])->event_start;
 			$subject = strtoupper($_POST['site_code']) . " " . strtoupper(date("d M Y", strtotime($event_start)));
 			$is_test = $_POST["is_test"];
 
@@ -248,9 +253,9 @@
 			}
 
 			if ($is_test === "true") {
-				$cred = $this->bulletin_model->getEmailCredentials('dynaslopeswat');
+				$cred = $this->users_model->getEmailCredentials('dynaslopeswat');
 			} else {
-				$cred = $this->bulletin_model->getEmailCredentials('dewslmonitoring');
+				$cred = $this->users_model->getEmailCredentials('dewslmonitoring');
 			}
 
 			if(is_string($cred)) { echo $cred; return; }
@@ -340,7 +345,7 @@
 
 			$on_update = ['analysis'];
 
-			$id = $this->accomplishment_model->updateIfExistsElseInsert('end_of_shift_analysis', $data, $on_update);
+			$id = $this->api_model->updateIfExistsElseInsert('end_of_shift_analysis', $data, $on_update);
     		echo "$id";
 		}
 
@@ -349,7 +354,7 @@
 			$is_logged_in = $this->session->userdata('is_logged_in');
 			
 			if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-				echo 'You don\'t have permission to access this page. <a href="/lin">Login</a>';
+				echo 'You don\'t have permission to access this page. <a href="/login">Login</a>';
 				die();
 			}
 			else {

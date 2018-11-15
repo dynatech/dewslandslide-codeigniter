@@ -32,19 +32,15 @@
 
 <div id="page-wrapper">
     <div class="container">
-        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    Integrated Site Analysis Page
-                </h1>
+            <div class="col-sm-12">
+                <div id="page-header">Integrated Site Analysis Page</div>
             </div>
         </div>
-        <!-- /.row -->
         <div class="col-sm-3" id="options-bar" data-collapsed="false">
-           <?php echo $options_bar; ?>
+            <?php echo $options_bar; ?>
         </div>
-
+        
         <div class="col-sm-9" id="main-plots-container">
             <div class="row">
                 <ol class="breadcrumb">
@@ -63,10 +59,9 @@
             <div class="section" id="subsurface-node-plots-container" hidden>
                 <?php echo $subsurface_node_level_plots; ?>
             </div>
-
         </div>
-    </div><!-- /.container-fluid -->
-</div><!-- /#page-wrapper --> 
+    </div>
+</div>
 
 <div class="modal fade" id="chart-options" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -154,10 +149,8 @@
     <?php echo $site_analysis_svg; ?>
 </div>
 
-<!-- MODAL AREA -->
 <div class="modal fade" id="error-modal" role="dialog">
     <div class="modal-dialog">
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -203,8 +196,8 @@
             <thead>
                 <tr>
                     <th>Table</th>
-                    <th>Data Start ID</th>
-                    <th>Data End ID</th>
+                    <th>Data Start</th>
+                    <th>Data End</th>
                 </tr>
             </thead>
             <tbody>

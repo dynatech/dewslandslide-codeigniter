@@ -1,65 +1,100 @@
-<script src="/js/third-party/d3.v3.min.js"></script>
-<script src="/js/third-party/d3.tip.v0.6.3.js"></script>
-<script type="text/javascript" src="/js/dewslandslide/data_analysis/sensor_overview.js"></script>
-<script type="text/javascript" src="/js/dewslandslide/dewspresence.js"></script>
-<script type="text/javascript" src="/js/dewslandslide/dewsalert.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/dewslandslide/dewspresence.css">
-<link rel="stylesheet" type="text/css" href="/css/dewslandslide/dewsalert.css">
-<link rel="stylesheet" type="text/css" href="/css/dewslandslide/data_analysis/overview.css">
-<div id="page-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    Sensors Overview <small>Current Conditions</small>
-                </h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-               <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Accelerometer Movement Alert Map 
-                       <input type="button" id="alertLegend" onclick="alertLegends(this.form)" value="Show Legends" />
-                       <button type="button" class="btn btn-sm btn-link"><a href="/ajax/csvmonitoring/lsb7days.csv">(Historical Data)</a></button>
-                   </h3>
-                   <div id="alertcanvaslegend"  style="width:300px; height:100px; visibility:hidden; display:none;">
-                       <svg width="290px" height="95px">
-                          <rect x="0" y="0" width="12px" height="14px" fill="#4A6C6F" /> <text x="14" y="12" style="font-size:14px;" fill="#fff">0 axis alert</text>
-                          <rect x="0" y="20" width="12px" height="14px" fill="#846075" /> <text x="14" y="32" style="font-size:14px;" fill="#fff">1 axis alert</text>
-                          <rect x="0" y="40" width="12px" height="14px" fill="#AF5D63" /> <text x="14" y="52" style="font-size:14px;" fill="#fff">2 axes alerts</text>
-                          <polygon points="120,10 120,20 130,10" fill="#FFF500" /> <text x="132" y="20" style="font-size:14px;" fill="#FFF500">Use with Caution</text>
-                          <polygon points="120,30 120,40 130,30" fill="#EA0037" /> <text x="132" y="40" style="font-size:14px;" fill="#EA0037">Not OK</text>
-                          <polygon points="120,50 120,60 130,50" fill="#0A64A4" /> <text x="132" y="60" style="font-size:14px;" fill="#0A64A4">Special Case</text>
-                      </svg>
-                  </div>
-              </div>
-              <div class="panel-body"  id="alert-canvas"  style="height:1300px;max-height:3000" >
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12">
-       <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Data Presence Map (24 Hours) <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Click the site name or the black boxes to go to the Data Presence per Node tool for the site"></i></h3>
-        </div>
-        <div class="panel-body"  id="presence-map-canvas" style="height:1850px;">
 
-        </div>
+<script type="text/javascript" src="/js/third-party/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/js/third-party/datatables.min.js"></script>
+<script src="/js/dewslandslide/data_analysis/sensor_overview.js"></script>
+<script src="<?php echo base_url(); ?>js/third-party/bootstrap-tagsinput.js"></script>
+
+<div id="page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div><h1 class="page-header">Sensor Overview Page</div>
+      </div>
     </div>
+    <div class="row">
+      <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a data-toggle="tab" href="#deact-sensor"><strong>Deactivated Sensors</strong></a></li>
+          <li><a data-toggle="tab" href="#logger-health"><strong>Datalogger Health</strong></a></li>
+          <li><a data-toggle="tab" href="#rain-gauges"><strong>Rain Gauges</strong></a></li>
+          <li><a data-toggle="tab" href="#soil-moisture"><strong>Soil Moisture</strong></a></li>
+          <li><a data-toggle="tab" href="#piezometer"><strong>Piezometer</strong></a></li>
+        </ul>
+    </div>
+  </br>
+    <div class="tab-content">
+      <div id="deact-sensor" class="tab-pane fade in active">
+      </div>
+      <div id="logger-health" class="tab-pane fade in">
+      </div>
+      <div id="rain-gauges" class="tab-pane fade in">
+      </div>
+      <div id="soil-moisture" class="tab-pane fade in">
+      </div>
+      <div id="piezometer" class="tab-pane fade in">
+      </div>
+    </div>
+
+    <div class="col-sm-12" id="table-container" hidden="hidden">
+      <div id="table-div">
+        <h4 id="table-title" hidden="hidden"></h4>
+        <table id="table-template" class="display table table-striped" cellspacing="0"
+        width="100%" hidden="hidden">
+        <thead id="header">
+          <tr>
+            <th class="text-left">Logger Name</th>
+            <th id="cheader" class="text-right">Number of Days Down</th>
+            <th id="removable">Data Presence</th>
+            <th id="removable" class="text-right">Last Data Available</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+        <tr id="row-template" hidden="hidden">
+          <td id="logger-name" class="text-left"></td>
+          <td id="time-delta" class="text-right"></td>
+          <td id="data-presence" class="text-left"></td>
+          <td id="last-data-available" class="text-right"></td>
+        </tr>
+        <tr id="deact-row-template" hidden="hidden">
+          <td id="logger-name" class="text-left"></td>
+          <td id="date-deactivated" class="text-right"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="col-sm-12" id="deact-table-container" hidden="hidden">
+    <div id="deact-sensor-div" class="col-sm-6">
+      <h4 id="table-title" hidden="hidden"></h4>
+      <table id="deact-sensor-template" class="display table table-striped" cellspacing="0"
+      width="100%" hidden="hidden">
+      <thead id="header">
+        <tr>
+          <th class="text-left">Logger Name</th>
+          <th class="text-right">Date Deactivated</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+      <tr id="deact-row-template" hidden="hidden">
+        <td id="logger-name" class="text-left"></td>
+        <td id="date-deactivated" class="text-right"></td>
+      </tr>
+    </table>
+  </div>
+  <div id="deact-logger-div" class="col-sm-6">
+    <h4 id="table-title" hidden="hidden"></h4>
+    <table id="deact-logger-template" class="display table table-striped" cellspacing="0"
+    width="100%" hidden="hidden">
+    <thead id="header">
+      <tr>
+        <th class="text-left">Logger Name</th>
+        <th class="text-right">Deactivated Date</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+    <tr id="deact-row-template" hidden="hidden">
+      <td id="logger-name" class="text-left"></td>
+      <td id="date-deactivated" class="text-right"></td>
+    </tr>
+  </table>
 </div>
-</div>                    
 </div>
 </div>
-</div>
-<script>
-    window.onload = function() {
-        nodeAlertJSON = <?php echo $nodeAlerts; ?>;
-        maxNodesJSON = <?php echo $siteMaxNodes; ?>;
-        nodeStatusJSON = <?php echo $nodeStatus; ?>;
-        initAlertPlot();
-        dataPresencePlot();
-    }   
-</script>

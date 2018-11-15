@@ -4,9 +4,7 @@ class Site_analysis extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
-        $this->load->model('monitoring_model');
-        $this->load->model('pubrelease_model');
-        $this->load->model('rainfall_model');
+        $this->load->model('sites_model');
         $this->load->model('surficial_model');
         $this->load->model('subsurface_column_model');
         $this->load->model('subsurface_node_model');
@@ -23,17 +21,17 @@ class Site_analysis extends CI_Controller {
 		$data['user_id'] = $this->session->userdata("id");
 		
 		$data['title'] = $page;
-        $data['sites'] = $this->pubrelease_model->getSites();
+        $data['sites'] = json_encode($this->sites_model->getActiveSites());
         $data['options_bar'] = $this->load->view('data_analysis/site_analysis_page/options_bar', $data, true);
         $data['site_level_plots'] = $this->load->view('data_analysis/site_analysis_page/site_level_plots', $data, true);
         $data['subsurface_column_level_plots'] = $this->load->view('data_analysis/site_analysis_page/subsurface_column_plots', $data, true);
         $data['subsurface_node_level_plots'] = $this->load->view('data_analysis/site_analysis_page/subsurface_node_plots', $data, true);
         $data['site_analysis_svg'] = $this->load->view('data_analysis/site_analysis_page/site_analysis_svg', $data, true);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
         $this->load->view('data_analysis/site_analysis_page/main', $data);
-        $this->load->view('templates/footer');
+        $this->load->view('templates/beta/footer');
 	}
 
     /**
@@ -81,7 +79,7 @@ class Site_analysis extends CI_Controller {
                     if ($push_null_flag) {
                         $range = array("from" => strtotime($start) * 1000, "to" => strtotime($end) * 1000);
                         array_push($data_series["null_ranges"], $range);
-                        $start = null;
+			$start = null;
                         $end = null;
                         $push_null_flag = false;
                     }
@@ -158,7 +156,6 @@ class Site_analysis extends CI_Controller {
     }
 
     public function getRainDataSourcesPerSite ($site_code) {
-
         try {
             $paths = $this->getOSspecificpath();
         } catch (Exception $e) {
@@ -198,9 +195,9 @@ class Site_analysis extends CI_Controller {
                 $data_per_marker[$data->crack_id] = [];
             }
             $temp = array(
-                'x' => strtotime($data->ts) * 1000, 
+                'x' => strtotime($data->ts) * 1000,
                 'y' => floatval($data->measurement),
-                'id' => (int) $data->mo_id
+                'id' => (int) $data->data_id
             );
             array_push($data_per_marker[$data->crack_id], $temp);
         }
@@ -216,13 +213,7 @@ class Site_analysis extends CI_Controller {
 
         echo json_encode($processed_data);
     }
-
-    public function getGroundMarkerAndMarkerId ($site_code) {
-        $surficial_markers = $this->surficial_model->getGroundMarkerName($site_code);
-
-        echo json_encode($surficial_markers);
-    }
-
+    
     public function getProcessedSurficialMarkerTrendingAnalysis ($site_code, $marker_id, $end_date) {
         $site_id = $this->getSiteId($site_code);
         $data = $this->getSurficialMarkerTrendingAnalysis($site_id, $marker_id, $end_date);
@@ -584,7 +575,7 @@ class Site_analysis extends CI_Controller {
                 $alert = $alerts->$trigger;
                 if (!empty($alert)) {
                     foreach ($alert as $arr) {
-                        $array = array(strtotime($arr->ts) * 1000, $arr->id);
+                        $array = array(strtotime($arr->ts) * 1000, $arr->node_id);
                         array_push($velocity_alerts[$index][$trigger], $array);
                     }
                 }
@@ -1009,7 +1000,7 @@ class Site_analysis extends CI_Controller {
         $is_logged_in = $this->session->userdata('is_logged_in');
         
         if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-            echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+            echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
             die();
         }
         else {
@@ -1034,10 +1025,10 @@ class Site_analysis extends CI_Controller {
 
         if (strpos($os, "WIN") !== false) {
             $python_path = "C:/Users/Dynaslope/Anaconda2/python.exe";
-            $file_path = "C:/xampp/updews-pycodes/Liaison/";
+            $file_path = "C:/xampp/updews-pycodes/web_plots/";
         } elseif (strpos($os, "UBUNTU") !== false || strpos($os, "Linux") !== false) {
-            $python_path = "/home/ubuntu/miniconda2/bin/python";
-            // $python_path = "/home/swat/anaconda2/bin/python";
+            // $python_path = "/home/jdguevarra/anaconda2/bin/python";
+            $python_path = "/home/jdguevarra/anaconda2/bin/python";
             $file_path = "/var/www/updews-pycodes/web_plots/";
         } else {
             throw new Exception("Unknown OS for execution... Script discontinued...");
@@ -1081,7 +1072,7 @@ class Site_analysis extends CI_Controller {
     }
 
     public function getSiteId ($site_code) {
-        $site_id = $this->pubrelease_model->getSiteID($site_code);
+        $site_id = $this->sites_model->getSiteID($site_code);
         return $site_id;
     }
 }

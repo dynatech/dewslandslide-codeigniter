@@ -4,7 +4,8 @@ class Site_info extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
-		$this->load->model('site_information_model');
+		// $this->load->model('site_information_model'); // CAUTION - already replaced by the complied AIO sites_model
+		$this->load->model('sites_model'); 
 		// $this->output->enable_profiler(TRUE);
 		// echo $this->session->userdata('id');
 	}
@@ -37,7 +38,7 @@ class Site_info extends CI_Controller {
 			"active" => $this->input->post("is_active")
 		);
 
-		$query = $this->site_information_model->insertNewSite($data);
+		$query = $this->sites_model->insertNewSite($data);
 
 		echo $query;
 	}
@@ -58,20 +59,20 @@ class Site_info extends CI_Controller {
 		);
 		$site_id = $this->input->post("site_id");
 
-		$query = $this->site_information_model->updateSite($site_id, $data);
+		$query = $this->sites_model->updateSite($site_id, $data);
 		echo $query;
 	}
 
 	public function deleteSite(){
 		$site_id = $this->input->post("site_id");
-		$query = $this->site_information_model->deleteSite($site_id);
+		$query = $this->sites_model->deleteSite($site_id);
 		
 		echo $query;
 	}
 
 	public function getAllSites(){
 		$all_sites = [];
-		$sites = $this->site_information_model->getSites();
+		$sites = $this->sites_model->getCompleteSiteInformation("all",false);
 		for ($counter = 0; $counter < sizeof($sites); $counter++) {
 			$sites[$counter] = (array) $sites[$counter];
 			$sites[$counter]['actions'] = "<div>".
@@ -88,7 +89,7 @@ class Site_info extends CI_Controller {
 		$is_logged_in = $this->session->userdata('is_logged_in');
 		
 		if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
+			echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
 			die();
 		}
 		else {
