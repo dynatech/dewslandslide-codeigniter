@@ -81,6 +81,7 @@
         </span>
     </ul>
 </div>
+<div hidden="hidden"><input id="current_user_id" type="number" value="<?php echo $user_id?>"></div>
 
 <div class="modal js-loading-bar" id="loading" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog">
