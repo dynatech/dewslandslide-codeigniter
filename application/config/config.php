@@ -14,10 +14,7 @@
 | path to your installation.
 |
 */
-
-// $config['base_url']	= 'http://www.dewslandslide.com/';
-// $config['base_url'] = 'http://dynaslope.phivolcs.dost.gov.ph:1088/';
-$config['base_url'] = 'http://localhost/';
+$config['base_url'] = "http://" . $_SERVER['HTTP_HOST'] . "/";
 
 $config['server_root'] = $_SERVER['DOCUMENT_ROOT'];
 
