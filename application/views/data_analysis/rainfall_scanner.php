@@ -18,9 +18,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">
-                    Rainfall Scanner Page
-                </h1>
+                <div id="page-header">Site Analysis <small>Rainfall Summary</small></div>
             </div>
         </div>
         <!-- /.row -->

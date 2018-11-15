@@ -62,8 +62,8 @@ $route['monitoring/bulletin/main/(:num)/(:any)'] = "bulletin/main/$1/$2";
 /**
  * Reports Pages Routes
  */
-$route['reports/accomplishment/form'] = "accomplishment/index";
-$route['reports/accomplishment/checker'] = "accomplishment/checker";
+$route['reports/monitoring'] = "accomplishment/index";
+$route['reports/monitoring/shift_checker'] = "accomplishment/checker";
 
 /**
  * Communications Pages Routes
@@ -123,7 +123,7 @@ $route['analysis/eos_charts/(:any)/(:any)/(:any)/(:any)'] = "end_of_shift_charts
 $route['analysis/manifestations'] = "manifestations";
 $route['analysis/manifestations/(:any)'] = "manifestations/individual_site/$1";
 $route['analysis/surficial'] = "surficial";
-$route['analysis/rainfall_scanner'] = "rainfall_scanner";
+$route['analysis/rainfall_summary'] = "rainfall_scanner";
 
 /**
  * Data Analysis Pages Routes

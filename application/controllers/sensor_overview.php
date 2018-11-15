@@ -9,7 +9,7 @@ class sensor_overview extends CI_Controller {
 
 	public function index() {
 		$this->is_logged_in();
-		$page = 'Sensor Overview';
+		$page = 'Dataloggers and Sensors Overview';
 		$data['first_name'] = $this->session->userdata('first_name');
 		$data['last_name'] = $this->session->userdata('last_name');
 		$data['user_id'] = $this->session->userdata("id");
@@ -17,22 +17,11 @@ class sensor_overview extends CI_Controller {
         date_default_timezone_set('Asia/Manila'); 
 		
 		$data['title'] = $page;
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
 		$this->load->view('data_analysis/sensor_overview');
-		$this->load->view('templates/footer');
+		$this->load->view('templates/beta/footer');
 	}
-
-    public function is_logged_in () {
-        $is_logged_in = $this->session->userdata('is_logged_in');
-        
-        if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
-            echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
-            die();
-        }
-        else {
-        }
-    }
 
 	public function deactivatedSensors () {
 		$data = [];
@@ -87,5 +76,16 @@ class sensor_overview extends CI_Controller {
 		array_push($data, $piezo_health, "#piezometer");
 		echo json_encode([$data]);
 	}
+
+	public function is_logged_in () {
+        $is_logged_in = $this->session->userdata('is_logged_in');
+        
+        if(!isset($is_logged_in) || ($is_logged_in !== TRUE)) {
+            echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';
+            die();
+        }
+        else {
+        }
+    }
 }
 ?>

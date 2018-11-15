@@ -30,7 +30,7 @@
 		                    <a href="<?php echo base_url(); ?>monitoring/release_form">Early Warning Release Form</a>
 		                    <a href="<?php echo base_url(); ?>monitoring/events">Monitoring Events Table</a>
 		                	<hr class="divider" />
-		                    <span class="dropdown-header">Communication</span>
+		                    <span class="dropdown-header">Communications</span>
 		                    <a href="<?php echo base_url(); ?>communications/chatterbox_beta">Chatterbox</a>
 		                    <a href="<?php echo base_url(); ?>communications/ewi_template">Early Warning Information Template Creator</a>
 		                    <hr class="divider" />
@@ -45,13 +45,13 @@
 		        		<span class="dropdown-title">Analysis</span>
 		        		<div class="dropdown-content">
 		                    <span class="dropdown-header">Sensors and Rain Gauges</span>
-		                    <a href="<?php echo base_url(); ?>analysis/site_analysis">Site Analysis</a>
-		                    <a href="<?php echo base_url(); ?>analysis/sensor_overview">Sensor Overview</a>
-		                    <a href="<?php echo base_url(); ?>analysis/rainfall_scanner">Rainfall Scanner</a>
-		                    <a href="<?php echo base_url(); ?>analysis/surficial">Surficial Markers Page</a>
-		                    <a href="<?php echo base_url(); ?>analysis/manifestations">Manifestations of Movement Page</a>
+		                    <a href="<?php echo base_url(); ?>analysis/site_analysis">Integrated Site Analysis</a>
+		                    <a href="<?php echo base_url(); ?>analysis/sensor_overview">Dataloggers and Sensors Overview</a>
+		                    <a href="<?php echo base_url(); ?>analysis/rainfall_summary">Rainfall Summary</a>
+		                    <a href="<?php echo base_url(); ?>analysis/surficial">Surficial Markers</a>
+		                    <a href="<?php echo base_url(); ?>analysis/manifestations">Manifestations of Movement</a>
 		                    <hr class="divider" />
-		                    <span class="dropdown-header">Communication</span>
+		                    <span class="dropdown-header">Communications</span>
 		                    <a href="<?php echo base_url(); ?>communications/responsetracker">Response Tracker</a>
 		                    <a href="<?php echo base_url(); ?>generalinformation/index">Generic Information Tags</a>
 		                </div>
@@ -59,9 +59,9 @@
 		        	<li class="dropdown">
 		        		<span class="dropdown-title">Reports</span>
 		        		<div class="dropdown-content">
-		            		<span class="dropdown-header">End-Of-Shift Report and Narratives</span>
-		                    <a href="<?php echo base_url(); ?>reports/accomplishment/form">Filing Form and Report Generator</a>
-		                    <a href="<?php echo base_url(); ?>reports/accomplishment/checker">Shift Events and Releases Checker</a>
+		            		<span class="dropdown-header">Monitoring and End-of-Shift Report</span>
+		                    <a href="<?php echo base_url(); ?>reports/monitoring">Narrative Form and Report Generator</a>
+		                    <a href="<?php echo base_url(); ?>reports/monitoring/shift_checker">Shift Checker</a>
 		                </div>
 		        	</li>
         		</div>
