@@ -91,7 +91,6 @@ class General_tagging extends CI_Controller {
 		} else {
 			$table_reference = $table_exists[0]->table_id;
 		}
-    
 		$data_tags = $data["data_tag"];
 		$result = null;
 		foreach ($data_tags as $tag) {
@@ -150,7 +149,6 @@ class General_tagging extends CI_Controller {
 		} else {
 			return false;
 		}
-    
 		$config_app = switch_db("commons_db");
 		$this->db = $this->load->database($config_app, TRUE);
 		$data = [
@@ -171,7 +169,6 @@ class General_tagging extends CI_Controller {
 		$data = $_POST;
 		var_dump($data);
 	}
-  
 	public function getAllTags(){
 		// echo "commons_db";
 		$config_app = switch_db("commons_db");
