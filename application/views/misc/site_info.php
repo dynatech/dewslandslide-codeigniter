@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/pms.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/site_info/site_info.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/dewslandslide/misc/site_info/site_info.css"> 
 <script src="http://localhost/js/third-party/notify.min.js"></script>
 <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/third-party/bootstrap_v4.min.css">
 <link href="<?php echo base_url(); ?>css/third-party/bootstrap-fs-modal_v4.css" rel="stylesheet"> -->
