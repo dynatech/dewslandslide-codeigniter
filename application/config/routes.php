@@ -64,9 +64,6 @@ $route['monitoring/bulletin/main/(:num)/(:any)'] = "bulletin/main/$1/$2";
  */
 $route['reports/accomplishment/form'] = "accomplishment/index";
 $route['reports/accomplishment/checker'] = "accomplishment/checker";
-$route['reports/site_maintenance/form'] = "sitemaintenance/index";
-$route['reports/site_maintenance/all'] = "sitemaintenance/all";
-$route['reports/site_maintenance/(:num)'] = "sitemaintenance/individual/$1";
 
 /**
  * Communications Pages Routes
@@ -81,7 +78,7 @@ $route['communications/chatterbox_v2'] = "chatterbox_v2/index";
  * NEW Chatterbox **BETA**
  */
 
-$route['communications/chatterbox_beta'] = "chatterbox_beta/index";
+$route['communications/chatterbox_beta'] = "chatterbox_v2/index";
 $route['communications/ewi_template'] = "ewi_template/index";
 $route['communications/fetchalltemplate'] = "ewi_template/getAllTemplates";
 $route['communications/fetchallbackbonetemplate'] = "ewi_template/getAllBackboneTemplates";
@@ -121,20 +118,12 @@ $route['generalinformation/updateGintagsId'] = "gintagshelper/updateGintagsByGin
 
 $route['analysis/site_analysis'] = "site_analysis";
 $route['analysis/site_analysis/(:any)'] = "site_analysis";
+$route['analysis/sensor_overview'] = "sensor_overview";
 $route['analysis/eos_charts/(:any)/(:any)/(:any)/(:any)'] = "end_of_shift_charts";
 $route['analysis/manifestations'] = "manifestations";
 $route['analysis/manifestations/(:any)'] = "manifestations/individual_site/$1";
-
-$route['analysis/node'] = "node_level_page";
-$route['analysis/node/(:any)/(:any)/(:any)/(:any)'] = "node_level_page";
-$route['analysis/column'] = "site_level_page";
-$route['analysis/column/(:any)'] = "site_level_page";
-$route['analysis/surficial'] = "surficial_page";
-$route['analysis/subsurface'] = "subsurface_page";
-$route['analysis/sensor_overview'] = "sensor_overview_page";
-$route['analysis/nodereport'] = "node_report_page";
+$route['analysis/surficial'] = "surficial";
 $route['analysis/rainfall_scanner'] = "rainfall_scanner";
-$route['analysis/Eos_onModal/(:any)/(:any)/(:any)/(:any)'] = "Eos_modal";
 
 /**
  * Data Analysis Pages Routes
@@ -165,14 +154,12 @@ $route['staff/add_profile'] = "staff_profile/addNewProfile";
 $route['staff/update_profile'] = "staff_profile/updateStaffProfile";
 $route['staff/change_profile_pic'] = "staff_profile/changeProfilePic";
 
-$route['default_controller'] = "lin";
-$route['404_override'] = '';
+$route['site_info/index'] = "site_info/index";
+
+$route['default_controller'] = "account_controller";
+$route['login'] = "account_controller";
+$route['404_override'] = "error_custom_404";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
-
-/**
- * Public website Pages Routes
- */
-
-$route['public_website/analysis_graph'] = "public_website_graphs";

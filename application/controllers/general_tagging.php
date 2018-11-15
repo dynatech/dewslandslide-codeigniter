@@ -92,35 +92,49 @@ class General_tagging extends CI_Controller {
 			$table_reference = $table_exists[0]->table_id;
 		}
 
-		$tag_exists = $this->general_data_tagging_model->checkTagIfExisting($data['data_tag']);
 
-		if (sizeOf($tag_exists) == 0) {
-			$tag_data = [
-				"tag_name" => $data['data_tag'],
-				"tag_description" => "",
-				"user" => $data['user_id']
-			];
-			$insert_tag_reference = $this->general_data_tagging_model->addGDT($tag_data);
-			if ($insert_tag_reference == true) {
-				$tag_reference = $this->general_data_tagging_model->getGDTViaTag($tag_data['tag_name']);
-				$tag_reference = $tag_reference[0]->tag_id;
+		$data_tags = $data["data_tag"];
+		$result = null;
+		foreach ($data_tags as $tag) {
+			$config_app = switch_db("commons_db", "
+      
+      
+      
+      
+      ");
+			$this->db = $this->load->database($config_app, TRUE);
+			$tag_exists = $this->general_data_tagging_model->checkTagIfExisting($tag);
+			// var_dump(sizeOf($tag_exists));
+			if (sizeOf($tag_exists) == 0) {
+				$tag_data = [
+					"tag_name" => $tag,
+					"tag_description" => $tag,
+					"user" => $data['user_id']
+				];
+				$insert_tag_reference = $this->general_data_tagging_model->addGDT($tag_data);
+				if ($insert_tag_reference == true) {
+					$tag_reference = $this->general_data_tagging_model->getGDTViaTag($tag);
+					$tag_reference = $tag_reference[0]->tag_id;
+				} else {
+					echo "RETURN";
+				}
 			} else {
-				echo "RETURN";
+				$tag_reference = $tag_exists[0]->tag_id;
 			}
-		} else {
-			$tag_reference = $tag_exists[0]->tag_id;
-		}
-
-		switch ($data['type']) {
-			case 'rainfall':
-				$result = $this->insertRainfallGDT($data, $table_reference, $tag_reference);
-				break;
-			case 'surficial':
-				$result = $this->insertSurficialGDT($data, $table_reference, $tag_reference);
-				break;
-			default:
-				echo "No request";
-				break;
+					
+			// var_dump($tag_reference);
+			switch ($data['type']) {
+				case 'rainfall':
+					$result = $this->insertRainfallGDT($data, $table_reference, $tag_reference);
+					// var_dump($result);
+					break;
+				case 'surficial':
+					$result = $this->insertSurficialGDT($data, $table_reference, $tag_reference);
+					break;
+				default:
+					echo "No request";
+					break;
+			}
 		}
 		print $result;
 	}
@@ -143,7 +157,7 @@ class General_tagging extends CI_Controller {
 			return false;
 		}
 		
-		$config_app = switch_db("commons_db","localhost");
+		$config_app = switch_db("commons_db");
 		$this->db = $this->load->database($config_app, TRUE);
 		$data = [
 			"data_start_id" => $start_id->data_id,
@@ -162,6 +176,18 @@ class General_tagging extends CI_Controller {
 	public function removeGenTagPoint() {
 		$data = $_POST;
 		var_dump($data);
+	}
+  
+	public function getAllTags(){
+		// echo "commons_db";
+		$config_app = switch_db("commons_db");
+		$this->db = $this->load->database($config_app, TRUE);
+		$get_all_tags = $this->general_data_tagging_model->getAllGDT();
+		$all_tags = [];
+		foreach ($get_all_tags as $key) {
+			array_push($all_tags, $key->tag_name);
+		}
+		echo json_encode($all_tags);
 	}
 }
 ?>

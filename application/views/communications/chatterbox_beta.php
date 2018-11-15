@@ -581,31 +581,6 @@
 	</div>
 	<!-- END OF SITE SELECTION MODAL -->
 
-	<!-- GINTAGS MODAL -->
-	<!-- <div class="modal fade" id="gintag-modal" role="dialog">
-	  <div class="modal-dialog" id="gintag-modal-dialog">
-	    <div class="modal-content" id="gintag-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4>General Information Tag <i class="text-warning"> *BETA*</i></h4>
-	      </div>
-	      <div class="modal-body">
-	        <div class="alert alert-info" role="alert">
-	          <p style="padding: 0px;"><strong>New Feature!</strong> You can now tag messages in chatterbox! </br>.&nbsp &nbsp • <strong>Important Tags: </strong>#EwiMessage, #EwiResponse<br>&ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp;#GroundMeasReminder, #GroundMeas</p>
-	        </div>
-	        <div class="form-group">
-	        	<input type="text" class="form-control" id="gintags" name="gintags" data-provide="typeahead" placeholder="E.g #EwiMessage" style="display:none" required>
-	        </div>
-	        <div class="form-group right-content" id="submit-gintag">
-	          <button type="reset" class="btn btn-danger" id="reset-gintags" data-dismiss="modal">Reset</button>
-	          <button type="submit" value="submit" id="confirm-gintags" class="btn btn-primary">Confirm</button>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	</div> -->
-	<!-- END GINTAGS MODAL -->
-
 	<!-- Save Narratives MODAL -->
 	<div class="modal fade" id="save-narrative-modal" role="dialog">
 	<div class="modal-dialog" id="save-narrative-modal-dialog">
@@ -642,83 +617,6 @@
 	</div>
 	<!-- Save Narratives MODAL -->
 
-	<!-- Save Narratives MODAL -->
-<!-- 	<div class="modal fade" id="search-global-message-modal" role="dialog">
-	<div class="modal-dialog" id="save-narrative-modal-dialog">
-	  <div class="modal-content" id="save-narrative-content"> -->
-<!-- 	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      <h4>Quick Search</h4>
-	    </div> -->
-	    <!-- <div class="modal-body">
-	    <div class="panel panel-default">
-			<div class="panel-heading"><button type="button" class="close" data-dismiss="modal">&times;</button>
-			Search filters</div>
-			<div class="panel-body">
-				<div class="form-group col-xs-12">
-					<label class="radio-inline col-xs-4"><input type="radio" name="opt-search" value="global-search" checked>via Message</label>
-					<label class="radio-inline col-xs-3"><input type="radio" name="opt-search" value="gintag-search">via Gintags</label>
-					<label class="radio-inline col-xs-4"><input type="radio" name="opt-search" value="timestamp-sent-search">via Timestamp sent</label>
-				</div>
-				<div class="form-group col-xs-12">
-					<label class="radio-inline col-xs-4"><input type="radio" name="opt-search" value="timestamp-written-search">via Timestamp written</label>
-					<label class="radio-inline col-xs-3"><input type="radio" name="opt-search" value="unknown-number-search">via Unknown numbers</label>
-				</div>
-				<div class="form-group col-xs-12" id = "key-div-container">
-					<label for="search-global-keyword">Search Keyword: </label>
-					<input type="text" id="search-global-keyword" class="form-control" placeholder="E.g. Magandang Umaga">
-				</div>
-
-				<div class="form-group col-xs-12" id="time-div-container" hidden>
-					<div class="col-md-6">
-		              	<label for="search-from-date-picker">From :</label>
-		                <div class='input-group date datetime' id='search-from-date-picker'>
-		                    <input type='text' class="form-control" id='search-from-date' />
-		                    <span class="input-group-addon">
-		                        <span class="glyphicon glyphicon-calendar"></span>
-		                    </span>
-		                </div>
-					</div>
-					<div class="col-md-6">
-						<label for="search-from-date-picker">To :</label>
-		                <div class='input-group date datetime' id='search-to-date-picker'>
-		                    <input type='text' class="form-control" id='search-to-date' />
-		                    <span class="input-group-addon">
-		                        <span class="glyphicon glyphicon-calendar"></span>
-		                    </span>
-		                </div>
-					</div>
-				</div>
-				<div class="form-group col-xs-8">
-					<div class="left-content form-inline">
-						<label for="search-limit">Search Limit: </label>
-						<input type="number" min="1" max="999" maxlength = "3" class="form-control" id="search-limit" value="1" placeholder="E.g. 100">
-					</div>
-				</div>
-				<div class="form-group col-xs-4">
-					<div class="right-content">
-						<button class="btn btn-primary" id="btn-search-global">Search</button>
-					</div>
-				</div>f
-			</div>
-		</div>
-        <hr>
-		<div class="search-global-message-container">
-			<div class="result-message">
-				<ul id="search-global-result" class="chat">
-				</ul>
-				<div style="display: table;margin: 0 auto;">
-					<ul class="pagination-sm" id="searched-key-pages" style="display: table-cell;" hidden></ul>
-				</div>
-			</div>
-		</div>
-		<div>
-		</div>
-	    </div>
-	  </div>
-	</div>
-	</div> -->
-	<!-- Save Narratives MODAL -->
 
 	<!-- EWI MODAL -->
 	<div class="modal fade col-lg-12" id="early-warning-modal" role="dialog">
@@ -959,7 +857,13 @@
     	<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group hideable">
-	                <label class="control-label" for="gintag_selected"></label>
+	                <label class="control-label" for="gintag_selected">Sites to be tagged</label>
+	                <div id="tag_sites" class="row"></div>
+	            </div>
+			</div>
+			<div class="col-sm-12">
+				<div class="form-group hideable">
+	                <label class="control-label" for="gintag_selected">Tags</label>
 	                <input type="text" class="form-control" data-provide="typeahead" id="gintag_selected" name="gintag_selected" placeholder="E.g #EwiMessage" required />
 	            </div>
 			</div>
