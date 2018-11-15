@@ -16,11 +16,11 @@ class Chatterbox_v2 extends CI_Controller {
 		$data['user_id'] = $this->session->userdata("id");
 		
 		$data['title'] = $page;
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
 		$this->load->view('communications/handlebars-chatterbox_beta');
 		$this->load->view('communications/chatterbox_v2');
-		$this->load->view('templates/footer');
+		$this->load->view('templates/beta/footer');
 	}
 	public function is_logged_in() {
 		$is_logged_in = $this->session->userdata('is_logged_in');

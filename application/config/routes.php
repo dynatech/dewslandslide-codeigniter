@@ -78,7 +78,7 @@ $route['communications/chatterbox_v2'] = "chatterbox_v2/index";
  * NEW Chatterbox **BETA**
  */
 
-$route['communications/chatterbox_beta'] = "chatterbox_beta/index";
+$route['communications/chatterbox_beta'] = "chatterbox_v2/index";
 $route['communications/ewi_template'] = "ewi_template/index";
 $route['communications/fetchalltemplate'] = "ewi_template/getAllTemplates";
 $route['communications/fetchallbackbonetemplate'] = "ewi_template/getAllBackboneTemplates";
