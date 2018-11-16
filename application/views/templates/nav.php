@@ -30,6 +30,7 @@
                         <li><a href="<?php echo base_url(); ?>monitoring/issues_and_reminders">Monitoring Issues and Reminders</a></li>
                         <li><a href="<?php echo base_url(); ?>gintags/manager">GINTAGs Manager</span></a></li>
                         <li><a href="<?php echo base_url(); ?>site_info/index">Site information</span></a></li>
+                        <li><a href="<?php echo base_url(); ?>general_data_tagging/index">General Data Tagging</span></a></li>
                     </ul>
                 </li>
                 
