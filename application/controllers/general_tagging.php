@@ -5,7 +5,7 @@ class General_tagging extends CI_Controller {
 		$this->load->model('general_data_tagging_model');
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
-		$config_app = switch_db("commons_db", "localhost");
+		$config_app = switch_db("commons_db");
 		$this->db = $this->load->database($config_app, TRUE);
 	}
 	public function index() {
@@ -27,12 +27,12 @@ class General_tagging extends CI_Controller {
 			echo 'You don\'t have permission to access this page. <a href="../lin">Login</a>';
 			die();
 		}
-		else {
-		}
 	}
 	
 	public function getGeneralDataTagViaID() {
 		$data = $_POST['data'];
+		$result = $this->general_data_tagging_model->getGDTViaID($data['id']);
+		echo json_encode($result);
 	}
 
 	public function getAllGeneralDataTag() {
@@ -91,11 +91,10 @@ class General_tagging extends CI_Controller {
 		} else {
 			$table_reference = $table_exists[0]->table_id;
 		}
-
 		$data_tags = $data["data_tag"];
 		$result = null;
 		foreach ($data_tags as $tag) {
-			$config_app = switch_db("commons_db", "localhost");
+			$config_app = switch_db("commons_db");
 			$this->db = $this->load->database($config_app, TRUE);
 			$tag_exists = $this->general_data_tagging_model->checkTagIfExisting($tag);
 			// var_dump(sizeOf($tag_exists));
@@ -129,7 +128,6 @@ class General_tagging extends CI_Controller {
 					echo "No request";
 					break;
 			}
-
 		}
 		print $result;
 	}
@@ -151,8 +149,7 @@ class General_tagging extends CI_Controller {
 		} else {
 			return false;
 		}
-		
-		$config_app = switch_db("commons_db","localhost");
+		$config_app = switch_db("commons_db");
 		$this->db = $this->load->database($config_app, TRUE);
 		$data = [
 			"data_start_id" => $start_id->data_id,
@@ -174,8 +171,7 @@ class General_tagging extends CI_Controller {
 	}
 
 	public function getAllTags(){
-		// echo "commons_db";
-		$config_app = switch_db("commons_db","localhost");
+		$config_app = switch_db("commons_db");
 		$this->db = $this->load->database($config_app, TRUE);
 		$get_all_tags = $this->general_data_tagging_model->getAllGDT();
 		$all_tags = [];
