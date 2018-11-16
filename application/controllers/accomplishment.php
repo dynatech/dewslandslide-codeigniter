@@ -23,12 +23,12 @@
 			$data['first_name'] = $this->session->userdata('first_name');
 			$data['last_name'] = $this->session->userdata('last_name');
 			
-			$data['title'] = "DEWS-Landslide Accomplishment Report Filing Form";
+			$data['title'] = "Monitoring Report Form and Generator";
 			$data['withAlerts'] = json_encode($this->accomplishment_model->getSitesWithAlerts());
-			$this->load->view('templates/header', $data);
-			$this->load->view('templates/nav');
-			$this->load->view('reports/accomplishment_report', $data);
-			$this->load->view('templates/footer');
+			$this->load->view('templates/beta/header', $data);
+			$this->load->view('templates/beta/nav');
+			$this->load->view('reports/monitoring_report', $data);
+			$this->load->view('templates/beta/footer');
 		}
 
 		public function checker()
@@ -37,11 +37,11 @@
 			$data['first_name'] = $this->session->userdata('first_name');
 			$data['last_name'] = $this->session->userdata('last_name');
 			
-			$data['title'] = "DEWS-Landslide Monitoring Shift Checker";
-			$this->load->view('templates/header', $data);
-			$this->load->view('templates/nav');
+			$data['title'] = "Monitoring Shift Checker";
+			$this->load->view('templates/beta/header', $data);
+			$this->load->view('templates/beta/nav');
 			$this->load->view('reports/accomplishment_checker', $data);
-			$this->load->view('templates/footer');
+			$this->load->view('templates/beta/footer');
 		}
 
 		public function getShiftReleases()

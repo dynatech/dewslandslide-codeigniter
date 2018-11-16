@@ -34,7 +34,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <div id="page-header">Integrated Site Analysis Page</div>
+                <div id="page-header">Integrated Site Analysis</div>
             </div>
         </div>
         <div class="col-sm-3" id="options-bar" data-collapsed="false">

@@ -1,6 +1,13 @@
 <div class="row section-title"><span class="pull-right">NODE OVERVIEW</span></div>
 <div class="row section-subtitle"><span class="pull-right" id="node-name">Node 1</span></div>
-<div class="row"><hr/></div>
+<div class="row">
+    <div class="text-center">
+        <div class="container-line bottom-line">
+            <span class="circle left"></span>
+            <span class="circle right"></span>
+        </div>       
+    </div>
+</div> 
 
 <div class="row">
 	<div id="subsurface-node-plots">
@@ -117,4 +124,11 @@
 	</div>
 </div>
 
-<div class="row"><hr/></div>
+<div class="row">
+    <div class="text-center">
+        <div class="container-line bottom-line">
+            <span class="circle left"></span>
+            <span class="circle right"></span>
+        </div>       
+    </div>
+</div>  

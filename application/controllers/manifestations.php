@@ -23,14 +23,10 @@ class Manifestations extends CI_Controller
 		$data['last_name'] = $this->session->userdata('last_name');
 		$data['user_id'] = $this->session->userdata("id");
 
-		// $data['events'] = json_encode('null');
-		// $data['sites'] = json_encode($this->sites_model->getSites());
-		// $data['staff'] = json_encode($this->users_model->getDEWSLUsers());
-
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
 		$this->load->view('data_analysis/manifestations_view', $data);
-		$this->load->view('templates/footer');
+		$this->load->view('templates/beta/footer');
 	}
 
 	public function individual_site($site_code)
@@ -47,10 +43,10 @@ class Manifestations extends CI_Controller
 		$data['event_status'] = json_encode($this->public_alert_event_model->getLastEventStatus($data['site_id']));
 		$data['staff'] = json_encode($this->users_model->getDEWSLUsers());
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
 		$this->load->view('data_analysis/manifestations_individual', $data);
-		$this->load->view('templates/footer');
+		$this->load->view('templates/beta/footer');
 	}
 
 	public function getMOM($site_code = "all", $start = null, $end = null)

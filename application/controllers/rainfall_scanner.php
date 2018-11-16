@@ -10,7 +10,7 @@ class Rainfall_scanner extends CI_Controller {
 
 	public function index () {
 		$this->is_logged_in();
-		$page = 'Rainfall Scanner Page';
+		$page = 'Rainfall Summary - Analysis';
 		$data['first_name'] = $this->session->userdata('first_name');
 		$data['last_name'] = $this->session->userdata('last_name');
 		$data['user_id'] = $this->session->userdata("id");
@@ -29,10 +29,10 @@ class Rainfall_scanner extends CI_Controller {
 		asort($provinces);
 		$data["provinces"] = array_unique($provinces);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav');
-		$this->load->view('templates/footer');
+		$this->load->view('templates/beta/header', $data);
+		$this->load->view('templates/beta/nav');
 		$this->load->view('data_analysis/rainfall_scanner', $data);
+		$this->load->view('templates/beta/footer');
 	}
 
 	public function getRainfallPercentages () {

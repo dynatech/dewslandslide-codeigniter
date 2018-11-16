@@ -26,7 +26,7 @@ class Pubrelease extends CI_Controller {
 		switch ($page)
 		{
 			case 'alert_release_form':
-				$data['title'] = "DEWS-Landslide Early Warning Release Form";
+				$data['title'] = "Early Warning Info Release Form - Site Alert Monitoring";
 				$data['sites'] = json_encode($this->sites_model->getActiveSites());
 				$data['staff'] = json_encode($this->users_model->getDEWSLUsers());
 				$data['active'] = json_encode($this->public_alert_event_model->getOnGoingAndExtendedSitesAndStatus());
@@ -45,7 +45,7 @@ class Pubrelease extends CI_Controller {
 				 	break;
 				}
 
-				$data['title'] = "DEWS-Landslide Individual Monitoring Event Page";
+				$data['title'] = "Event Timeline - Site Alert Monitoring";
 				$data['releases'] = json_encode($this->pubrelease_model->getAllRelease($id));
 				$data['triggers'] = $this->pubrelease_model->getAllEventTriggers($id);
 				$data['staff'] = json_encode($this->users_model->getDEWSLUsers());
@@ -53,10 +53,10 @@ class Pubrelease extends CI_Controller {
 				break;
 
 			case 'monitoring_events_all':			
-				$data['title'] = "DEWS-Landslide Monitoring Events Table";
+				$data['title'] = "Events Table - Site Alert Monitoring";
 				break;
 
-			case 'monitoring_faq': $data['title'] = "DEWS-Landslide Monitoring FAQ";
+			case 'monitoring_faq': $data['title'] = "Manuals, Primer, & FAQ - Site Alert Monitoring";
 		}
 
 		$this->load->view('templates/beta/header', $data);

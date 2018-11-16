@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-center">
-                <div id="page-header">SURFICIAL MARKERS PAGE</div>
+                <div id="page-header">SURFICIAL MARKERS</div>
             </div>
         </div>
 
