@@ -6,12 +6,12 @@
         </div>
 
         <div class="col-sm-4 text-right">
-            <span><img id="dynaslope-logo" src="/images/beta/dynaslope-logo.png" /></span>
+            <span><img id="dynaslope-logo" src="/images/dynaslope-logo.png" /></span>
             <span class="nav-general-text text-center">
                 <div>IMPLEMENTED</div>
                 <div>AND FUNDED BY</div>
             </span>
-            <span><img id="dost-phivolcs-logo" src="/images/beta/dost-phivolcs-logo.png" /></span>
+            <span><img id="dost-phivolcs-logo" src="/images/dost-phivolcs-logo.png" /></span>
         </div>
     </div>
 </div>
