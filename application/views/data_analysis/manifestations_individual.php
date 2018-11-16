@@ -11,13 +11,6 @@
 
 <script type="text/javascript" src="<?php echo base_url(); ?>js/dewslandslide/data_analysis/manifestations_individual.js"></script>
 <style type="text/css">
-    table td, table th 
-    {
-        vertical-align: middle !important;
-        font-size: 15px;
-        color:black;
-    }
-
     td.details-control {
         cursor: pointer;
     }
@@ -25,9 +18,8 @@
 
 <div id="page-wrapper">
     <div class="container">
-        <div class="page-header">
-            <h1>DEWS-Landslide Site Monitoring <small>Manifestations of Movement</small>
-            </h1>
+        <div id="page-header">
+            Site Analysis <small>Site Manifestations of Movement</small>
         </div>
 
         <ol class="breadcrumb">
@@ -36,7 +28,7 @@
         </ol>
 
         <form role="form" id="releaseForm" method="get">
-        <div id="release-div" class="panel panel-default">
+        <div id="release-div" class="panel panel-primary">
             <div class="panel-heading"><label class="checkbox-inline"><input id="release-m0" type="checkbox" value="0" name="op_trigger" <?php if(json_decode($event_status) == "on-going") echo "disabled"; ?>>Release M0 Feature <?php if(json_decode($event_status) == "on-going") echo "(Event monitoring on-going; release on alert form)"; ?></label></div>
             <div class="panel-body" hidden="hidden">
                 <div class="row">

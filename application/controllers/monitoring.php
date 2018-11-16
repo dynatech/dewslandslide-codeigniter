@@ -14,7 +14,7 @@ class Monitoring extends CI_Controller
 	public function index () {
 		$this->is_logged_in();
 
-		$data['title'] = 'DEWS-L Monitoring Dashboard';
+		$data['title'] = 'Dashboard - Site Alert Monitoring';
 		$data['first_name'] = $this->session->userdata('first_name');
 		$data['last_name'] = $this->session->userdata('last_name');
 		$data['user_id'] = $this->session->userdata("id");

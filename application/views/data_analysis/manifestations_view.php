@@ -10,28 +10,12 @@
  -->
 
 <script type="text/javascript" src="<?php echo base_url(); ?>js/dewslandslide/data_analysis/manifestations.js"></script>
-<style type="text/css">
-    table td, table th 
-    {
-        text-align: center;
-        vertical-align: middle !important;
-        font-size: 15px;
-        color:black;
-    }
-</style>
 
 <div id="page-wrapper">
     <div class="container">
-        <div class="page-header">
-            <h1>DEWS-Landslide Site Monitoring <small>Manifestations of Movement</small>
-            </h1>
+        <div id="page-header">
+            Site Analysis <small>Manifestations of Movement Table</small>
         </div>
-
-        <ol class="breadcrumb">
-            <li class="active">Site Manifestations Table</li>
-        </ol>
-
-        <hr/>
 
         <div class="row">
             <div class="col-md-12"><div class="table-responsive">

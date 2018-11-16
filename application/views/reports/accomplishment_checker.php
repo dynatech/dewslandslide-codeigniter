@@ -12,24 +12,16 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>js/dewslandslide/reports/accomplishment_checker.js"></script>
 
 <style type="text/css">
-	
 	.v-middle { vertical-align: middle !important; }
-	.hr { margin-top: 0 }
-	.td-padding {  padding: 40px 0 0 !important; }
-
 </style>
 
 <div id="page-wrapper">
 	<div class="container">
-		<!-- Page Heading -->
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-header">
-                	Monitoring Shift <small>Events and Releases Checker</small>
-                </h1>
+                <div id="page-header">Monitoring Report <small>Shift Checker</small></div>
             </div>
         </div>
-        <!-- /.row -->
 
         <!-- Panel Div -->
         <form role="form" id="checkerForm" method="get">
@@ -56,7 +48,7 @@
         	</div>
 
 		    <div class="row">
-		    	<div class="form-group col-md-12">
+		    	<div class="col-md-12">
 		    		<hr>
 		   			<button type="submit" class="btn btn-primary btn-md pull-right" id="check">Check</button>
 		   		</div>
@@ -67,18 +59,21 @@
 
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h4>Monitoring Shift</h4>
+				Monitoring Shift
 			</div>
 	    	<div class="panel-body">
-	    		
 	    		<div class="row" id="reporters">
-	    			<div class="col-sm-6"><strong>IOMP-MT :</strong>&emsp;<span id="mt">No monitoring personnel on-duty</span></div>
-	    			<div class="col-sm-6"><strong>IOMP-CT :</strong>&emsp;<span id="ct">No monitoring personnel on-duty</span></div>
+	    			<div class="col-sm-6 text-center">
+	    				<strong>IOMP-MT :</strong>&emsp;<span id="mt">No monitoring personnel on-duty</span>
+	    			</div>
+	    			<div class="col-sm-6 text-center">
+	    				<strong>IOMP-CT :</strong>&emsp;<span id="ct">No monitoring personnel on-duty</span>
+	    			</div>
 	    		</div>
 
 	    		<hr>
 
-    			<table class="table table-striped table-condensed">
+    			<table class="table table-striped">
     				<thead>
     					<tr>
     						<th class="text-center">Site</th>
@@ -91,7 +86,6 @@
     					</tr>
     				</tbody>
     			</table>
-
 	    	</div>
 	  	</div>
 	</div> <!-- End of div container-fluid -->

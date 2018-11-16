@@ -1,6 +1,14 @@
+
 <div class="row section-title"><span class="pull-right">SITE OVERVIEW</span></div>
 <div class="row section-subtitle"><span class="pull-right" id="site-name">Brgy. Agbatuan, Dumarao, Capiz</span></div>
-<div class="row"><hr/></div>
+<div class="row">
+    <div class="text-center">
+        <div class="container-line bottom-line">
+            <span class="circle left"></span>
+            <span class="circle right"></span>
+        </div>       
+    </div>
+</div>  
 
 <div class="row">
 	<div id="rainfall-plots">
@@ -84,4 +92,11 @@
 	</div>
 </div>
 
-<div class="row"><hr/></div>
+<div class="row">
+    <div class="text-center">
+        <div class="container-line bottom-line">
+            <span class="circle left"></span>
+            <span class="circle right"></span>
+        </div>       
+    </div>
+</div>  

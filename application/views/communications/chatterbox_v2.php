@@ -65,6 +65,7 @@
                             </div>
                             <div class="col-sm-3 text-right">
                                 <span class="pointer bug fa fa-bug" hidden></span>
+                                <span id="network-reference" class="pointer fa fa-signal" title="Cellular Network Reference"></span>
                                 <span id="go-to-quick-access" class="pointer fa fa-bars" title="Quick Access"></span>
                                 <span id="options" class="pointer fa fa-cogs" title="Options"></span>
                             </div>
@@ -139,6 +140,126 @@
                                 <ul id="datalogger-inbox-display" class="friend-list"></ul>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div id="network-panel" class="panel panel-primary" hidden>
+                    <div class="panel-heading text-center">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3 text-center">
+                                Network Reference
+                            </div>
+                            <div class="col-sm-3 text-right">
+                                <span class="pointer bug fa fa-bug" hidden></span>
+                                <span id="hide-network-display" class="pointer fa fa-envelope" title="Inbox"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-12 form-group">
+                            <div class="row">
+                               
+                                <div class="col-sm-12 text-center">
+                                    <hr>GLOBE<hr>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0817</div>
+                                    <div class="col-sm-2">0905</div>
+                                    <div class="col-sm-2">0906</div>
+                                    <div class="col-sm-2">0915</div>
+                                    <div class="col-sm-2">0916</div>
+                                    <div class="col-sm-2">0917</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0926</div>
+                                    <div class="col-sm-2">0927</div>
+                                    <div class="col-sm-2">0935</div>
+                                    <div class="col-sm-2">0936</div>
+                                    <div class="col-sm-2">0937</div>
+                                    <div class="col-sm-2">0945</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0955</div>
+                                    <div class="col-sm-2">0956</div>
+                                    <div class="col-sm-2">0965</div>
+                                    <div class="col-sm-2">0966</div>
+                                    <div class="col-sm-2">0975</div>
+                                    <div class="col-sm-2">0967</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0977</div>
+                                    <div class="col-sm-2">0994</div>
+                                    <div class="col-sm-2">0995</div>
+                                    <div class="col-sm-2">0996</div>
+                                    <div class="col-sm-2">0997</div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <hr>SMART<hr>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0813</div>
+                                    <div class="col-sm-2">0907</div>
+                                    <div class="col-sm-2">0908</div>
+                                    <div class="col-sm-2">0909</div>
+                                    <div class="col-sm-2">0910</div>
+                                    <div class="col-sm-2">0911</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0912</div>
+                                    <div class="col-sm-2">0913</div>
+                                    <div class="col-sm-2">0914</div>
+                                    <div class="col-sm-2">0918</div>
+                                    <div class="col-sm-2">0919</div>
+                                    <div class="col-sm-2">0920</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0921</div>
+                                    <div class="col-sm-2">0928</div>
+                                    <div class="col-sm-2">0929</div>
+                                    <div class="col-sm-2">0930</div>
+                                    <div class="col-sm-2">0938</div>
+                                    <div class="col-sm-2">0939</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0940</div>
+                                    <div class="col-sm-2">0946</div>
+                                    <div class="col-sm-2">0947</div>
+                                    <div class="col-sm-2">0948</div>
+                                    <div class="col-sm-2">0949</div>
+                                    <div class="col-sm-2">0950</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0951</div>
+                                    <div class="col-sm-2">0989</div>
+                                    <div class="col-sm-2">0970</div>
+                                    <div class="col-sm-2">0981</div>
+                                    <div class="col-sm-2">0989</div>
+                                    <div class="col-sm-2">0992</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0998</div>
+                                    <div class="col-sm-2">0922</div>
+                                    <div class="col-sm-2">0923</div>
+                                    <div class="col-sm-2">0924</div>
+                                    <div class="col-sm-2">0925</div>
+                                    <div class="col-sm-2">0931</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0932</div>
+                                    <div class="col-sm-2">0933</div>
+                                    <div class="col-sm-2">0934</div>
+                                    <div class="col-sm-2">0942</div>
+                                    <div class="col-sm-2">0941</div>
+                                    <div class="col-sm-2">0943</div>
+                                </div>
+                                <div class="col-sm-12 network-container">
+                                    <div class="col-sm-2">0944</div>
+                                </div>
+                            </div>
+                        </div>   
                     </div>
                 </div>
             </div>
