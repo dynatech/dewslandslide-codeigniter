@@ -223,10 +223,19 @@
                             <div style="padding: 15px;">
                                 <textarea id="msg" name="msg" class="form-control" rows="5"></textarea>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-offset-4 col-sm-4 text-center" id="chatbox-warning" hidden>
+                                    <div class="alert alert-info" role="alert">
+                                        <b>Message cannot leave blank</b>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row" style="padding: 15px;">
+                        <div class="row" style="padding: 15px; margin-top: -20px;">
                             <div class="col-md-4">
-                                <button type="button" class="btn btn-primary" id="send-msg">Send Message</button><br>
+                                <button type="button" class="btn btn-primary" id="send-msg">Send Message</button>
+                                <br>
+                                <br>
                                 <a data-target="#" id="btn-ewi" data-toggle="modal" data-dismiss="modal">Load Message Templates</a>
                             </div>
                         </div>
