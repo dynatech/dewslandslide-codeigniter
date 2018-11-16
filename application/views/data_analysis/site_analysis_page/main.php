@@ -4,9 +4,15 @@
 <script src="/js/third-party/exporting.js"></script>
 <script src="/js/third-party/no-data-to-display.js"></script>
 <script src="/js/third-party/highcharts-more.js"></script>
+<script src="/js/third-party/anime.min.js"></script>
 
 <!-- Sticky Sidebar Library -->
 <script src="/js/third-party/sticky-sidebar.js"></script>
+
+<!-- Typeahead Tagsinput -->
+<script src="/js/third-party/typeahead.js"></script>
+<script src="/js/third-party/bootstrap-tagsinput.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/third-party/bootstrap-tagsinput.css">
 
 <!-- Chart Plotter Files -->
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/site_analysis_main.js"></script>
@@ -15,10 +21,14 @@
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/subsurface_column_plotter.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/subsurface_node_plotter.js"></script>
 <script type="text/javascript" src="/js/dewslandslide/data_analysis/download_site_charts.js"></script>
-<script type="text/javascript" src="/js/dewslandslide/plugins/general_tagging.js"></script>
+<script type="text/javascript" src="/js/dewslandslide/data_analysis/data_tagging_plugin.js"></script>
 
 <!-- CSS Files -->
 <link rel="stylesheet" type="text/css" href="/css/dewslandslide/data_analysis/site_analysis.css">
+
+<div class="center menu" id="data-tagging-container">
+    <div id="data-tagging"></div>
+</div>
 
 <div id="page-wrapper">
     <div class="container">
@@ -27,7 +37,6 @@
                 <div id="page-header">Integrated Site Analysis</div>
             </div>
         </div>
-
         <div class="col-sm-3" id="options-bar" data-collapsed="false">
             <?php echo $options_bar; ?>
         </div>
@@ -157,4 +166,54 @@
             </div>
         </div>
     </div>
+</div> <!-- End of MODAL AREA -->
+
+<!-- Modal -->
+<div class="modal fade" id="data-tagging-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document" id="data-tagging-modal-size">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="data-tagging-label">Data Tagging</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group hideable" id="charts-tagging-option">
+            <label class="control-label" for="charts-option">Select Chart</label>
+            <select class="form-control" id="charts-option" name="charts-option">
+                <option value="rainfall">Rainfall</option>
+                <option value="surficial">Surficial</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group hideable" id="data-tag-container">
+                    <label class="control-label" for="tag_selected">Data Tag</label>
+                    <input type="text" class="form-control" data-provide="typeahead" id="tag_selected" name="tag_selected" placeholder="E.g #DataTag" required />
+                </div>
+            </div>
+        </div>
+        <table class="table" id="tag-details">
+            <thead>
+                <tr>
+                    <th>Table</th>
+                    <th>Data Start</th>
+                    <th>Data End</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="data_table">Mark</td>
+                    <td id="data_start">Otto</td>
+                    <td id="data_end">@mdo</td>
+                </tr>
+            </tbody>
+        </table>    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btn-enable-data-tagging">Enable</button>
+        <button type="button" class="btn btn-primary" id="btn-save-data-tag">Save</button>
+      </div>
+    </div>
+  </div>
 </div>

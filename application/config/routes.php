@@ -128,6 +128,22 @@ $route['analysis/rainfall_summary'] = "rainfall_scanner";
 /**
  * Data Analysis Pages Routes
  */
+// Commons
+$route['site_info/index'] = "site_info/index";
+
+$route['general_data_tagging/index'] = "general_tagging/index";
+$route['general_data_tagging/add_gen_tag'] = "general_tagging/addNewGeneralDataTag";
+$route['general_data_tagging/update_gen_tag'] = "general_tagging/updateGeneralDataTag";
+$route['general_data_tagging/delete_gen_tag'] = "general_tagging/deleteGeneralDataTag";
+$route['general_data_tagging/insert_tag_point'] = "general_tagging/insertGenTagPoint";
+$route['general_data_tagging/modify_tag_point'] = "general_tagging/modifyGenTagPoint";
+$route['general_data_tagging/remove_tag_point'] = "general_tagging/removeGenTagPoint";
+$route['general_data_tagging/get_gen_tag'] = "general_tagging/getGeneralDataTagViaID";
+$route['general_data_tagging/get_all_gen_tag'] = "general_tagging/getAllGeneralDataTag";
+$route['general_data_tagging/get_tag_point'] = "general_tagging/getGenTagPointViaID";
+$route['general_data_tagging/get_all_tag_point'] = "general_tagging/getAllGenTagPoint";
+$route['general_data_tagging/get_tag_point_via_id'] = "general_tagging/getAllGenTagPointViaTagname";
+$route['general_data_tagging/tags'] = "general_tagging/getAllTags";
 
 $route['staff/all'] = "staff_profile/index";
 $route['staff/get_all_staff'] = "staff_profile/getAllStaffProfile";
@@ -136,12 +152,12 @@ $route['staff/add_profile'] = "staff_profile/addNewProfile";
 $route['staff/update_profile'] = "staff_profile/updateStaffProfile";
 $route['staff/change_profile_pic'] = "staff_profile/changeProfilePic";
 
-
 $route['site_info/index'] = "site_info/index";
 
 $route['default_controller'] = "account_controller";
 $route['login'] = "account_controller";
 $route['404_override'] = "error_custom_404";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

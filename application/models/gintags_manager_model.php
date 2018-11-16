@@ -125,6 +125,7 @@ class Gintags_manager_model extends CI_Model {
 		return $result->result();
 	}
 
+
 }
 
 ?>
